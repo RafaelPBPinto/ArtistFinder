@@ -23,113 +23,115 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: SafeArea(
-        child: Center(
-          child: Column(children: [
-            const SizedBox(height: 50),
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(children: [
+              const SizedBox(height: 50),
 
-            // Logo
-            const Icon(
-              Icons.mic,
-              size: 100,
-            ),
-
-            const SizedBox(height: 20),
-
-            // Title
-            Text(
-              'ArtistFinder',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 40,
-                color: Colors.grey[700],
+              // Logo
+              const Icon(
+                Icons.mic,
+                size: 100,
               ),
-            ),
 
-            const SizedBox(height: 25),
+              const SizedBox(height: 20),
 
-            // Email
-            MyTextField(
-              controller: emailController,
-              hintText: 'E-mail',
-              obscureText: false,
-            ),
-
-            const SizedBox(height: 10),
-
-            // Password
-            MyTextField(
-              controller: passwordController,
-              hintText: 'Password',
-              obscureText: true,
-            ),
-
-            const SizedBox(height: 10),
-
-            // Forgot Password
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    "Esqueceste-te da palavra-passe?",
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 25),
-
-            // Login Button
-            MyButton(
-              onTap: signUserIn,
-              color: Colors.black,
-              text: const Text(
-                'Iniciar Sessão',
+              // Title
+              Text(
+                'ArtistFinder',
                 style: TextStyle(
-                  color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: 40,
+                  color: Colors.grey[700],
                 ),
               ),
-            ),
 
-            const SizedBox(height: 50),
+              const SizedBox(height: 25),
 
-            // Divider
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Divider(
-                      thickness: 0.5,
-                      color: Colors.grey[400],
-                    ),
-                  ),
-                ],
+              // Email
+              MyTextField(
+                controller: emailController,
+                hintText: 'E-mail',
+                obscureText: false,
               ),
-            ),
 
-            const SizedBox(height: 50),
+              const SizedBox(height: 10),
 
-            // Create Account
-            MyButton(
-              onTap: signUserUp,
-              color: Colors.green,
-              text: const Text(
-                'Criar Conta',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+              // Password
+              MyTextField(
+                controller: passwordController,
+                hintText: 'Password',
+                obscureText: true,
+              ),
+
+              const SizedBox(height: 10),
+
+              // Forgot Password
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      "Esqueceste-te da palavra-passe?",
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            )
-          ]),
+
+              const SizedBox(height: 25),
+
+              // Login Button
+              MyButton(
+                onTap: signUserIn,
+                color: Colors.black,
+                text: const Text(
+                  'Iniciar Sessão',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 50),
+
+              // Divider
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        thickness: 0.5,
+                        color: Colors.grey[400],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 50),
+
+              // Create Account
+              MyButton(
+                onTap: signUserUp,
+                color: Colors.green,
+                text: const Text(
+                  'Criar Conta',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              )
+            ]),
+          ),
         ),
       ),
     );
