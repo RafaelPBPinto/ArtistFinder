@@ -1,12 +1,9 @@
-// Referências:
-// https://www.youtube.com/watch?v=Dh-cTQJgM-Q
-
 import 'package:flutter/material.dart';
 import 'package:artist_finder/components/my_textfield.dart';
 import 'package:artist_finder/components/my_button.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class CreateAccountPage extends StatelessWidget {
+  CreateAccountPage({super.key});
 
   // text editing controllers
   final emailController = TextEditingController();
@@ -14,12 +11,10 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // sign user in
-    void signUserIn() {}
+    void createAccount() {}
 
-    // sign user up
-    void signUserUp() {
-      Navigator.of(context).pushNamed("createAccount");
+    void loginButton() {
+      Navigator.of(context).pushNamed("login");
     }
 
     return Scaffold(
@@ -59,6 +54,15 @@ class LoginPage extends StatelessWidget {
 
               const SizedBox(height: 10),
 
+              // Username
+              MyTextField(
+                controller: emailController,
+                hintText: 'Username',
+                obscureText: false,
+              ),
+
+              const SizedBox(height: 10),
+
               // Password
               MyTextField(
                 controller: passwordController,
@@ -68,30 +72,21 @@ class LoginPage extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              // Forgot Password
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      "Esqueceste-te da palavra-passe?",
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ],
-                ),
+              // Confirm Password
+              MyTextField(
+                controller: passwordController,
+                hintText: 'Confirm Password',
+                obscureText: true,
               ),
 
-              const SizedBox(height: 25),
+              const SizedBox(height: 10),
 
-              // Login Button
+              // Create Account Button
               MyButton(
-                onTap: signUserIn,
-                color: Colors.black,
+                onTap: createAccount,
+                color: Colors.green,
                 text: const Text(
-                  'Iniciar Sessão',
+                  'Criar Conta',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -119,19 +114,19 @@ class LoginPage extends StatelessWidget {
 
               const SizedBox(height: 50),
 
-              // Create Account
+              // Login Button
               MyButton(
-                onTap: signUserUp,
-                color: Colors.green,
+                onTap: loginButton,
+                color: Colors.black,
                 text: const Text(
-                  'Criar Conta',
+                  'Iniciar Sessão',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                 ),
-              )
+              ),
             ]),
           ),
         ),

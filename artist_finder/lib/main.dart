@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
+import 'pages/create_account_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -13,6 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: LoginPage(),
+      routes: <String, WidgetBuilder>{
+        "login": (BuildContext context) => LoginPage(),
+        "createAccount": (BuildContext context) => CreateAccountPage(),
+      },
     );
   }
 }
