@@ -4,6 +4,7 @@ import 'package:artist_finder/components/my_textfield.dart';
 import 'package:artist_finder/components/my_button.dart';
 import 'package:artist_finder/models/User.dart';
 import 'package:artist_finder/components/url.dart';
+import 'package:string_validator/string_validator.dart';
 
 class CreateAccountPage extends StatefulWidget {
   @override
@@ -17,14 +18,55 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final passwordController = TextEditingController();
   final confirmPassController = TextEditingController();
   final datanasController = TextEditingController();
-
+  String aux = '';
   List<bool> select = [false, false];
   User newuser = User(email: '', password: '', username: '', data_nasc: '');
   @override
   Widget build(BuildContext context) {
+    void showPopUp(String string) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Incompleto'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text('Esqueceu-se de adicionar $string'),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('Voltar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    }
+
     void createAccount() {
-      postUser(newuser);
-      fetchUsers();
+      if (newuser.email == '') {
+        showPopUp('email');
+      } else if (newuser.username == '') {
+        showPopUp('username');
+      } else if (newuser.data_nasc == '') {
+        showPopUp('data de nascimento');
+      } else if (newuser.password == '') {
+        showPopUp('password');
+      } else if (newuser.password != aux) {
+        showPopUp('palavras passes iguais');
+      } else if (!select[0] && !select[1]) {
+        showPopUp('o tipo de utilizador');
+      } else if (!isDate(newuser.data_nasc)) {
+        showPopUp('formato de data de nascimento correta');
+      } else {
+        postUser(newuser);
+        fetchUsers();
+      }
     }
 
     void loginButton() {
@@ -85,7 +127,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
               MyTextField(
                 controller: datanasController,
-                hintText: 'Data de nascimento',
+                hintText: 'Data de nasc , Formato: aaaa-mm-dd',
                 obscureText: false,
                 onChanged: (valiue) {
                   newuser.data_nasc = valiue;
@@ -99,7 +141,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 controller: confirmPassController,
                 hintText: 'Password',
                 obscureText: true,
-                onChanged: (valiue) => null,
+                onChanged: (valiue) {
+                  aux = valiue;
+                },
               ),
 
               const SizedBox(height: 10),
