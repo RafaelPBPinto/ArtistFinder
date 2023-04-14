@@ -4,18 +4,33 @@
 import 'package:flutter/material.dart';
 import 'package:artist_finder/components/my_textfield.dart';
 import 'package:artist_finder/components/my_button.dart';
+import 'package:artist_finder/components/operationdata.dart';
+import 'package:artist_finder/models/User.dart';
+import 'package:artist_finder/components/url.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
 
+class _LoginPageState extends State<LoginPage> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  String email = '', password = '';
+  //List<User> userlist = [];
+
+  @override
+  void initState() {
+    fetchUsers();
+  }
 
   @override
   Widget build(BuildContext context) {
     // sign user in
-    void signUserIn() {}
+    void signUserIn() {
+      checkuser(email, password);
+    }
 
     // sign user up
     void signUserUp() {
@@ -55,6 +70,10 @@ class LoginPage extends StatelessWidget {
                 controller: emailController,
                 hintText: 'E-mail',
                 obscureText: false,
+                onChanged: (value) {
+                  email = value;
+                  print(email);
+                },
               ),
 
               const SizedBox(height: 10),
@@ -64,6 +83,10 @@ class LoginPage extends StatelessWidget {
                 controller: passwordController,
                 hintText: 'Password',
                 obscureText: true,
+                onChanged: (value) {
+                  password = value;
+                  print(password);
+                },
               ),
 
               const SizedBox(height: 10),

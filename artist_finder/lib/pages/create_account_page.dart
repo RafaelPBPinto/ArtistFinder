@@ -1,17 +1,31 @@
+import 'package:artist_finder/components/operationdata.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_finder/components/my_textfield.dart';
 import 'package:artist_finder/components/my_button.dart';
+import 'package:artist_finder/models/User.dart';
+import 'package:artist_finder/components/url.dart';
 
-class CreateAccountPage extends StatelessWidget {
-  CreateAccountPage({super.key});
+class CreateAccountPage extends StatefulWidget {
+  @override
+  _CreateAccountPageState createState() => _CreateAccountPageState();
+}
 
+class _CreateAccountPageState extends State<CreateAccountPage> {
   // text editing controllers
+  final userController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPassController = TextEditingController();
+  final datanasController = TextEditingController();
 
+  List<bool> select = [false, false];
+  User newuser = User(email: '', password: '', username: '', data_nasc: '');
   @override
   Widget build(BuildContext context) {
-    void createAccount() {}
+    void createAccount() {
+      postUser(newuser);
+      fetchUsers();
+    }
 
     void loginButton() {
       Navigator.of(context).pushNamed("login");
@@ -50,24 +64,42 @@ class CreateAccountPage extends StatelessWidget {
                 controller: emailController,
                 hintText: 'E-mail',
                 obscureText: false,
+                onChanged: (valiue) {
+                  newuser.email = valiue;
+                },
               ),
 
               const SizedBox(height: 10),
 
               // Username
               MyTextField(
-                controller: emailController,
+                controller: userController,
                 hintText: 'Username',
                 obscureText: false,
+                onChanged: (valiue) {
+                  newuser.username = valiue;
+                },
+              ),
+
+              const SizedBox(height: 10),
+
+              MyTextField(
+                controller: datanasController,
+                hintText: 'Data de nascimento',
+                obscureText: false,
+                onChanged: (valiue) {
+                  newuser.data_nasc = valiue;
+                },
               ),
 
               const SizedBox(height: 10),
 
               // Password
               MyTextField(
-                controller: passwordController,
+                controller: confirmPassController,
                 hintText: 'Password',
                 obscureText: true,
+                onChanged: (valiue) => null,
               ),
 
               const SizedBox(height: 10),
@@ -77,10 +109,47 @@ class CreateAccountPage extends StatelessWidget {
                 controller: passwordController,
                 hintText: 'Confirm Password',
                 obscureText: true,
+                onChanged: (valiue) {
+                  newuser.password = valiue;
+                },
               ),
 
               const SizedBox(height: 10),
 
+              ToggleButtons(
+                isSelected: select,
+                onPressed: (int index) {
+                  setState(() {
+                    select[index] = !select[index];
+                    if (index == 0) {
+                      select[1] = false;
+                    } else if (index == 1) {
+                      select[0] = false;
+                    }
+                  });
+                },
+                borderColor: Colors.grey.shade400,
+                selectedBorderColor: Colors.grey[300],
+                fillColor: Colors.black,
+                borderRadius: BorderRadius.circular(30),
+                borderWidth: 5,
+                constraints:
+                    const BoxConstraints(minHeight: 100, minWidth: 100),
+                children: [
+                  Text("Artista",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: !select[0] ? Colors.grey[700] : Colors.white)),
+                  Text("Contratante",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: !select[1] ? Colors.grey[700] : Colors.white))
+                ],
+              ),
+
+              const SizedBox(
+                height: 10,
+              ),
               // Create Account Button
               MyButton(
                 onTap: createAccount,
