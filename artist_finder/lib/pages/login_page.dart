@@ -29,7 +29,13 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     // sign user in
     void signUserIn() {
-      checkuser(email, password);
+      Map<String, bool> signuser = checkuser(email, password);
+
+      if (signuser['Artist'] == true) {
+        Navigator.of(context).pushNamed("artistpage");
+      } else if (signuser["Contratant"] == true) {
+        Navigator.of(context).pushNamed("contrpage");
+      }
     }
 
     // sign user up

@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:artist_finder/models/User.dart';
 import 'url.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:artist_finder/models/Artist.dart';
 
 /// Function to fecth all users from the api, artist and contratants
 void fetchUsers() async {
@@ -10,14 +10,16 @@ void fetchUsers() async {
   try {
     http.Response response = await http.get(Uri.parse('$api/artists'));
     var data = json.decode(response.body);
-
+    artlist = [];
     data.forEach((user) {
-      User newuser = User(
-          username: user['username'],
-          email: user['email'],
-          password: user['password'],
-          data_nasc: user['data_nasc']);
-
+      Artist newuser = Artist(
+        username: user['username'],
+        email: user['email'],
+        password: user['password'],
+        data_nasc: user['data_nasc'],
+        type: user['type'],
+        avaliation: user['avaliation'],
+      );
       artlist.add(newuser);
     });
   } catch (e) {
@@ -28,7 +30,7 @@ void fetchUsers() async {
   try {
     http.Response response = await http.get(Uri.parse('$api/contrs'));
     var data = json.decode(response.body);
-
+    contrlist = [];
     data.forEach((user) {
       User newuser = User(
           username: user['username'],

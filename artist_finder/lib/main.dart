@@ -1,7 +1,8 @@
+import 'package:artist_finder/pages/artist_page.dart';
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
 import 'pages/create_account_page.dart';
-import 'pages/home_page.dart';
+import 'pages/contr_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         "login": (BuildContext context) => LoginPage(),
         "createAccount": (BuildContext context) => CreateAccountPage(),
-        "mainpage": (BuildContext context) => HomePage()
+        "contrpage": (BuildContext context) => ContrPage(),
+        "artistpage": (BuildContext context) => ArtistPage()
       },
     );
   }

@@ -1,4 +1,5 @@
 import 'package:artist_finder/models/User.dart';
+import 'package:artist_finder/models/Artist.dart';
 
 /// String with a server link
 const String api = 'http://localhost:8000';
@@ -7,4 +8,4 @@ const String api = 'http://localhost:8000';
 List<User> contrlist = [];
 
 /// List to save all artist users, global variable
-List<User> artlist = [];
+List<Artist> artlist = [];

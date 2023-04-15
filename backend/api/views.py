@@ -6,6 +6,9 @@ from .serializers import UserArtistSerializer,UserContrSerializer
 class UserArtistGetPost(generics.ListCreateAPIView):
     queryset = UserArtist.objects.all()
     serializer_class = UserArtistSerializer
+class UserArtistUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = UserArtist.objects.all()
+    serializer_class = UserArtistSerializer
 
 class UserContrGetPost(generics.ListCreateAPIView):
     queryset = UserContr.objects.all()
