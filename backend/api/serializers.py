@@ -1,8 +1,13 @@
 from rest_framework import serializers
-from .models import User
+from .models import UserArtist,UserContr
 
-class UserSerializer(serializers.ModelSerializer):
+class UserArtistSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = UserArtist
         fields = '__all__'
     
+
+class UserContrSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserContr
+        fields = '__all__'

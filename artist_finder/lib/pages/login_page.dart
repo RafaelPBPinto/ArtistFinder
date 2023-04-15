@@ -72,7 +72,6 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: false,
                 onChanged: (value) {
                   email = value;
-                  print(email);
                 },
               ),
 
@@ -85,7 +84,6 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: true,
                 onChanged: (value) {
                   password = value;
-                  print(password);
                 },
               ),
 

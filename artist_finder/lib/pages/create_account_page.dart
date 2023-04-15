@@ -23,6 +23,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   User newuser = User(email: '', password: '', username: '', data_nasc: '');
   @override
   Widget build(BuildContext context) {
+    /// Function to show a PopUp when an error creating account appears
     void showPopUp(String string) {
       showDialog(
           context: context,
@@ -48,6 +49,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
           });
     }
 
+    /// Function to create an account
+    /// Verify if the users have nothing empty, if the two passwwords are equal and if the date format is right
     void createAccount() {
       if (newuser.email == '') {
         showPopUp('email');
@@ -62,10 +65,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       } else if (!select[0] && !select[1]) {
         showPopUp('o tipo de utilizador');
       } else if (!isDate(newuser.data_nasc)) {
-        showPopUp('formato de data de nascimento correta');
+        showPopUp(
+            'formato de data de nascimento correta.\nDeverá ser da seguinte forma:\n\taaaa-mm-dd');
       } else {
-        postUser(newuser);
+        postUser(newuser, select);
         fetchUsers();
+        Navigator.of(context).pushNamed("login");
       }
     }
 
