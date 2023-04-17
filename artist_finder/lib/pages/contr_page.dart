@@ -1,6 +1,7 @@
 import 'package:artist_finder/components/url.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_search_bar/easy_search_bar.dart';
+
+List<String> artistname = [];
 
 class ContrPage extends StatefulWidget {
   const ContrPage({super.key});
@@ -11,18 +12,9 @@ class ContrPage extends StatefulWidget {
 
 class _ContrPageState extends State<ContrPage> {
   int _selectedIndex = 0;
-  List<String> artistname = [];
   List<String> aux = [];
 
-  void searchValue(String query) {
-    final suggestions = artistname.where((element) {
-      final nameartist = element.toLowerCase();
-      final input = query.toLowerCase();
-      return nameartist.contains(input);
-    }).toList();
-    setState(() => aux = suggestions);
-    print(aux);
-  }
+  
 
   void AddName() {
     for (var elemnt in artlist) {
@@ -30,43 +22,19 @@ class _ContrPageState extends State<ContrPage> {
       aux.add(elemnt.username);
     }
   }
+  
 
-  void _showSearchModel() {
-    final _formKey = GlobalKey<FormState>();
-    final controller = TextEditingController();
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return Column(children: <Widget>[
-            Container(
-                child: TextField(
-              controller: controller,
-              decoration: InputDecoration(
-                  prefix: const Icon(Icons.search),
-                  hintText: "Pesquise o seu artista",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: const BorderSide(color: Colors.black))),
-              onChanged: searchValue,
-            )),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: aux.length,
-                  itemBuilder: (contex, index) {
-                    final artist = aux[index];
-                    return ListTile(title: Text(artist));
-                  }),
-            )
-          ]);
-        });
-  }
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
     if (_selectedIndex == 0) {
-      _showSearchModel();
+      //_showSearchModel();
+      showSearch(
+        context: context, 
+        delegate: CustomSearchDelegate()
+      );
     }
   }
 
@@ -122,5 +90,76 @@ class _ContrPageState extends State<ContrPage> {
             );
           },
         )));
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate {
+  // Demo list to show querying
+  List<String> searchTerms = artistname;
+     
+  // first overwrite to
+  // clear the search text
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: Icon(Icons.clear),
+      ),
+    ];
+  }
+ 
+  // second overwrite to pop out of search menu
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: Icon(Icons.arrow_back),
+    );
+  }
+ 
+  // third overwrite to show query result
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var artist in searchTerms) {
+      if (artist.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(artist);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
+    );
+  }
+ 
+  // last overwrite to show the
+  // querying process at the runtime
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var artist in searchTerms) {
+      if (artist.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(artist);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
+    );
   }
 }
