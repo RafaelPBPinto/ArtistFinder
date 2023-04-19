@@ -7,6 +7,7 @@ import 'package:artist_finder/components/url.dart';
 import 'package:string_validator/string_validator.dart';
 
 class CreateAccountPage extends StatefulWidget {
+  const CreateAccountPage({super.key});
   @override
   _CreateAccountPageState createState() => _CreateAccountPageState();
 }
@@ -163,7 +164,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 },
               ),
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 50),
 
               ToggleButtons(
                 isSelected: select,
@@ -197,7 +198,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               ),
 
               const SizedBox(
-                height: 10,
+                height: 50,
               ),
               // Create Account Button
               MyButton(
@@ -245,6 +246,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   ),
                 ),
               ),
+
+              const SizedBox(height: 50),
             ]),
           ),
         ),

@@ -9,6 +9,7 @@ import 'package:artist_finder/models/User.dart';
 import 'package:artist_finder/components/url.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
   @override
   _LoginPageState createState() => _LoginPageState();
 }
