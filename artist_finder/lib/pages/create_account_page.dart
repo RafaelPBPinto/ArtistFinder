@@ -5,6 +5,7 @@ import 'package:artist_finder/components/my_button.dart';
 import 'package:artist_finder/models/User.dart';
 import 'package:artist_finder/components/url.dart';
 import 'package:string_validator/string_validator.dart';
+import 'package:artist_finder/components/select_date_field.dart';
 
 class CreateAccountPage extends StatefulWidget {
   const CreateAccountPage({super.key});
@@ -18,10 +19,27 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPassController = TextEditingController();
-  final datanasController = TextEditingController();
+  final dateController = TextEditingController();
   String aux = '';
   List<bool> select = [false, false];
   User newuser = User(email: '', password: '', username: '', data_nasc: '');
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900, 1),
+        lastDate: DateTime(2050));
+    if (picked != null && picked != DateTime.now()) {
+      setState(() {
+        // convert date to string
+        newuser.data_nasc =
+            "${picked.year.toString()}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+        dateController.text = newuser.data_nasc;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     /// Function to show a PopUp when an error creating account appears
@@ -131,6 +149,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
               const SizedBox(height: 10),
 
+              // Birth Date
+
+              /*
               MyTextField(
                 controller: datanasController,
                 hintText: 'Data de nasc , Formato: aaaa-mm-dd',
@@ -138,7 +159,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 onChanged: (valiue) {
                   newuser.data_nasc = valiue;
                 },
-              ),
+              ),*/
+
+              SelectDateField(
+                  controller: dateController,
+                  onPressed: () => _selectDate(context)),
 
               const SizedBox(height: 10),
 
