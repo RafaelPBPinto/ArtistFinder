@@ -1,4 +1,5 @@
 import 'package:artist_finder/pages/artist_page.dart';
+import 'package:artist_finder/pages/login2_artist.dart';
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
 import 'pages/create_account_page.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         "contrpage": (BuildContext context) => const ContrPage(),
         "artistpage": (BuildContext context) => ArtistPage(),
         "negotiation": (BuildContext context) => NegotiationPage(),
+        "login2artist": (BuildContext context) => Login2Artist()
       },
     );
   }

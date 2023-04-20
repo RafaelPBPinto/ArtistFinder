@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Artist {
   String username;
   String email;

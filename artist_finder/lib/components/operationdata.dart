@@ -1,4 +1,5 @@
-import 'package:artist_finder/models/User.dart';
+import 'package:artist_finder/models/Contratant.dart';
+import 'package:flutter/material.dart';
 import 'url.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -32,7 +33,7 @@ void fetchUsers() async {
     var data = json.decode(response.body);
     contrlist = [];
     data.forEach((user) {
-      User newuser = User(
+      Contratant newuser = Contratant(
           username: user['username'],
           email: user['email'],
           password: user['password'],
@@ -76,7 +77,7 @@ Map<String, bool> checkuser(String email, String password) {
 
 /// Function to post a user in the server when he creates a new account
 /// Verify if is an artist or a contratant to post in a right place
-void postUser(User newuser, List<bool> check) async {
+void postUser(Contratant newuser, List<bool> check) async {
   String usertype = '';
   if (check[0]) {
     usertype = '/artists';
@@ -100,4 +101,30 @@ void postUser(User newuser, List<bool> check) async {
   } catch (e) {
     print(e);
   }
+}
+
+///
+Contratant UserActive(String email, String password) {
+  for (Contratant user in contrlist) {
+    if (user.email == email && user.password == password) {
+      print(user);
+      return user;
+    }
+  }
+  return Contratant(username: '', email: '', password: '', data_nasc: '');
+}
+
+Artist ArtistActive(String email, String password) {
+  for (Artist user in artlist) {
+    if (user.email == email && user.password == password) {
+      return user;
+    }
+  }
+  return Artist(
+      username: '',
+      email: '',
+      password: '',
+      data_nasc: '',
+      avaliation: 0,
+      type: '');
 }

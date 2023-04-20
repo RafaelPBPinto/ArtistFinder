@@ -2,7 +2,7 @@ import 'package:artist_finder/components/operationdata.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_finder/components/my_textfield.dart';
 import 'package:artist_finder/components/my_button.dart';
-import 'package:artist_finder/models/User.dart';
+import 'package:artist_finder/models/Contratant.dart';
 import 'package:artist_finder/components/url.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:artist_finder/components/select_date_field.dart';
@@ -22,7 +22,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final dateController = TextEditingController();
   String aux = '';
   List<bool> select = [false, false];
-  User newuser = User(email: '', password: '', username: '', data_nasc: '');
+  Contratant newuser =
+      Contratant(email: '', password: '', username: '', data_nasc: '');
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -68,6 +69,10 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
           });
     }
 
+    void signArtist() {
+      Navigator.of(context).pushNamed("login2artist");
+    }
+
     /// Function to create an account
     /// Verify if the users have nothing empty, if the two passwwords are equal and if the date format is right
     void createAccount() {
@@ -87,9 +92,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         showPopUp(
             'formato de data de nascimento correta.\nDeverá ser da seguinte forma:\n\taaaa-mm-dd');
       } else {
-        postUser(newuser, select);
-        fetchUsers();
-        Navigator.of(context).pushNamed("login");
+        // If it's an artist account
+        if (select[0]) {
+          signArtist();
+        } else {
+          postUser(newuser, select);
+          fetchUsers();
+
+          Navigator.of(context).pushNamed("login");
+        }
       }
     }
 

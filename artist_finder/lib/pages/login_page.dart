@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:artist_finder/components/my_textfield.dart';
 import 'package:artist_finder/components/my_button.dart';
 import 'package:artist_finder/components/operationdata.dart';
-import 'package:artist_finder/models/User.dart';
+import 'package:artist_finder/models/Contratant.dart';
 import 'package:artist_finder/components/url.dart';
 
 class LoginPage extends StatefulWidget {
@@ -33,9 +33,19 @@ class _LoginPageState extends State<LoginPage> {
       Map<String, bool> signuser = checkuser(email, password);
 
       if (signuser['Artist'] == true) {
-        Navigator.of(context).pushNamed("artistpage");
+        activeartist = ArtistActive(email, password);
+        if (activeartist.email == '') {
+          print("error");
+        } else {
+          Navigator.of(context).pushNamed("artistpage");
+        }
       } else if (signuser["Contratant"] == true) {
-        Navigator.of(context).pushNamed("contrpage");
+        activecontratant = UserActive(email, password);
+        if (activecontratant.email == '') {
+          print("error");
+        } else {
+          Navigator.of(context).pushNamed("contrpage");
+        }
       }
     }
 

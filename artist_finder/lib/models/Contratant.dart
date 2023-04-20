@@ -1,10 +1,10 @@
-class User {
+class Contratant {
   String username;
   String email;
   String password;
   String data_nasc;
 
-  User(
+  Contratant(
       {required this.username,
       required this.email,
       required this.password,
