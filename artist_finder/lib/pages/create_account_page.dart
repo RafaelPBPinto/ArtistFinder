@@ -1,4 +1,5 @@
 import 'package:artist_finder/components/operationdata.dart';
+import 'package:artist_finder/pages/login2_artist.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_finder/components/my_textfield.dart';
 import 'package:artist_finder/components/my_button.dart';
@@ -44,62 +45,61 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   @override
   Widget build(BuildContext context) {
     /// Function to show a PopUp when an error creating account appears
-    void showPopUp(String string) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Incompleto'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    Text('Esqueceu-se de adicionar $string'),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('Voltar'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            );
-          });
-    }
 
     void signArtist() {
-      Navigator.of(context).pushNamed("login2artist");
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Login2Artist(
+                    username: newuser.username,
+                    data_nasc: newuser.data_nasc,
+                    password: newuser.password,
+                    email: newuser.email,
+                  )));
     }
 
     /// Function to create an account
     /// Verify if the users have nothing empty, if the two passwwords are equal and if the date format is right
     void createAccount() {
       if (newuser.email == '') {
-        showPopUp('email');
+        showPopUp('Email vazio! Por favor adiciome', context);
       } else if (newuser.username == '') {
-        showPopUp('username');
+        showPopUp('Username vazio! Por favor adicione', context);
       } else if (newuser.data_nasc == '') {
-        showPopUp('data de nascimento');
+        showPopUp(
+            'Data de nascimento vazia! Por favor adicione a sua!', context);
       } else if (newuser.password == '') {
-        showPopUp('password');
+        showPopUp('Password vazia! Adicione uma!', context);
       } else if (newuser.password != aux) {
-        showPopUp('palavras passes iguais');
+        showPopUp(
+            'Palavras passes não correspondem! Por favor adicione palavras passes iguais!',
+            context);
       } else if (!select[0] && !select[1]) {
-        showPopUp('o tipo de utilizador');
+        showPopUp(
+            'Não escolheu o seu tipo de utilizador!\nArtista ou contratante !\nClique no seu !',
+            context);
       } else if (!isDate(newuser.data_nasc)) {
         showPopUp(
-            'formato de data de nascimento correta.\nDeverá ser da seguinte forma:\n\taaaa-mm-dd');
+            'Formato de data de nascimento incorreta.\nDeverá ser da seguinte forma:\n\taaaa-mm-dd',
+            context);
       } else {
         // If it's an artist account
         if (select[0]) {
-          signArtist();
+          if (!checkArtistUsername(newuser.username)) {
+            showPopUp(
+                'Username ja existente ! Por favor tente outro! ', context);
+          } else {
+            signArtist();
+          }
         } else {
-          postUser(newuser, select);
-          fetchUsers();
-
-          Navigator.of(context).pushNamed("login");
+          if (!checkContratantUsername(newuser.username)) {
+            showPopUp(
+                'Username ja existente ! Por favor tente outro ! ', context);
+          } else {
+            postContratant(newuser);
+            fetchUsers();
+            Navigator.of(context).pushNamed("login");
+          }
         }
       }
     }

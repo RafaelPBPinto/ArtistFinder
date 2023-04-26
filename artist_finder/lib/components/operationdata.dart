@@ -14,13 +14,14 @@ void fetchUsers() async {
     artlist = [];
     data.forEach((user) {
       Artist newuser = Artist(
-        username: user['username'],
-        email: user['email'],
-        password: user['password'],
-        data_nasc: user['data_nasc'],
-        type: user['type'],
-        avaliation: user['avaliation'],
-      );
+          username: user['username'],
+          email: user['email'],
+          password: user['password'],
+          data_nasc: user['data_nasc'],
+          type: user['type'],
+          avaliation: user['avaliation'],
+          locality: user['locality'],
+          description: user['description']);
       artlist.add(newuser);
     });
   } catch (e) {
@@ -77,13 +78,8 @@ Map<String, bool> checkuser(String email, String password) {
 
 /// Function to post a user in the server when he creates a new account
 /// Verify if is an artist or a contratant to post in a right place
-void postUser(Contratant newuser, List<bool> check) async {
-  String usertype = '';
-  if (check[0]) {
-    usertype = '/artists';
-  } else if (check[1]) {
-    usertype = '/contrs';
-  }
+void postContratant(Contratant newuser) async {
+  String usertype = '/contrs';
 
   try {
     http.Response response = await http.post(Uri.parse(api + usertype),
@@ -103,7 +99,33 @@ void postUser(Contratant newuser, List<bool> check) async {
   }
 }
 
-///
+void postArtist(Artist newuser) async {
+  String usertype = '/contrs';
+
+  try {
+    http.Response response = await http.post(Uri.parse(api + usertype),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode(<String, dynamic>{
+          "username": newuser.username,
+          "email": newuser.email,
+          "password": newuser.password,
+          "data_nasc": newuser.data_nasc,
+          "locality": newuser.locality,
+          "avaliation": newuser.avaliation,
+          "type": newuser.type,
+          "description": newuser.description
+        }));
+
+    print(response.body);
+  } catch (e) {
+    print(e);
+  }
+}
+
+/// Located in operationdata.dart . Function to receive email and password and return the Contratant respectvely to that email
+/// and that pass
 Contratant UserActive(String email, String password) {
   for (Contratant user in contrlist) {
     if (user.email == email && user.password == password) {
@@ -114,6 +136,8 @@ Contratant UserActive(String email, String password) {
   return Contratant(username: '', email: '', password: '', data_nasc: '');
 }
 
+/// Located in operationdata.dart . Function to receive email and password and return the Artist respectvely to that email
+/// and that pass
 Artist ArtistActive(String email, String password) {
   for (Artist user in artlist) {
     if (user.email == email && user.password == password) {
@@ -126,5 +150,68 @@ Artist ArtistActive(String email, String password) {
       password: '',
       data_nasc: '',
       avaliation: 0,
-      type: '');
+      type: '',
+      locality: '',
+      description: '');
+}
+
+/// Located in operationdata.dart . Function to receive the username and return the Artist respectvely to that user
+Artist ArtistByUsername(String username) {
+  for (Artist user in artlist) {
+    if (user.username == username) {
+      return user;
+    }
+  }
+  return Artist(
+      username: '',
+      email: '',
+      password: '',
+      data_nasc: '',
+      avaliation: 0,
+      type: '',
+      locality: '',
+      description: '');
+}
+
+bool checkArtistUsername(String username) {
+  for (Artist artist in artlist) {
+    if (artist.username == username) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool checkContratantUsername(String username) {
+  for (Contratant contr in contrlist) {
+    if (contr.username == username) {
+      return false;
+    }
+  }
+  return true;
+}
+
+void showPopUp(String string, BuildContext contextprinc) {
+  showDialog(
+      context: contextprinc,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Incompleto'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(string),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Voltar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      });
 }

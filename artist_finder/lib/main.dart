@@ -21,10 +21,9 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         "login": (BuildContext context) => LoginPage(),
         "createAccount": (BuildContext context) => CreateAccountPage(),
-        "contrpage": (BuildContext context) => const ContrPage(),
         "artistpage": (BuildContext context) => ArtistPage(),
         "negotiation": (BuildContext context) => NegotiationPage(),
-        "login2artist": (BuildContext context) => Login2Artist()
+        "contrpage": (BuildContext context) => ContrPage()
       },
     );
   }

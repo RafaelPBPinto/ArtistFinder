@@ -1,5 +1,8 @@
 import 'package:artist_finder/components/url.dart';
 import 'package:flutter/material.dart';
+import 'package:artist_finder/components/customsearch.dart';
+import 'package:artist_finder/components/operationdata.dart';
+import 'package:artist_finder/pages/artist_profile.dart';
 
 List<String> artistname = [];
 
@@ -12,18 +15,12 @@ class ContrPage extends StatefulWidget {
 
 class _ContrPageState extends State<ContrPage> {
   int _selectedIndex = 0;
-  List<String> aux = [];
-
-  
 
   void AddName() {
     for (var elemnt in artlist) {
       artistname.add(elemnt.username);
-      aux.add(elemnt.username);
     }
   }
-  
-
 
   void _onItemTapped(int index) {
     setState(() {
@@ -31,10 +28,7 @@ class _ContrPageState extends State<ContrPage> {
     });
     if (_selectedIndex == 0) {
       //_showSearchModel();
-      showSearch(
-        context: context, 
-        delegate: CustomSearchDelegate()
-      );
+      showSearch(context: context, delegate: CustomSearchDelegate());
     }
   }
 
@@ -86,80 +80,13 @@ class _ContrPageState extends State<ContrPage> {
               subtitle:
                   Text("${artist.type} \nAvaliação: ${artist.avaliation}"),
               trailing: const Icon(Icons.person),
-              onTap: () => Navigator.of(context).pushNamed("here"),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ArtistProfile(
+                          artist: ArtistByUsername(artist.username)))),
             );
           },
         )));
-  }
-}
-
-class CustomSearchDelegate extends SearchDelegate {
-  // Demo list to show querying
-  List<String> searchTerms = artistname;
-     
-  // first overwrite to
-  // clear the search text
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    return [
-      IconButton(
-        onPressed: () {
-          query = '';
-        },
-        icon: Icon(Icons.clear),
-      ),
-    ];
-  }
- 
-  // second overwrite to pop out of search menu
-  @override
-  Widget? buildLeading(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        close(context, null);
-      },
-      icon: Icon(Icons.arrow_back),
-    );
-  }
- 
-  // third overwrite to show query result
-  @override
-  Widget buildResults(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var artist in searchTerms) {
-      if (artist.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(artist);
-      }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return ListTile(
-          title: Text(result),
-        );
-      },
-    );
-  }
- 
-  // last overwrite to show the
-  // querying process at the runtime
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var artist in searchTerms) {
-      if (artist.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(artist);
-      }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return ListTile(
-          title: Text(result),
-        );
-      },
-    );
   }
 }
