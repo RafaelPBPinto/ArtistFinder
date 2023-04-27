@@ -13,7 +13,7 @@ class UserArtist(models.Model):
     description = models.CharField(max_length= 500 , default= '')
     locality = models.CharField(max_length= 50,default = '')
     avaliation = models.FloatField(default= 0)
-    image_url = models.ImageField(blank = True, null = False,upload_to=upload_to)
+    image_url = models.ImageField(blank = True, null = False,upload_to= 'images/')
 
     def __str__(self) :
         return self.username

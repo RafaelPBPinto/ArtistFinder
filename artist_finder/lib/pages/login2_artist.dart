@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 // Referências:
 // https://www.youtube.com/watch?v=Dh-cTQJgM-Q
 
-import 'package:flutter/material.dart';
-import 'package:artist_finder/components/my_textfield.dart';
 import 'package:artist_finder/components/my_button.dart';
 import 'package:artist_finder/components/operationdata.dart';
-import 'package:artist_finder/models/Contratant.dart';
 import 'package:artist_finder/components/url.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class Login2Artist extends StatefulWidget {
   final String username;
@@ -38,11 +37,19 @@ class _Login2ArtistState extends State<Login2Artist> {
   List<String> types = ['Musico', 'Humorista', 'Palhaco', 'Outro'];
   List<String> districts = [];
   String? locality = '';
-
+  XFile? imagefile;
+  final ImagePicker picker = ImagePicker();
   void districts_pushed() {
     for (String string in cities.keys) {
       districts.add(string);
     }
+  }
+
+  Future pickImage() async {
+    var image = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      imagefile = image;
+    });
   }
 
   @override
@@ -198,6 +205,10 @@ class _Login2ArtistState extends State<Login2Artist> {
                 const SizedBox(
                   height: 25,
                 ),
+
+                ElevatedButton(
+                    onPressed: () => {pickImage()},
+                    child: const Text('Pick image')),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: TextField(

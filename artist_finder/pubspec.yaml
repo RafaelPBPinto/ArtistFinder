@@ -39,6 +39,9 @@ dependencies:
   string_validator: any
   easy_search_bar : any
   flutter_rating_bar: any
+  image_picker : any
+  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
