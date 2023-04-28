@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path,include
-from .views import UserArtistGetPost,UserContrGetPost,UserArtistUpdateDelete,CommentPost
+from .views import UserArtistGetPost,UserContrGetPost,UserArtistUpdateDelete,CommentPost,ProposalPost,ProposalUpdateDelete
 from . import views
 
 urlpatterns = [
@@ -9,6 +9,8 @@ urlpatterns = [
     path('contrs',UserContrGetPost.as_view()),
     path('images/',views.image_list,name="image_list"),
     path('images/<str:image>',views.image_detail,name = "image_detail"),
-    path('comments',CommentPost.as_view())
+    path('comments',CommentPost.as_view()),
+    path('proposals',ProposalPost.as_view()),
+    path('proposals/<int:pk>',ProposalUpdateDelete.as_view())
 
 ]

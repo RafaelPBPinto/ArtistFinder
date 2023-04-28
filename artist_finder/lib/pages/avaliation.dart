@@ -1,9 +1,11 @@
 import 'dart:core';
+import 'package:artist_finder/components/url.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:artist_finder/components/my_button.dart';
 import 'package:artist_finder/components/operationdata.dart';
 import 'package:artist_finder/models/Artist.dart';
+import 'artist_profile.dart';
 
 class Avaliation extends StatefulWidget {
   final Artist artist;
@@ -20,10 +22,17 @@ class _AvaliationState extends State<Avaliation> {
   String comment = '';
 
   void avaliate() {
-    if (artperf == 0 && intpub == 0) {
-      showPopUp('Avalie as duas componentes', context);
+    if (artperf == 0 || intpub == 0 || comment == '') {
+      showPopUp(
+          'Avalie as duas componentes e deixe o seu comentario !', context);
     } else {
       avaliationfetch(widget.artist, (artperf + intpub) / 2);
+      commentfecth(comment, widget.artist.id, activecontratant.id);
+      fetchUsers(context);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ArtistProfile(artist: widget.artist)));
     }
   }
 
@@ -111,11 +120,12 @@ class _AvaliationState extends State<Avaliation> {
                     ),
                     fillColor: Colors.grey.shade200,
                     filled: true,
-                    hintText: 'Descreve-te como artista!',
+                    hintText: 'Deixa aqui a tua opiniao!',
                     hintStyle: TextStyle(color: Colors.grey[500])),
                 maxLines: 10,
                 onChanged: (String value) {
                   comment = value;
+                  print(comment);
                 },
               ),
             ),
@@ -134,6 +144,9 @@ class _AvaliationState extends State<Avaliation> {
                   fontSize: 16,
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 20,
             )
           ]),
         ),

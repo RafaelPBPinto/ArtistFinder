@@ -34,3 +34,11 @@ class CommentsToArtists(models.Model):
     id_contr = models.ForeignKey(UserContr,related_name='contr_id',on_delete=models.CASCADE)
     id_artist = models.ForeignKey(UserArtist,related_name='art_id',on_delete=models.CASCADE)
     comment = models.CharField(max_length=500,null=False,blank=False)
+
+class Proposal(models.Model):
+    id_contr = models.ForeignKey(UserContr,related_name='contratantid',on_delete=models.CASCADE)
+    id_artist = models.ForeignKey(UserArtist,related_name='artistsid',on_delete=models.CASCADE)
+    price = models.FloatField(null=False)
+    date = models.DateField(null = False)
+    hours = models.TimeField(null = False)
+    details = models.CharField(max_length=500,null=False,blank=False)

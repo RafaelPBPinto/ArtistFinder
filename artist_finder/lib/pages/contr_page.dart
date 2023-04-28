@@ -36,6 +36,7 @@ class _ContrPageState extends State<ContrPage> {
   void initState() {
     super.initState();
     AddName();
+    fetchUsers(context);
   }
 
   @override

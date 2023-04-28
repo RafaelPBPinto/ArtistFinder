@@ -1,11 +1,13 @@
 class Contratant {
+  int id;
   String username;
   String email;
   String password;
   String data_nasc;
 
   Contratant(
-      {required this.username,
+      {this.id = 0,
+      required this.username,
       required this.email,
       required this.password,
       required this.data_nasc});

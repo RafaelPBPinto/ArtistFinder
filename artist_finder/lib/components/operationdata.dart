@@ -40,6 +40,7 @@ void fetchUsers(BuildContext context) async {
     contrlist = [];
     data.forEach((user) {
       Contratant newuser = Contratant(
+          id: user['id'],
           username: user['username'],
           email: user['email'],
           password: user['password'],
@@ -126,7 +127,8 @@ Contratant UserActive(String email, String password) {
       return user;
     }
   }
-  return Contratant(username: '', email: '', password: '', data_nasc: '');
+  return Contratant(
+      id: 0, username: '', email: '', password: '', data_nasc: '');
 }
 
 /// Located in operationdata.dart . Function to receive email and password and return the Artist respectvely to that email
@@ -218,7 +220,7 @@ void showPopUp(String string, BuildContext contextprinc) {
 void avaliationfetch(Artist artist, double avaliation) async {
   String usertype = '/artists/${artist.id}';
   int newnumber = artist.no_avaliations + 1;
-  print(newnumber);
+
   try {
     http.Response response = await http.put(Uri.parse(api + usertype),
         headers: <String, String>{
@@ -229,11 +231,31 @@ void avaliationfetch(Artist artist, double avaliation) async {
           "email": artist.email,
           "data_nasc": artist.data_nasc,
           "password": artist.password,
-          "no_avalations": newnumber,
-          "avaliation": avaliation / (artist.no_avaliations + 1),
+          "no_avaliations": newnumber,
+          "avaliation": (((newnumber - 1) * artist.avaliation) + avaliation) /
+              (newnumber),
         }));
     print(response.body);
+
     // ignore: empty_catches
+  } catch (e) {
+    print(e);
+  }
+}
+
+void commentfecth(String comment, int artistid, int contrid) async {
+  String usertype = '/comments';
+  try {
+    http.Response response = await http.post(Uri.parse(api + usertype),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode(<String, dynamic>{
+          "comment": comment,
+          "id_contr": contrid,
+          "id_artist": artistid,
+        }));
+    print(response.body);
   } catch (e) {
     print(e);
   }

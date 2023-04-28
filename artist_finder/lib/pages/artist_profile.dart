@@ -1,8 +1,10 @@
 import 'package:artist_finder/components/my_button.dart';
+import 'package:artist_finder/components/operationdata.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_finder/models/Artist.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'avaliation.dart';
+import 'proposal.dart';
 
 class ArtistProfile extends StatefulWidget {
   final Artist artist;
@@ -15,7 +17,12 @@ class ArtistProfile extends StatefulWidget {
 class _ArtistProfileState extends State<ArtistProfile> {
   final nameController = TextEditingController();
 
-  void setavaliation() {}
+  @override
+  void initState() {
+    super.initState();
+    fetchUsers(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,6 +100,7 @@ class _ArtistProfileState extends State<ArtistProfile> {
           children: [
             const SizedBox(width: 10),
             RatingBar.builder(
+              allowHalfRating: true,
               initialRating: widget.artist.avaliation,
               minRating: 0,
               maxRating: 5,
@@ -118,6 +126,21 @@ class _ArtistProfileState extends State<ArtistProfile> {
           ],
         ),
         const SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: [
+            const SizedBox(width: 20),
+            Text(
+              'Numero de avaliações: ${widget.artist.no_avaliations}',
+              style: TextStyle(
+                  fontWeight: FontWeight.w200,
+                  fontSize: 15,
+                  color: Colors.grey[700]),
+            )
+          ],
+        ),
+        const SizedBox(
           height: 30,
         ),
         Row(
@@ -126,11 +149,14 @@ class _ArtistProfileState extends State<ArtistProfile> {
               width: 15,
             ),
             MyButton(
-                onTap: null,
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Proposal(artist: widget.artist))),
                 text: const Text("Fazer\nproposta"),
                 color: Colors.blue[600]),
             const SizedBox(
-              width: 15,
+              width: 35,
             ),
             MyButton(
                 onTap: () => Navigator.push(

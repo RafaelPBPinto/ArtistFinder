@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UserArtist,UserContr,CommentsToArtists
+from .models import UserArtist,UserContr,CommentsToArtists,Proposal
 
 class UserArtistSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,4 +15,9 @@ class UserContrSerializer(serializers.ModelSerializer):
 class CommentsToArtistSerailizer(serializers.ModelSerializer):
     class Meta:
         model = CommentsToArtists
+        fields = '__all__'
+
+class ProposalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Proposal
         fields = '__all__'
