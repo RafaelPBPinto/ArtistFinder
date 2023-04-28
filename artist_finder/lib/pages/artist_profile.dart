@@ -1,7 +1,4 @@
-import 'package:artist_finder/components/my_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:artist_finder/models/Artist.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -28,13 +25,30 @@ class _ArtistProfileState extends State<ArtistProfile> {
         child: SingleChildScrollView(
             child: Center(
                 child: Column(children: [
-          Text(
-            widget.artist.username,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 40,
-              color: Colors.grey[700],
-            ),
+          Row(
+            children: [
+              if (widget.artist.image_url != null)
+                Image.network(
+                  widget.artist.image_url,
+                  fit: BoxFit.cover,
+                  height: 100,
+                  width: 100,
+                )
+              else
+                const Icon(
+                  Icons.person_2_rounded,
+                  size: 100,
+                ),
+              const SizedBox(width: 30),
+              Text(
+                widget.artist.username,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                  color: Colors.grey[700],
+                ),
+              ),
+            ],
           ),
           const SizedBox(
             height: 30,
@@ -59,7 +73,7 @@ class _ArtistProfileState extends State<ArtistProfile> {
             'Descricao:',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 10,
+              fontSize: 25,
               color: Colors.grey[700],
             ),
           ),
@@ -67,7 +81,7 @@ class _ArtistProfileState extends State<ArtistProfile> {
             widget.artist.description,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 10,
+              fontSize: 25,
               color: Colors.grey[700],
             ),
           ),

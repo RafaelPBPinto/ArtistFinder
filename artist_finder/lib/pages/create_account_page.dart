@@ -97,7 +97,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 'Username ja existente ! Por favor tente outro ! ', context);
           } else {
             postContratant(newuser);
-            fetchUsers();
+            fetchUsers(context);
             Navigator.of(context).pushNamed("login");
           }
         }

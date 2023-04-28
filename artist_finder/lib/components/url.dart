@@ -2,7 +2,7 @@ import 'package:artist_finder/models/Contratant.dart';
 import 'package:artist_finder/models/Artist.dart';
 
 /// String with a server link
-const String api = 'http://localhost:8000';
+const String api = 'http://192.168.1.107:8000';
 
 /// List to save all contratant users , global variable
 List<Contratant> contrlist = [];

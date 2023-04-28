@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:artist_finder/models/Artist.dart';
 
 /// Function to fecth all users from the api, artist and contratants
-void fetchUsers() async {
+void fetchUsers(BuildContext context) async {
   // Fetch Artist users and store in artlist
   try {
     http.Response response = await http.get(Uri.parse('$api/artists'));
@@ -25,8 +25,9 @@ void fetchUsers() async {
           image_url: user['image_url']);
       artlist.add(newuser);
     });
+    // ignore: empty_catches
   } catch (e) {
-    print(e);
+    showPopUp('Cant connect to server : $e', context);
   }
 
   // Fetch Contratant users and store in contrlist
@@ -43,9 +44,8 @@ void fetchUsers() async {
 
       contrlist.add(newuser);
     });
-  } catch (e) {
-    print(e);
-  }
+    // ignore: empty_catches
+  } catch (e) {}
 }
 
 /// Function to verify if the login input is correct
@@ -73,7 +73,6 @@ Map<String, bool> checkuser(String email, String password) {
       check['Contratant'] = false;
     }
   }
-  print(check);
   return check;
 }
 
@@ -94,38 +93,26 @@ void postContratant(Contratant newuser) async {
           "data_nasc": newuser.data_nasc
         }));
 
-    print(response.body);
-  } catch (e) {
-    print(e);
-  }
+    // ignore: empty_catches
+  } catch (e) {}
 }
 
-void postArtist(Artist newuser) async {
-  String usertype = '/contrs';
+Future<void> postArtist(Artist newuser) async {
+  String usertype = '/artists';
 
-  try {
-    http.Response response = await http.post(Uri.parse(api + usertype),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: json.encode(
-          <String, dynamic>{
-            "username": newuser.username,
-            "email": newuser.email,
-            "password": newuser.password,
-            "data_nasc": newuser.data_nasc,
-            "locality": newuser.locality,
-            "avaliation": newuser.avaliation,
-            "type": newuser.type,
-            "description": newuser.description,
-            "image_url": newuser.image_url
-          },
-        ));
+  var request = await http.MultipartRequest('POST', Uri.parse(api + usertype));
+  request.fields["username"] = newuser.username;
+  request.fields["email"] = newuser.email;
+  request.fields["password"] = newuser.password;
+  request.fields["data_nasc"] = newuser.data_nasc;
+  request.fields["locality"] = newuser.locality;
+  request.fields["avaliation"] = newuser.avaliation.toString();
+  request.fields["type"] = newuser.type;
+  request.fields["description"] = newuser.description;
+  request.files
+      .add(await http.MultipartFile.fromPath("image_url", newuser.image_url));
 
-    print("Response. body ${response.body}");
-  } catch (e) {
-    print("error: $e");
-  }
+  await request.send();
 }
 
 /// Located in operationdata.dart . Function to receive email and password and return the Contratant respectvely to that email
@@ -133,7 +120,6 @@ void postArtist(Artist newuser) async {
 Contratant UserActive(String email, String password) {
   for (Contratant user in contrlist) {
     if (user.email == email && user.password == password) {
-      print(user);
       return user;
     }
   }

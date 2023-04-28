@@ -24,6 +24,6 @@ class Artist {
 
   @override
   String toString() {
-    return "username: $username , email: $email , type: $type , avaliation : $avaliation";
+    return "username: $username , email: $email , type: $type , avaliation : $avaliation , image_url : $image_url";
   }
 }

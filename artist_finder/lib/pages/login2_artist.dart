@@ -64,17 +64,6 @@ class _Login2ArtistState extends State<Login2Artist> {
 
     // sign user up
     void signUserUp() {
-      Artist newuser = Artist(
-          username: widget.username,
-          email: widget.email,
-          password: widget.password,
-          data_nasc: widget.data_nasc,
-          type: type.toString(),
-          avaliation: 0,
-          locality: '$locality , $district',
-          description: desc,
-          image_url: imagefile!.path);
-
       if (locality == '') {
         locality = city?[0];
       }
@@ -85,6 +74,17 @@ class _Login2ArtistState extends State<Login2Artist> {
         showPopUp(
             'Adicione uma breve descricao sobre tu como artista!', context);
       } else {
+        Artist newuser = Artist(
+            username: widget.username,
+            email: widget.email,
+            password: widget.password,
+            data_nasc: widget.data_nasc,
+            type: type.toString(),
+            avaliation: 0,
+            locality: '$locality , $district',
+            description: desc,
+            image_url: imagefile!.path);
+
         postArtist(newuser);
         Navigator.of(context).pushNamed("login");
       }
