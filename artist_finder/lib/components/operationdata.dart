@@ -21,7 +21,8 @@ void fetchUsers() async {
           type: user['type'],
           avaliation: user['avaliation'],
           locality: user['locality'],
-          description: user['description']);
+          description: user['description'],
+          image_url: user['image_url']);
       artlist.add(newuser);
     });
   } catch (e) {
@@ -107,20 +108,23 @@ void postArtist(Artist newuser) async {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: json.encode(<String, dynamic>{
-          "username": newuser.username,
-          "email": newuser.email,
-          "password": newuser.password,
-          "data_nasc": newuser.data_nasc,
-          "locality": newuser.locality,
-          "avaliation": newuser.avaliation,
-          "type": newuser.type,
-          "description": newuser.description
-        }));
+        body: json.encode(
+          <String, dynamic>{
+            "username": newuser.username,
+            "email": newuser.email,
+            "password": newuser.password,
+            "data_nasc": newuser.data_nasc,
+            "locality": newuser.locality,
+            "avaliation": newuser.avaliation,
+            "type": newuser.type,
+            "description": newuser.description,
+            "image_url": newuser.image_url
+          },
+        ));
 
-    print(response.body);
+    print("Response. body ${response.body}");
   } catch (e) {
-    print(e);
+    print("error: $e");
   }
 }
 
@@ -152,7 +156,8 @@ Artist ArtistActive(String email, String password) {
       avaliation: 0,
       type: '',
       locality: '',
-      description: '');
+      description: '',
+      image_url: null);
 }
 
 /// Located in operationdata.dart . Function to receive the username and return the Artist respectvely to that user
@@ -170,7 +175,8 @@ Artist ArtistByUsername(String username) {
       avaliation: 0,
       type: '',
       locality: '',
-      description: '');
+      description: '',
+      image_url: null);
 }
 
 bool checkArtistUsername(String username) {

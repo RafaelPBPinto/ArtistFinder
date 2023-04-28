@@ -72,7 +72,8 @@ class _Login2ArtistState extends State<Login2Artist> {
           type: type.toString(),
           avaliation: 0,
           locality: '$locality , $district',
-          description: desc);
+          description: desc,
+          image_url: imagefile!.path);
 
       if (locality == '') {
         locality = city?[0];

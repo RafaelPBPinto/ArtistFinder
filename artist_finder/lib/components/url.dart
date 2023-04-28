@@ -23,7 +23,8 @@ Artist activeartist = Artist(
     data_nasc: '',
     type: '',
     locality: '',
-    description: '');
+    description: '',
+    image_url: null);
 
 final Map<String, List<String>> cities = {
   '': [''],
