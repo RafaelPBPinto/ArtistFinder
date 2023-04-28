@@ -16,6 +16,7 @@ Contratant activecontratant =
 
 /// Artist at the moment
 Artist activeartist = Artist(
+    id: 0,
     avaliation: 0.0,
     email: '',
     username: '',
@@ -24,7 +25,8 @@ Artist activeartist = Artist(
     type: '',
     locality: '',
     description: '',
-    image_url: null);
+    image_url: null,
+    no_avaliations: 0);
 
 final Map<String, List<String>> cities = {
   '': [''],

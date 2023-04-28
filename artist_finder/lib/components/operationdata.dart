@@ -14,6 +14,7 @@ void fetchUsers(BuildContext context) async {
     artlist = [];
     data.forEach((user) {
       Artist newuser = Artist(
+          id: user['id'],
           username: user['username'],
           email: user['email'],
           password: user['password'],
@@ -22,11 +23,13 @@ void fetchUsers(BuildContext context) async {
           avaliation: user['avaliation'],
           locality: user['locality'],
           description: user['description'],
-          image_url: user['image_url']);
+          image_url: user['image_url'],
+          no_avaliations: user['no_avaliations']);
       artlist.add(newuser);
     });
-    // ignore: empty_catches
+    print(artlist);
   } catch (e) {
+    print(e);
     showPopUp('Cant connect to server : $e', context);
   }
 
@@ -135,6 +138,7 @@ Artist ArtistActive(String email, String password) {
     }
   }
   return Artist(
+      id: 0,
       username: '',
       email: '',
       password: '',
@@ -143,7 +147,8 @@ Artist ArtistActive(String email, String password) {
       type: '',
       locality: '',
       description: '',
-      image_url: null);
+      image_url: null,
+      no_avaliations: 0);
 }
 
 /// Located in operationdata.dart . Function to receive the username and return the Artist respectvely to that user
@@ -154,6 +159,7 @@ Artist ArtistByUsername(String username) {
     }
   }
   return Artist(
+      id: 0,
       username: '',
       email: '',
       password: '',
@@ -162,7 +168,8 @@ Artist ArtistByUsername(String username) {
       type: '',
       locality: '',
       description: '',
-      image_url: null);
+      image_url: null,
+      no_avaliations: 0);
 }
 
 bool checkArtistUsername(String username) {
@@ -206,4 +213,28 @@ void showPopUp(String string, BuildContext contextprinc) {
           ],
         );
       });
+}
+
+void avaliationfetch(Artist artist, double avaliation) async {
+  String usertype = '/artists/${artist.id}';
+  int newnumber = artist.no_avaliations + 1;
+  print(newnumber);
+  try {
+    http.Response response = await http.put(Uri.parse(api + usertype),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode(<String, dynamic>{
+          "username": artist.username,
+          "email": artist.email,
+          "data_nasc": artist.data_nasc,
+          "password": artist.password,
+          "no_avalations": newnumber,
+          "avaliation": avaliation / (artist.no_avaliations + 1),
+        }));
+    print(response.body);
+    // ignore: empty_catches
+  } catch (e) {
+    print(e);
+  }
 }

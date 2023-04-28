@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .models import UserArtist,UserContr
-from .serializers import UserArtistSerializer,UserContrSerializer
+from .models import UserArtist,UserContr,CommentsToArtists
+from .serializers import UserArtistSerializer,UserContrSerializer,CommentsToArtistSerailizer
 import os
 from django.conf import settings
 from django.shortcuts import render 
@@ -33,3 +33,7 @@ class UserArtistUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
 class UserContrGetPost(generics.ListCreateAPIView):
     queryset = UserContr.objects.all()
     serializer_class = UserContrSerializer
+
+class CommentPost(generics.ListCreateAPIView):
+    queryset = CommentsToArtists.objects.all()
+    serializer_class = CommentsToArtistSerailizer

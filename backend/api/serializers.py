@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UserArtist,UserContr
+from .models import UserArtist,UserContr,CommentsToArtists
 
 class UserArtistSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,4 +10,9 @@ class UserArtistSerializer(serializers.ModelSerializer):
 class UserContrSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserContr
+        fields = '__all__'
+
+class CommentsToArtistSerailizer(serializers.ModelSerializer):
+    class Meta:
+        model = CommentsToArtists
         fields = '__all__'

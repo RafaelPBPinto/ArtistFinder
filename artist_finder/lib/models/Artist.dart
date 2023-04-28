@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'dart:io';
-
 class Artist {
+  int id;
   String username;
   String email;
   String password;
@@ -11,8 +9,10 @@ class Artist {
   String description = "Sem descricao adicionada pelo artista";
   String locality;
   dynamic image_url;
+  int no_avaliations;
   Artist(
-      {required this.username,
+      {this.id = 0,
+      required this.username,
       required this.email,
       required this.password,
       required this.data_nasc,
@@ -20,10 +20,11 @@ class Artist {
       required this.avaliation,
       required this.locality,
       required this.description,
-      required this.image_url});
+      required this.image_url,
+      required this.no_avaliations});
 
   @override
   String toString() {
-    return "username: $username , email: $email , type: $type , avaliation : $avaliation , image_url : $image_url";
+    return "id: $id , username: $username , email: $email , type: $type , avaliation : $avaliation , image_url : $image_url";
   }
 }

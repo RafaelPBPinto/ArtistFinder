@@ -43,7 +43,7 @@ class _ContrPageState extends State<ContrPage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("ArtistFinder"),
-          backgroundColor: Colors.grey[700],
+          backgroundColor: Colors.blue[600],
           centerTitle: true,
           bottomOpacity: 10,
         ),
