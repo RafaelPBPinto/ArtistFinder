@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics,filters
 from .models import UserArtist,UserContr,CommentsToArtists,Proposal
 from .serializers import UserArtistSerializer,UserContrSerializer,CommentsToArtistSerailizer,ProposalSerializer
 import os

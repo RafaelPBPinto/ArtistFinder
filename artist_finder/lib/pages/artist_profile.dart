@@ -1,10 +1,12 @@
-import 'package:artist_finder/components/my_button.dart';
 import 'package:artist_finder/components/operationdata.dart';
+import 'package:artist_finder/models/Contratant.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_finder/models/Artist.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'avaliation.dart';
 import 'proposal.dart';
+import 'package:artist_finder/components/personalized_button.dart';
+import 'package:artist_finder/components/url.dart';
 
 class ArtistProfile extends StatefulWidget {
   final Artist artist;
@@ -16,11 +18,29 @@ class ArtistProfile extends StatefulWidget {
 
 class _ArtistProfileState extends State<ArtistProfile> {
   final nameController = TextEditingController();
+  List<String> commentaux = [];
+  String convertIdToName(int key) {
+    for (Contratant contr in contrlist) {
+      if (contr.id == key) {
+        return contr.username;
+      }
+    }
+    return '';
+  }
+
+  List<String> commentforeachartist(int id) {
+    List<String> result = [];
+    comments[id]?.forEach((key, value) {
+      result.add('\n${convertIdToName(key)}\n\t\t$value');
+    });
+    return result;
+  }
 
   @override
   void initState() {
     super.initState();
     fetchUsers(context);
+    commentaux = commentforeachartist(widget.artist.id);
   }
 
   @override
@@ -31,6 +51,27 @@ class _ArtistProfileState extends State<ArtistProfile> {
         backgroundColor: Colors.blue[600],
         centerTitle: true,
         bottomOpacity: 10,
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              // handle menu item selection here
+            },
+            itemBuilder: (BuildContext context) => [
+              const PopupMenuItem<String>(
+                value: 'item1',
+                child: Text('Denunciar utilizador'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'item2',
+                child: Text('Menu Item 2'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'item3',
+                child: Text('Menu Item 3'),
+              ),
+            ],
+          ),
+        ],
       ),
       body: SafeArea(
           child: SingleChildScrollView(
@@ -45,7 +86,7 @@ class _ArtistProfileState extends State<ArtistProfile> {
               Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: Colors.black, width: 4)),
+                      border: Border.all(color: Colors.blue, width: 4)),
                   child: Image.network(
                     widget.artist.image_url,
                     fit: BoxFit.cover,
@@ -58,14 +99,26 @@ class _ArtistProfileState extends State<ArtistProfile> {
                 size: 100,
               ),
             const SizedBox(width: 20),
-            Text(
-              widget.artist.username,
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 30,
-                color: Colors.grey[700],
+            Column(children: [
+              Text(
+                'Name:',
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 15,
+                  color: Colors.grey[700],
+                ),
               ),
-            ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                widget.artist.username,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: Colors.grey[700]),
+              )
+            ]),
             const SizedBox(width: 10),
           ],
         ),
@@ -73,100 +126,119 @@ class _ArtistProfileState extends State<ArtistProfile> {
           height: 30,
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(width: 40),
-            Text(
-              "Avaliação",
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 20,
-                color: Colors.grey[700],
-              ),
-            ),
+            PersonalizedButton(
+                page: Proposal(artist: widget.artist),
+                text: const Text("Fazer\n proposta")),
             const SizedBox(
-              width: 100,
+              width: 16,
             ),
-            Text(
-              'Descrição:',
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 20,
-                color: Colors.grey[700],
-              ),
+            PersonalizedButton(
+                page: Avaliation(
+                  artist: widget.artist,
+                ),
+                text: const Text("Avaliar")),
+            const SizedBox(
+              width: 16,
             ),
+            PersonalizedButton(
+                page: Avaliation(artist: widget.artist),
+                text: const Text("Contactos"))
           ],
         ),
-        Row(
-          children: [
-            const SizedBox(width: 10),
-            RatingBar.builder(
-              allowHalfRating: true,
-              initialRating: widget.artist.avaliation,
-              minRating: 0,
-              maxRating: 5,
-              itemSize: 30,
-              itemBuilder: (context, _) => const Icon(
-                Icons.star,
-                color: Colors.amber,
-              ),
-              onRatingUpdate: (rating) {
-                null;
-              },
-              ignoreGestures: true,
-            ),
-            const SizedBox(width: 50),
-            Text(
-              widget.artist.description,
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                fontSize: 20,
-                color: Colors.grey[700],
-              ),
-            ),
-          ],
+        const SizedBox(height: 30),
+        Text(
+          "Avaliação",
+          style: TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 15,
+            color: Colors.grey[700],
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        RatingBar.builder(
+          allowHalfRating: true,
+          initialRating: widget.artist.avaliation,
+          minRating: 0,
+          maxRating: 5,
+          itemSize: 30,
+          itemBuilder: (context, _) => const Icon(
+            Icons.star,
+            color: Colors.amber,
+          ),
+          onRatingUpdate: (rating) {
+            null;
+          },
+          ignoreGestures: true,
+        ),
+        const SizedBox(height: 10),
+        Text(
+          'Numero de avaliações: ${widget.artist.no_avaliations}',
+          style: TextStyle(
+              fontWeight: FontWeight.w200,
+              fontSize: 15,
+              color: Colors.grey[700]),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        Text(
+          'Descrição:',
+          style: TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 15,
+            color: Colors.grey[700],
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Text(
+          widget.artist.description,
+          style: TextStyle(
+            fontWeight: FontWeight.w300,
+            fontSize: 15,
+            color: Colors.grey[700],
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Text(
+          'Comentários sobre as prestações: ',
+          style: TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 20,
+            color: Colors.grey[700],
+          ),
         ),
         const SizedBox(
           height: 10,
         ),
-        Row(
-          children: [
-            const SizedBox(width: 20),
-            Text(
-              'Numero de avaliações: ${widget.artist.no_avaliations}',
-              style: TextStyle(
-                  fontWeight: FontWeight.w200,
-                  fontSize: 15,
-                  color: Colors.grey[700]),
-            )
-          ],
+        const Divider(
+          height: 10,
+          color: Colors.black,
         ),
-        const SizedBox(
-          height: 30,
-        ),
-        Row(
-          children: [
-            const SizedBox(
-              width: 15,
-            ),
-            MyButton(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Proposal(artist: widget.artist))),
-                text: const Text("Fazer\nproposta"),
-                color: Colors.blue[600]),
-            const SizedBox(
-              width: 35,
-            ),
-            MyButton(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            Avaliation(artist: widget.artist))),
-                text: const Text("Avaliar"),
-                color: Colors.blue[600]),
-          ],
+        ListView.separated(
+            separatorBuilder: (context, index) {
+              return const Divider(
+                height: 10,
+                color: Colors.black,
+              );
+            },
+            shrinkWrap: true,
+            itemCount: commentaux.length,
+            itemBuilder: (BuildContext context, index) {
+              return ListTile(
+                title: Text(commentaux[index]),
+              );
+            }),
+        const Divider(
+          height: 10,
+          color: Colors.black,
         )
       ]))),
     );

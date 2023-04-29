@@ -173,8 +173,10 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               ),*/
 
               SelectDateField(
-                  controller: dateController,
-                  onPressed: () => _selectDate(context)),
+                controller: dateController,
+                onPressed: () => _selectDate(context),
+                text: 'Data de nascimento',
+              ),
 
               const SizedBox(height: 10),
 

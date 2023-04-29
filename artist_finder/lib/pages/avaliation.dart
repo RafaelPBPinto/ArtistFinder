@@ -56,12 +56,12 @@ class _AvaliationState extends State<Avaliation> {
               "Performance do artista",
               style: TextStyle(
                 fontWeight: FontWeight.w400,
-                fontSize: 30,
+                fontSize: 20,
                 color: Colors.grey[700],
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             RatingBar.builder(
               initialRating: 0,
@@ -83,12 +83,12 @@ class _AvaliationState extends State<Avaliation> {
               "Interação com o público",
               style: TextStyle(
                 fontWeight: FontWeight.w400,
-                fontSize: 30,
+                fontSize: 20,
                 color: Colors.grey[700],
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             RatingBar.builder(
               initialRating: 0,

@@ -47,6 +47,11 @@ class _ContrPageState extends State<ContrPage> {
           backgroundColor: Colors.blue[600],
           centerTitle: true,
           bottomOpacity: 10,
+          actions: [
+            IconButton(
+                onPressed: () => fetchUsers(context),
+                icon: const Icon(Icons.refresh))
+          ],
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
@@ -77,10 +82,21 @@ class _ContrPageState extends State<ContrPage> {
           itemBuilder: (BuildContext context, index) {
             final artist = artlist[index];
             return ListTile(
+              leading: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: Colors.blue, width: 4)),
+                child: Image.network(
+                  artist.image_url ?? '$api/images/DEFAULT.jpg',
+                  fit: BoxFit.cover,
+                  height: 40,
+                  width: 40,
+                ),
+              ),
               title: Text(artist.username),
               subtitle:
                   Text("${artist.type} \nAvaliação: ${artist.avaliation}"),
-              trailing: const Icon(Icons.person),
+              trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(

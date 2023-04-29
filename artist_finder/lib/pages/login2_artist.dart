@@ -142,6 +142,7 @@ class _Login2ArtistState extends State<Login2Artist> {
                       setState(() {
                         district = value;
                         city = cities[district];
+                        locality = city?[0];
                       });
                     }),
 
@@ -163,7 +164,7 @@ class _Login2ArtistState extends State<Login2Artist> {
                 ),
 
                 DropdownButton<String>(
-                  value: city?[0],
+                  value: locality,
                   items: city?.map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -248,6 +249,9 @@ class _Login2ArtistState extends State<Login2Artist> {
                       fontSize: 16,
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 15,
                 )
               ]),
             ),

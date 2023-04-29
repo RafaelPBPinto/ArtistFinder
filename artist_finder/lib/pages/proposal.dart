@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../components/select_date_field.dart';
 import 'package:artist_finder/components/my_button.dart';
+import 'negotiation.dart';
 
 class Proposal extends StatefulWidget {
   final Artist artist;
@@ -55,10 +56,11 @@ class _ProposalState extends State<Proposal> {
         backgroundColor: Colors.blue[600],
         centerTitle: true,
         bottomOpacity: 10,
-        actions: const [
+        actions: [
           IconButton(
-              onPressed: null,
-              icon: Icon(
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NegotiationPage())),
+              icon: const Icon(
                 Icons.message,
                 color: Colors.white,
               ))
@@ -69,18 +71,21 @@ class _ProposalState extends State<Proposal> {
         child: Center(
             child: Column(
           children: [
+            const SizedBox(height: 20),
             SelectDateField(
-                controller: dateController,
-                onPressed: () => _selectDate(context)),
+              controller: dateController,
+              onPressed: () => _selectDate(context),
+              text: 'Data',
+            ),
             const SizedBox(
               height: 20,
             ),
             ElevatedButton(
-                onPressed: _selectTime, child: const Text("Select Time")),
+                onPressed: _selectTime, child: const Text("Hora para começar")),
             const SizedBox(
               height: 20,
             ),
-            Text("Selected Time : ${_time.format(context)}"),
+            Text("Hora selecionada : ${_time.format(context)}"),
             const SizedBox(
               height: 20,
             ),
@@ -98,7 +103,7 @@ class _ProposalState extends State<Proposal> {
                     ),
                     fillColor: Colors.grey.shade200,
                     filled: true,
-                    hintText: 'Deixa aqui a tua opiniao!',
+                    hintText: 'Deixa aqui detalhes sobre o evento!',
                     hintStyle: TextStyle(color: Colors.grey[500])),
                 maxLines: 10,
                 onChanged: (String value) {

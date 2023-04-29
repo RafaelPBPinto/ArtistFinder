@@ -10,6 +10,9 @@ List<Contratant> contrlist = [];
 /// List to save all artist users, global variable
 List<Artist> artlist = [];
 
+/// Store the comments with artists id as key and its comments with a map with contratant id as key and comment as String
+Map<int, Map<int, String>> comments = {};
+
 ///User at the moment
 Contratant activecontratant =
     Contratant(id: 0, data_nasc: '', username: '', password: '', email: '');

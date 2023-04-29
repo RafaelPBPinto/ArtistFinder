@@ -14,7 +14,7 @@ class UserArtist(models.Model):
     locality = models.CharField(max_length= 50,default = '')
     avaliation = models.FloatField(default= 0)
     image_url = models.ImageField(blank = True, null = False,upload_to= 'images/')
-    no_avaliations = models.IntegerField(blank = True, null = True)
+    no_avaliations = models.IntegerField(blank = True, null = False,default=0)
 
     def __str__(self) :
         return self.username
@@ -34,6 +34,7 @@ class CommentsToArtists(models.Model):
     id_contr = models.ForeignKey(UserContr,related_name='contr_id',on_delete=models.CASCADE)
     id_artist = models.ForeignKey(UserArtist,related_name='art_id',on_delete=models.CASCADE)
     comment = models.CharField(max_length=500,null=False,blank=False)
+    
 
 class Proposal(models.Model):
     id_contr = models.ForeignKey(UserContr,related_name='contratantid',on_delete=models.CASCADE)

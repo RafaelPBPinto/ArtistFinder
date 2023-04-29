@@ -50,6 +50,26 @@ void fetchUsers(BuildContext context) async {
     });
     // ignore: empty_catches
   } catch (e) {}
+
+  try {
+    http.Response response = await http.get(Uri.parse('$api/comments'));
+    var data = json.decode(response.body);
+    comments = {};
+    data.forEach((comment) {
+      if (comments.containsKey(comment['id_artist'])) {
+        comments[comment['id_artist']]!
+            .addAll({comment['id_contr']: comment['comment']});
+      } else {
+        comments[comment['id_artist']] = {
+          comment['id_contr']: comment['comment']
+        };
+      }
+    });
+    print(response.body);
+    print(comments);
+  } catch (e) {
+    print(e);
+  }
 }
 
 /// Function to verify if the login input is correct
