@@ -40,7 +40,7 @@ dependencies:
   easy_search_bar : any
   flutter_rating_bar: any
   image_picker : any
-  
+  google_fonts: any
 
 dev_dependencies:
   flutter_test:

@@ -27,10 +27,9 @@ void fetchUsers(BuildContext context) async {
           no_avaliations: user['no_avaliations']);
       artlist.add(newuser);
     });
-    print(artlist);
   } catch (e) {
     print(e);
-    showPopUp('Cant connect to server : $e', context);
+    showPopUp('Erro', 'Cant connect to server : $e', context);
   }
 
   // Fetch Contratant users and store in contrlist
@@ -54,19 +53,19 @@ void fetchUsers(BuildContext context) async {
   try {
     http.Response response = await http.get(Uri.parse('$api/comments'));
     var data = json.decode(response.body);
+
+    //var text = (utf8.decode(data.codeUnits));
     comments = {};
     data.forEach((comment) {
       if (comments.containsKey(comment['id_artist'])) {
-        comments[comment['id_artist']]!
-            .addAll({comment['id_contr']: comment['comment']});
+        comments[comment['id_artist']]!.addAll(
+            {comment['id_contr']: utf8.decode(comment['comment'].codeUnits)});
       } else {
         comments[comment['id_artist']] = {
-          comment['id_contr']: comment['comment']
+          comment['id_contr']: utf8.decode(comment['comment'].codeUnits)
         };
       }
     });
-    print(response.body);
-    print(comments);
   } catch (e) {
     print(e);
   }
@@ -102,7 +101,7 @@ Map<String, bool> checkuser(String email, String password) {
 
 /// Function to post a user in the server when he creates a new account
 /// Verify if is an artist or a contratant to post in a right place
-void postContratant(Contratant newuser) async {
+void postContratant(BuildContext context, Contratant newuser) async {
   String usertype = '/contrs';
 
   try {
@@ -119,9 +118,10 @@ void postContratant(Contratant newuser) async {
 
     // ignore: empty_catches
   } catch (e) {}
+  fetchUsers(context);
 }
 
-Future<void> postArtist(Artist newuser) async {
+Future<void> postArtist(BuildContext context, Artist newuser) async {
   String usertype = '/artists';
 
   var request = await http.MultipartRequest('POST', Uri.parse(api + usertype));
@@ -137,6 +137,7 @@ Future<void> postArtist(Artist newuser) async {
       .add(await http.MultipartFile.fromPath("image_url", newuser.image_url));
 
   await request.send();
+  fetchUsers(context);
 }
 
 /// Located in operationdata.dart . Function to receive email and password and return the Contratant respectvely to that email
@@ -212,12 +213,12 @@ bool checkContratantUsername(String username) {
   return true;
 }
 
-void showPopUp(String string, BuildContext contextprinc) {
+void showPopUp(String cabecalho, String string, BuildContext contextprinc) {
   showDialog(
       context: contextprinc,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Incompleto'),
+          title: Text(cabecalho),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -263,7 +264,8 @@ void avaliationfetch(Artist artist, double avaliation) async {
   }
 }
 
-void commentfecth(String comment, int artistid, int contrid) async {
+void commentfecth(
+    BuildContext context, String comment, int artistid, int contrid) async {
   String usertype = '/comments';
   try {
     http.Response response = await http.post(Uri.parse(api + usertype),
@@ -275,8 +277,8 @@ void commentfecth(String comment, int artistid, int contrid) async {
           "id_contr": contrid,
           "id_artist": artistid,
         }));
-    print(response.body);
   } catch (e) {
     print(e);
   }
+  fetchUsers(context);
 }

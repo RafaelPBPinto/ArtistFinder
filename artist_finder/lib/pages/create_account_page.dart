@@ -59,45 +59,52 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     }
 
     /// Function to create an account
-    /// Verify if the users have nothing empty, if the two passwwords are equal and if the date format is right
+    /// Verify if the users have nothing empty, if the two passwwords are equal , if the date format is right ...
     void createAccount() {
       if (newuser.email == '') {
-        showPopUp('Email vazio! Por favor adiciome', context);
+        showPopUp('Incompleto', 'Email vazio! Por favor adiciome', context);
       } else if (newuser.username == '') {
-        showPopUp('Username vazio! Por favor adicione', context);
+        showPopUp('Incompleto', 'Username vazio! Por favor adicione', context);
       } else if (newuser.data_nasc == '') {
-        showPopUp(
+        showPopUp('Incompleto',
             'Data de nascimento vazia! Por favor adicione a sua!', context);
       } else if (newuser.password == '') {
-        showPopUp('Password vazia! Adicione uma!', context);
+        showPopUp('Incompleto', 'Password vazia! Adicione uma!', context);
       } else if (newuser.password != aux) {
         showPopUp(
+            'Incompleto',
             'Palavras passes não correspondem! Por favor adicione palavras passes iguais!',
             context);
       } else if (!select[0] && !select[1]) {
         showPopUp(
+            'Incompleto',
             'Não escolheu o seu tipo de utilizador!\nArtista ou contratante !\nClique no seu !',
             context);
       } else if (!isDate(newuser.data_nasc)) {
         showPopUp(
+            'Incorreto',
             'Formato de data de nascimento incorreta.\nDeverá ser da seguinte forma:\n\taaaa-mm-dd',
             context);
       } else {
         // If it's an artist account
         if (select[0]) {
           if (!checkArtistUsername(newuser.username)) {
-            showPopUp(
+            showPopUp('Incorreto',
                 'Username ja existente ! Por favor tente outro! ', context);
           } else {
             signArtist();
           }
         } else {
           if (!checkContratantUsername(newuser.username)) {
-            showPopUp(
+            showPopUp('Incorreto',
                 'Username ja existente ! Por favor tente outro ! ', context);
           } else {
-            postContratant(newuser);
-            fetchUsers(context);
+            postContratant(context, newuser);
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Conta criada com sucesso!"),
+              backgroundColor: Colors.black,
+              duration: Duration(seconds: 2),
+            ));
             Navigator.of(context).pushNamed("login");
           }
         }
@@ -159,18 +166,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               ),
 
               const SizedBox(height: 10),
-
-              // Birth Date
-
-              /*
-              MyTextField(
-                controller: datanasController,
-                hintText: 'Data de nasc , Formato: aaaa-mm-dd',
-                obscureText: false,
-                onChanged: (valiue) {
-                  newuser.data_nasc = valiue;
-                },
-              ),*/
 
               SelectDateField(
                 controller: dateController,

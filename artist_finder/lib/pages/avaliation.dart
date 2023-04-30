@@ -23,11 +23,11 @@ class _AvaliationState extends State<Avaliation> {
 
   void avaliate() {
     if (artperf == 0 || intpub == 0 || comment == '') {
-      showPopUp(
+      showPopUp('Incompleto',
           'Avalie as duas componentes e deixe o seu comentario !', context);
     } else {
       avaliationfetch(widget.artist, (artperf + intpub) / 2);
-      commentfecth(comment, widget.artist.id, activecontratant.id);
+      commentfecth(context, comment, widget.artist.id, activecontratant.id);
       fetchUsers(context);
       Navigator.push(
           context,

@@ -10,6 +10,7 @@ class UserArtist(models.Model):
     password = models.CharField(max_length=100,null= False)
     data_nasc = models.DateField()
     type = models.CharField(max_length=50,default = 'Musico')
+    subtype = models.CharField(max_length=50,null=True)
     description = models.CharField(max_length= 500 , default= '')
     locality = models.CharField(max_length= 50,default = '')
     avaliation = models.FloatField(default= 0)
@@ -25,6 +26,7 @@ class UserContr(models.Model):
     email = models.CharField(max_length= 100,null= False)
     password = models.CharField(max_length=100,null= False)
     data_nasc = models.DateField()
+    image_url = models.ImageField(blank=True,null= True, upload_to= 'images/')
 
     def __str__(self) :
         return self.username

@@ -34,22 +34,19 @@ class _LoginPageState extends State<LoginPage> {
 
       if (signuser['Artist'] == true) {
         activeartist = ArtistActive(email, password);
-        if (activeartist.email == '') {
-          print("error");
-        } else {
-          Navigator.of(context).pushNamed("artistpage");
-        }
+        Navigator.of(context).pushNamed("artistpage");
       } else if (signuser["Contratant"] == true) {
         activecontratant = UserActive(email, password);
-        if (activecontratant.email == '') {
-          print("error");
-        } else {
-          Navigator.of(context).pushNamed("contrpage");
-        }
+        Navigator.of(context).pushNamed("contrpage");
+      } else {
+        showPopUp(
+            'Incorreto',
+            'As credenciais não correspondem a nenhuma conta. Tente outras credenciais! ',
+            context);
       }
     }
 
-    // sign user up
+    /// sign user up
     void signUserUp() {
       Navigator.of(context).pushNamed("createAccount");
     }
@@ -107,20 +104,6 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 10),
 
               // Forgot Password
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      "Esqueceste-te da palavra-passe?",
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
 
               const SizedBox(height: 25),
 
@@ -152,6 +135,13 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ],
+                ),
+              ),
+
+              Text(
+                "Ainda não tem conta? Crie-a aqui em baixo !",
+                style: TextStyle(
+                  color: Colors.grey[600],
                 ),
               ),
 

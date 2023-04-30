@@ -38,6 +38,7 @@ class _Login2ArtistState extends State<Login2Artist> {
   List<String> districts = [];
   String? locality = '';
   XFile? imagefile;
+  bool addedimage = false;
   final ImagePicker picker = ImagePicker();
   void districts_pushed() {
     for (String string in cities.keys) {
@@ -49,6 +50,8 @@ class _Login2ArtistState extends State<Login2Artist> {
     var image = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       imagefile = image;
+      showPopUp('Sucesso', 'Foto adicionada com sucesso', context);
+      addedimage = true;
     });
   }
 
@@ -69,9 +72,9 @@ class _Login2ArtistState extends State<Login2Artist> {
       }
 
       if (district == '') {
-        showPopUp('Selecione o seu distrito! ', context);
+        showPopUp('Incompleto', 'Selecione o seu distrito! ', context);
       } else if (desc == '') {
-        showPopUp(
+        showPopUp('Incompleto',
             'Adicione uma breve descricao sobre tu como artista!', context);
       } else {
         Artist newuser = Artist(
@@ -86,7 +89,12 @@ class _Login2ArtistState extends State<Login2Artist> {
             image_url: imagefile!.path,
             no_avaliations: 0);
 
-        postArtist(newuser);
+        postArtist(context, newuser);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Conta criada com sucesso!"),
+          backgroundColor: Colors.black,
+          duration: Duration(seconds: 2),
+        ));
         Navigator.of(context).pushNamed("login");
       }
     }
@@ -94,7 +102,7 @@ class _Login2ArtistState extends State<Login2Artist> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("ArtistFinder"),
-          backgroundColor: Colors.grey[700],
+          backgroundColor: Colors.blue[600],
           centerTitle: true,
           bottomOpacity: 10,
         ),
@@ -208,10 +216,27 @@ class _Login2ArtistState extends State<Login2Artist> {
                 const SizedBox(
                   height: 25,
                 ),
+                Text(
+                  'Adicione uma foto de perfil!',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.grey[700],
+                  ),
+                ),
 
+                const SizedBox(
+                  height: 25,
+                ),
                 ElevatedButton(
-                    onPressed: () => {pickImage()},
-                    child: const Text('Pick image')),
+                  onPressed: () => {pickImage()},
+                  style: ButtonStyle(
+                      backgroundColor: addedimage == true
+                          ? MaterialStateProperty.all<Color>(Colors.grey)
+                          : MaterialStateProperty.all<Color>(Colors.blue)),
+                  child: const Text('Selecioar foto!'),
+                ),
+
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: TextField(

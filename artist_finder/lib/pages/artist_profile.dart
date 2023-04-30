@@ -7,6 +7,7 @@ import 'avaliation.dart';
 import 'proposal.dart';
 import 'package:artist_finder/components/personalized_button.dart';
 import 'package:artist_finder/components/url.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ArtistProfile extends StatefulWidget {
   final Artist artist;
@@ -31,7 +32,8 @@ class _ArtistProfileState extends State<ArtistProfile> {
   List<String> commentforeachartist(int id) {
     List<String> result = [];
     comments[id]?.forEach((key, value) {
-      result.add('\n${convertIdToName(key)}\n\t\t$value');
+      result
+          .add('\nUtilizador: ${convertIdToName(key)}\n\t\tComentário: $value');
     });
     return result;
   }
@@ -60,14 +62,6 @@ class _ArtistProfileState extends State<ArtistProfile> {
               const PopupMenuItem<String>(
                 value: 'item1',
                 child: Text('Denunciar utilizador'),
-              ),
-              const PopupMenuItem<String>(
-                value: 'item2',
-                child: Text('Menu Item 2'),
-              ),
-              const PopupMenuItem<String>(
-                value: 'item3',
-                child: Text('Menu Item 3'),
               ),
             ],
           ),
@@ -233,7 +227,10 @@ class _ArtistProfileState extends State<ArtistProfile> {
             itemCount: commentaux.length,
             itemBuilder: (BuildContext context, index) {
               return ListTile(
-                title: Text(commentaux[index]),
+                title: Text(
+                  commentaux[index],
+                  style: GoogleFonts.notoSans(),
+                ),
               );
             }),
         const Divider(
