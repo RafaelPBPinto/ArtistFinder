@@ -33,6 +33,10 @@ class UserArtistUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
 class UserContrGetPost(generics.ListCreateAPIView):
     queryset = UserContr.objects.all()
     serializer_class = UserContrSerializer
+    
+class UserContrUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = UserContr.objects.all()
+    serializer_class = UserContrSerializer
 
 class CommentPost(generics.ListCreateAPIView):
     queryset = CommentsToArtists.objects.all()

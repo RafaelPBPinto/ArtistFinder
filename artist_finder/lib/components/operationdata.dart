@@ -335,3 +335,20 @@ String ContratantById(int id) {
   }
   return '';
 }
+
+void ContratantEdited(Contratant contr, String email, String password) async {
+  String usertype = '/contrs/${contr.id}';
+  try {
+    http.Response response = await http.put(Uri.parse(api + usertype),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode(<String, dynamic>{
+          "username": contr.username,
+          "email": email,
+          "password": password,
+        }));
+  } catch (e) {
+    print(e);
+  }
+}

@@ -3,7 +3,7 @@ import 'package:artist_finder/models/Artist.dart';
 import 'package:artist_finder/models/Proposal.dart';
 
 /// String with a server link
-const String api = 'http://192.168.1.109:8000';
+const String api = 'http://192.168.105.34:8000';
 
 /// List to save all contratant users , global variable
 List<Contratant> contrlist = [];
