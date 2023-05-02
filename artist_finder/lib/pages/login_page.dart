@@ -34,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
 
       if (signuser['Artist'] == true) {
         activeartist = ArtistActive(email, password);
+        proposalfetch(activeartist.id);
         Navigator.of(context).pushNamed("artistpage");
       } else if (signuser["Contratant"] == true) {
         activecontratant = UserActive(email, password);

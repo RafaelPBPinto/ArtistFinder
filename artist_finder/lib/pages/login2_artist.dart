@@ -229,7 +229,7 @@ class _Login2ArtistState extends State<Login2Artist> {
                   height: 25,
                 ),
                 ElevatedButton(
-                  onPressed: () => {pickImage()},
+                  onPressed: () => {addedimage == true ? null : pickImage()},
                   style: ButtonStyle(
                       backgroundColor: addedimage == true
                           ? MaterialStateProperty.all<Color>(Colors.grey)

@@ -1,5 +1,6 @@
 import 'package:artist_finder/models/Contratant.dart';
 import 'package:artist_finder/models/Artist.dart';
+import 'package:artist_finder/models/Proposal.dart';
 
 /// String with a server link
 const String api = 'http://192.168.1.109:8000';
@@ -30,6 +31,8 @@ Artist activeartist = Artist(
     description: '',
     image_url: null,
     no_avaliations: 0);
+
+List<Proposal> proposlist = [];
 
 final Map<String, List<String>> cities = {
   '': [''],

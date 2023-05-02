@@ -10,7 +10,7 @@ urlpatterns = [
     path('images/',views.image_list,name="image_list"),
     path('images/<str:image>',views.image_detail,name = "image_detail"),
     path('comments',CommentPost.as_view()),
-    path('proposals',ProposalPost.as_view()),
+    path('proposals/<int:id_artist>',ProposalPost.as_view()),
     path('proposals/<int:pk>',ProposalUpdateDelete.as_view())
 
 ]

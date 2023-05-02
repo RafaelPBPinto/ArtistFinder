@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:artist_finder/models/Contratant.dart';
 import 'package:flutter/material.dart';
 import 'url.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:artist_finder/models/Artist.dart';
+import 'package:artist_finder/models/Proposal.dart';
 
 /// Function to fecth all users from the api, artist and contratants
 void fetchUsers(BuildContext context) async {
@@ -281,4 +284,54 @@ void commentfecth(
     print(e);
   }
   fetchUsers(context);
+}
+
+void proposalpost(String details, int artistid, int contrid, double price,
+    String date, String hours) async {
+  String usertype = '/proposals/$artistid';
+  try {
+    http.Response response = await http.post(Uri.parse(api + usertype),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode(<String, dynamic>{
+          "price": price,
+          "date": date,
+          "hours": hours,
+          "details": details,
+          "id_contr": contrid,
+          "id_artist": artistid,
+        }));
+  } catch (e) {
+    print(e);
+  }
+}
+
+void proposalfetch(int artistid) async {
+  print(artistid);
+  proposlist = [];
+  String usertype = '/proposals/$artistid';
+  try {
+    http.Response response = await http.get(Uri.parse(api + usertype));
+    var data = json.decode(response.body);
+    data.forEach((proposal) {
+      Proposal propost = Proposal(
+          contr_id: proposal['id_contr'],
+          details: proposal['details'],
+          hours: proposal['hours'],
+          date: proposal['date'],
+          price: proposal['price']);
+      proposlist.add(propost);
+    });
+    print(proposlist);
+  } catch (e) {}
+}
+
+String ContratantById(int id) {
+  for (Contratant contr in contrlist) {
+    if (contr.id == id) {
+      return contr.username;
+    }
+  }
+  return '';
 }

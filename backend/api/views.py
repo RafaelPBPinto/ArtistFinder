@@ -38,9 +38,12 @@ class CommentPost(generics.ListCreateAPIView):
     queryset = CommentsToArtists.objects.all()
     serializer_class = CommentsToArtistSerailizer
 
-class ProposalPost(generics.ListAPIView):
+class ProposalPost(generics.ListCreateAPIView):
     queryset = Proposal.objects.all()
     serializer_class = ProposalSerializer
+    
+    def get_queryset(self):
+        return super().get_queryset().filter(id_artist = self.kwargs['id_artist'])
 
 class ProposalUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = Proposal.objects.all()

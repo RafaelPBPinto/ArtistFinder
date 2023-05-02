@@ -1,3 +1,5 @@
+import 'package:artist_finder/components/operationdata.dart';
+import 'package:artist_finder/components/url.dart';
 import 'package:artist_finder/models/Artist.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +19,10 @@ class _ProposalState extends State<Proposal> {
   TimeOfDay _time = TimeOfDay(hour: 7, minute: 15);
   final dateController = TextEditingController();
   final descController = TextEditingController();
-  String comment = '';
-
+  String details = '';
+  String data_nasc = '';
+  String hours = '';
+  double price = 0;
   void _selectTime() async {
     final TimeOfDay? newTime = await showTimePicker(
       context: context,
@@ -32,6 +36,8 @@ class _ProposalState extends State<Proposal> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
+    proposalfetch(widget.artist.id);
+
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
@@ -40,14 +46,18 @@ class _ProposalState extends State<Proposal> {
     if (picked != null && picked != DateTime.now()) {
       setState(() {
         // convert date to string
-        //newuser.data_nasc =
-        //    "${picked.year.toString()}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
-        //dateController.text = newuser.data_nasc;
+        data_nasc =
+            "${picked.year.toString()}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+        dateController.text = data_nasc;
       });
     }
   }
 
-  void makeproposal() {}
+  void makeproposal() {
+    proposalpost(details, widget.artist.id, activecontratant.id, price,
+        data_nasc, _time.format(context));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,10 +82,21 @@ class _ProposalState extends State<Proposal> {
             child: Column(
           children: [
             const SizedBox(height: 20),
+            Text(
+              'Dia e hora para atuar',
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 20,
+                color: Colors.grey[700],
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
             SelectDateField(
               controller: dateController,
               onPressed: () => _selectDate(context),
-              text: 'Data',
+              text: 'Data do espetáculo',
             ),
             const SizedBox(
               height: 20,
@@ -86,6 +107,35 @@ class _ProposalState extends State<Proposal> {
               height: 20,
             ),
             Text("Hora selecionada : ${_time.format(context)}"),
+            const SizedBox(
+              height: 30,
+            ),
+            const Divider(
+              color: Colors.black,
+              height: 5,
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            Text(
+              'Preço e detalhes sobre a atuação',
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 20,
+                color: Colors.grey[700],
+              ),
+            ),
+            Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: TextFormField(
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                      labelText: 'Preço a pagar ao artista ! '),
+                  onChanged: (value) {
+                    price = double.parse(value);
+                  },
+                )),
             const SizedBox(
               height: 20,
             ),
@@ -107,8 +157,7 @@ class _ProposalState extends State<Proposal> {
                     hintStyle: TextStyle(color: Colors.grey[500])),
                 maxLines: 10,
                 onChanged: (String value) {
-                  comment = value;
-                  print(comment);
+                  details = value;
                 },
               ),
             ),
