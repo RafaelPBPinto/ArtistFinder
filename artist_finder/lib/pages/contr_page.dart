@@ -60,6 +60,10 @@ class _ContrPageState extends State<ContrPage> {
         backgroundColor: Colors.blue[600],
         centerTitle: true,
         bottomOpacity: 10,
+        /* leading: const IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: null,
+        ), */
         actions: [
           IconButton(
               onPressed: () => fetchUsers(context),

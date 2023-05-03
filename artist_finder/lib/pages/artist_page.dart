@@ -2,10 +2,11 @@ import 'package:artist_finder/components/url.dart';
 import 'package:artist_finder/pages/proposal_received.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_finder/components/personalized_button.dart';
-import 'proposal.dart';
 import 'avaliation.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:artist_finder/models/Contratant.dart';
+import 'edit_art_profile.dart';
 
 class ArtistPage extends StatefulWidget {
   const ArtistPage({
@@ -19,6 +20,30 @@ class ArtistPage extends StatefulWidget {
 class _ArtistPageState extends State<ArtistPage> {
   final nameController = TextEditingController();
   List<String> commentaux = [];
+
+  String convertIdToName(int key) {
+    for (Contratant contr in contrlist) {
+      if (contr.id == key) {
+        return contr.username;
+      }
+    }
+    return '';
+  }
+
+  List<String> commentforeachartist(int id) {
+    List<String> result = [];
+    comments[id]?.forEach((key, value) {
+      result
+          .add('\nUtilizador: ${convertIdToName(key)}\n\t\tComentário: $value');
+    });
+    return result;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    commentaux = commentforeachartist(activeartist.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,8 +123,7 @@ class _ArtistPageState extends State<ArtistPage> {
                 width: 16,
               ),
               PersonalizedButton(
-                  page: Avaliation(artist: activeartist),
-                  text: const Text("Editar\nperfil"))
+                  page: EditArtProfile(), text: const Text("Editar\nperfil"))
             ],
           ),
           const SizedBox(height: 30),

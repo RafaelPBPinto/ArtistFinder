@@ -35,9 +35,17 @@ class _LoginPageState extends State<LoginPage> {
       if (signuser['Artist'] == true) {
         activeartist = ArtistActive(email, password);
         proposalfetch(activeartist.id);
+        email = '';
+        password = '';
+        emailController.clear();
+        passwordController.clear();
         Navigator.of(context).pushNamed("artistpage");
       } else if (signuser["Contratant"] == true) {
         activecontratant = UserActive(email, password);
+        email = '';
+        password = '';
+        emailController.clear();
+        passwordController.clear();
         Navigator.of(context).pushNamed("contrpage");
       } else {
         showPopUp(

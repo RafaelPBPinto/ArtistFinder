@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:artist_finder/models/Contratant.dart';
 import 'package:flutter/material.dart';
 import 'url.dart';
@@ -13,9 +11,11 @@ void fetchUsers(BuildContext context) async {
   // Fetch Artist users and store in artlist
   try {
     http.Response response = await http.get(Uri.parse('$api/artists'));
-    var data = json.decode(response.body);
+    var data = utf8.decode(response.bodyBytes);
+    var jsondata = json.decode(data);
     artlist = [];
-    data.forEach((user) {
+    jsondata.forEach((user) {
+      //String newlocality = utf8.decode(user['locality']).codeUnits as String;
       Artist newuser = Artist(
           id: user['id'],
           username: user['username'],
@@ -30,8 +30,10 @@ void fetchUsers(BuildContext context) async {
           no_avaliations: user['no_avaliations']);
       artlist.add(newuser);
     });
+    for (var art in artlist) {
+      print(art);
+    }
   } catch (e) {
-    print(e);
     showPopUp('Erro', 'Cant connect to server : $e', context);
   }
 
@@ -69,9 +71,8 @@ void fetchUsers(BuildContext context) async {
         };
       }
     });
-  } catch (e) {
-    print(e);
-  }
+    // ignore: empty_catches
+  } catch (e) {}
 }
 
 /// Function to verify if the login input is correct
@@ -336,7 +337,8 @@ String ContratantById(int id) {
   return '';
 }
 
-void ContratantEdited(Contratant contr, String email, String password) async {
+void ContratantEdited(BuildContext context, Contratant contr, String email,
+    String password, String username) async {
   String usertype = '/contrs/${contr.id}';
   try {
     http.Response response = await http.put(Uri.parse(api + usertype),
@@ -344,11 +346,39 @@ void ContratantEdited(Contratant contr, String email, String password) async {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: json.encode(<String, dynamic>{
-          "username": contr.username,
+          "username": username,
           "email": email,
           "password": password,
+          "data_nasc": contr.data_nasc
         }));
+    print(response.body);
+    fetchUsers(context);
   } catch (e) {
     print(e);
   }
+}
+
+Future<void> editArtist(BuildContext context, Artist newuser) async {
+  String usertype = '/artists/${activeartist.id}';
+  bool addimage = false;
+
+  if (newuser.image_url != 'None') {
+    addimage = true;
+  }
+  var request = await http.MultipartRequest('PUT', Uri.parse(api + usertype));
+  request.fields["username"] = newuser.username;
+  request.fields["email"] = newuser.email;
+  request.fields["password"] = newuser.password;
+  request.fields["data_nasc"] = newuser.data_nasc;
+  request.fields["locality"] = newuser.locality;
+  request.fields["avaliation"] = newuser.avaliation.toString();
+  request.fields["type"] = newuser.type;
+  request.fields["description"] = newuser.description;
+  if (addimage == true) {
+    request.files
+        .add(await http.MultipartFile.fromPath("image_url", newuser.image_url));
+  }
+  await request.send();
+
+  fetchUsers(context);
 }
