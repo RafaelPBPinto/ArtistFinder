@@ -1,6 +1,6 @@
 from rest_framework import generics,filters
-from .models import UserArtist,UserContr,CommentsToArtists,Proposal
-from .serializers import UserArtistSerializer,UserContrSerializer,CommentsToArtistSerailizer,ProposalSerializer
+from .models import UserArtist,UserContr,CommentsToArtists,Proposal,ArtistsTypes
+from .serializers import UserArtistSerializer,UserContrSerializer,CommentsToArtistSerailizer,ProposalSerializer,ArtistsTypesSerializer
 import os
 from django.conf import settings
 from django.shortcuts import render 
@@ -52,3 +52,9 @@ class ProposalPost(generics.ListCreateAPIView):
 class ProposalUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = Proposal.objects.all()
     serializer_class = ProposalSerializer
+
+class StyleArtist(generics.ListCreateAPIView):
+    search_fields = ['artistType']
+    filter_backends = (filters.SearchFilter, )
+    queryset = ArtistsTypes.objects.all()
+    serializer_class = ArtistsTypesSerializer

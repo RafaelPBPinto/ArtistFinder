@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'url.dart';
 import 'package:artist_finder/pages/artist_profile.dart';
 import 'package:artist_finder/components/operationdata.dart';
+import './filter.dart';
 
 List<String> fetchUsername() {
   List<String> artistname = [];
@@ -25,6 +26,16 @@ class CustomSearchDelegate extends SearchDelegate {
           query = '';
         },
         icon: const Icon(Icons.clear),
+      ),
+      IconButton(
+        
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DropdownButtonApp()),
+          );
+        },
+        icon: const Icon(Icons.filter_alt),
       ),
     ];
   }

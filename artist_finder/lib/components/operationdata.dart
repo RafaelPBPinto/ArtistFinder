@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:artist_finder/models/Artist.dart';
 import 'package:artist_finder/models/Proposal.dart';
+import 'package:artist_finder/models/ArtistType.dart';
 
 /// Function to fecth all users from the api, artist and contratants
 void fetchUsers(BuildContext context) async {
@@ -381,4 +382,60 @@ Future<void> editArtist(BuildContext context, Artist newuser) async {
   await request.send();
 
   fetchUsers(context);
+}
+
+
+Future<List<ArtistType>> artistTypeAll() async {
+  // Fetch Artist users and store in artlist
+  try {
+    http.Response response = await http.get(Uri.parse('$api/artistsType'));
+    var data = utf8.decode(response.bodyBytes);
+    var jsondata = json.decode(data);
+    artistType = [];
+    jsondata.forEach((artist) {
+      ArtistType newuser = ArtistType(
+        artistType: artist['artistType'],
+        style: artist['style']
+      );
+      artistType.add(newuser);
+    });
+  } catch (e) {
+    print(e);
+  }
+
+  print(artistType);
+  return artistType;
+}
+
+Future<List<String>> searchStyleApi(String query) async{
+
+  // print(query);
+  // http.Response test = await http.get(Uri.parse('$api/artistsType?search=musician'));
+  // print("teste musico $test");
+  List<ArtistType> styles = [];
+  try {
+    print(query);
+    http.Response response = await http.get(Uri.parse('$api/artistsType?search=$query'));
+    print(response);
+    var data = json.decode(response.body);
+    styles = [];
+    data.forEach((artist) {
+      ArtistType newuser = ArtistType(
+        artistType: artist['artistType'],
+        style: artist['style']
+      );
+      styles.add(newuser);
+    });
+  } catch (e) {
+    print(e);
+  }
+
+  filterStyles =[];
+  for(var element in styles){
+    filterStyles.add(element.style) ;
+  }
+  return filterStyles;
+
+  //print(filterStyles);
+
 }

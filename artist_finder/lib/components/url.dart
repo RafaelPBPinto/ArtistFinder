@@ -1,9 +1,11 @@
 import 'package:artist_finder/models/Contratant.dart';
 import 'package:artist_finder/models/Artist.dart';
 import 'package:artist_finder/models/Proposal.dart';
+import 'package:artist_finder/models/ArtistType.dart';
+
 
 /// String with a server link
-const String api = 'http://192.168.1.109:8000';
+const String api = 'http://localhost:8000';
 
 /// List to save all contratant users , global variable
 List<Contratant> contrlist = [];
@@ -348,3 +350,10 @@ final Map<String, List<String>> cities = {
     'Vouzela',
   ],
 };
+
+
+/// List to save all artist users, global variable
+
+List<ArtistType> artistType = [];
+
+List<String> filterStyles = [];
