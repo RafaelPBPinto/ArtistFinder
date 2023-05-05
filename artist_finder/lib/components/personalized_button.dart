@@ -9,26 +9,29 @@ class PersonalizedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => page),
-      ),
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-          foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-          textStyle: MaterialStateProperty.all<TextStyle>(
-            const TextStyle(fontSize: 13.0, fontWeight: FontWeight.normal),
+    return Container(
+        width: 100,
+        height: 50,
+        child: ElevatedButton(
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => page),
           ),
-          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-          )),
-      child: text,
-    );
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              textStyle: MaterialStateProperty.all<TextStyle>(
+                const TextStyle(fontSize: 13.0, fontWeight: FontWeight.normal),
+              ),
+              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              ),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+              )),
+          child: text,
+        ));
   }
 }

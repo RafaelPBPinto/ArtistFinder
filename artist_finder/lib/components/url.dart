@@ -3,9 +3,8 @@ import 'package:artist_finder/models/Artist.dart';
 import 'package:artist_finder/models/Proposal.dart';
 import 'package:artist_finder/models/ArtistType.dart';
 
-
 /// String with a server link
-const String api = 'http://localhost:8000';
+const String api = 'http://192.168.1.108:8000';
 
 /// List to save all contratant users , global variable
 List<Contratant> contrlist = [];
@@ -15,6 +14,8 @@ List<Artist> artlist = [];
 
 /// Store the comments with artists id as key and its comments with a map with contratant id as key and comment as String
 Map<int, Map<int, String>> comments = {};
+
+Map<String, List<String>> logintypestyle = {};
 
 ///User at the moment
 Contratant activecontratant =
@@ -29,6 +30,7 @@ Artist activeartist = Artist(
     password: '',
     data_nasc: '',
     type: '',
+    subtype: '',
     locality: '',
     description: '',
     image_url: null,
@@ -350,7 +352,6 @@ final Map<String, List<String>> cities = {
     'Vouzela',
   ],
 };
-
 
 /// List to save all artist users, global variable
 

@@ -1,5 +1,6 @@
 import 'package:artist_finder/components/my_button.dart';
 import 'package:artist_finder/components/url.dart';
+import 'package:artist_finder/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_finder/components/customsearch.dart';
 import 'package:artist_finder/components/operationdata.dart';
@@ -60,10 +61,11 @@ class _ContrPageState extends State<ContrPage> {
         backgroundColor: Colors.blue[600],
         centerTitle: true,
         bottomOpacity: 10,
-        /* leading: const IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: null,
-        ), */
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LoginPage())),
+        ),
         actions: [
           IconButton(
               onPressed: () => fetchUsers(context),
@@ -165,7 +167,8 @@ class _ContrPageState extends State<ContrPage> {
               ),
             ),
             title: Text(artist.username),
-            subtitle: Text("${artist.type} \nAvaliação: ${artist.avaliation}"),
+            subtitle: Text(
+                "${artist.type} , ${artist.subtype} \nAvaliação: ${artist.avaliation}"),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () => Navigator.push(
                 context,

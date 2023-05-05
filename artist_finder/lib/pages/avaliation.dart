@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:artist_finder/components/url.dart';
+import 'package:artist_finder/pages/contr_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:artist_finder/components/my_button.dart';
@@ -29,10 +30,14 @@ class _AvaliationState extends State<Avaliation> {
       avaliationfetch(widget.artist, (artperf + intpub) / 2);
       commentfecth(context, comment, widget.artist.id, activecontratant.id);
       fetchUsers(context);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content:
+            Text("Comentário e avaliação do artista adicionadas com sucesso"),
+        backgroundColor: Colors.black,
+        duration: Duration(seconds: 2),
+      ));
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ArtistProfile(artist: widget.artist)));
+          context, MaterialPageRoute(builder: (context) => const ContrPage()));
     }
   }
 

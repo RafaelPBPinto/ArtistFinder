@@ -15,28 +15,28 @@ class NegotiationPage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.blue,
-        title: Row(children: [
-          IconButton(icon: const BackButton(), onPressed: goBack),
-          const CircleAvatar(
-            backgroundImage: AssetImage('lib/images/pedro.jpg'),
-          ),
-          const SizedBox(width: 15),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
-                "Pedro Piaf",
-                style: TextStyle(fontSize: 16),
-              ),
-            ],
-          )
-        ]),
-      ),
-      body: NegotiationBody(artist),
-    );
+        backgroundColor: Colors.grey[300],
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.blue,
+          title: Row(children: [
+            IconButton(icon: const BackButton(), onPressed: goBack),
+            const CircleAvatar(
+              backgroundImage: AssetImage('lib/images/pedro.jpg'),
+            ),
+            const SizedBox(width: 15),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  "Pedro Piaf",
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            )
+          ]),
+        ),
+        body: Text('To done') //NegotiationBody(artist),
+        );
   }
 }

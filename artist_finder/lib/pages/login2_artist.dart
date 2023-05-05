@@ -32,11 +32,13 @@ class _Login2ArtistState extends State<Login2Artist> {
   final localController = TextEditingController();
   String? type = 'Musico';
   String desc = '';
-  String? district = '';
-  List<String>? city = ['', 'Choose district first'];
-  List<String> types = ['Musico', 'Humorista', 'Palhaco', 'Outro'];
+  String? district = 'Aveiro';
+  String? style = 'Pop';
+  List<String>? city = cities['Aveiro'];
+  List<String> types = [];
+  List<String>? styles = logintypestyle['Musico'];
   List<String> districts = [];
-  String? locality = '';
+  String? locality = 'Águeda';
   XFile? imagefile;
   bool addedimage = false;
   final ImagePicker picker = ImagePicker();
@@ -59,6 +61,9 @@ class _Login2ArtistState extends State<Login2Artist> {
   void initState() {
     super.initState();
     districts_pushed();
+    for (String element in logintypestyle.keys) {
+      types.add(element);
+    }
   }
 
   @override
@@ -83,6 +88,7 @@ class _Login2ArtistState extends State<Login2Artist> {
             password: widget.password,
             data_nasc: widget.data_nasc,
             type: type.toString(),
+            subtype: style,
             avaliation: 0,
             locality: '$locality , $district',
             description: desc,
@@ -111,59 +117,30 @@ class _Login2ArtistState extends State<Login2Artist> {
           child: SingleChildScrollView(
             child: Center(
               child: Column(children: [
-                const SizedBox(height: 50),
+                const SizedBox(height: 30),
 
                 // Title
-                Text(
-                  'Mais um passo',
+                const Text(
+                  'Só mais um passo...',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40,
-                    color: Colors.grey[700],
+                    fontWeight: FontWeight.w600,
+                    fontSize: 30,
+                    color: Colors.black,
                   ),
                 ),
 
-                const SizedBox(height: 25),
-                Text(
+                const SizedBox(height: 10),
+                const Divider(
+                  thickness: 5,
+                  color: Colors.blue,
+                ),
+                const SizedBox(height: 30),
+                const Text(
                   'Adicione o seu distrito',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.grey[700],
-                  ),
-                ),
-
-                const SizedBox(
-                  height: 25,
-                ),
-
-                /// DropDown for cities
-                DropdownButton<String>(
-                    value: district,
-                    items: districts.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? value) {
-                      setState(() {
-                        district = value;
-                        city = cities[district];
-                        locality = city?[0];
-                      });
-                    }),
-
-                const SizedBox(
-                  height: 15,
-                ),
-
-                Text(
-                  'Qual é a sua localidade?',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.grey[700],
+                    color: Colors.black,
                   ),
                 ),
 
@@ -171,37 +148,61 @@ class _Login2ArtistState extends State<Login2Artist> {
                   height: 15,
                 ),
 
-                DropdownButton<String>(
-                  value: locality,
-                  items: city?.map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? value) {
-                    setState(() {
-                      locality = value;
-                    });
-                  },
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue, width: 2),
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.grey[400]),
+
+                  /// DropDown for cities
+                  child: DropdownButton<String>(
+                      underline: Container(),
+                      focusColor: Colors.grey[300],
+                      alignment: Alignment.center,
+                      value: district,
+                      items: districts.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? value) {
+                        setState(() {
+                          district = value;
+                          city = cities[district];
+                          locality = city?[0];
+                        });
+                      }),
+                ),
+                const SizedBox(
+                  height: 30,
                 ),
 
-                Text(
-                  'Qual é o seu tipo de artista?',
+                const Text(
+                  'Adicione a sua localidade',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.grey[700],
+                    color: Colors.black,
                   ),
                 ),
 
                 const SizedBox(
-                  height: 25,
+                  height: 15,
                 ),
-
-                DropdownButton<String>(
-                    value: type,
-                    items: types.map((String value) {
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue, width: 2),
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.grey[400]),
+                  child: DropdownButton<String>(
+                    underline: Container(),
+                    focusColor: Colors.grey[300],
+                    alignment: Alignment.center,
+                    value: locality,
+                    items: city?.map((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -209,24 +210,119 @@ class _Login2ArtistState extends State<Login2Artist> {
                     }).toList(),
                     onChanged: (String? value) {
                       setState(() {
-                        type = value;
+                        locality = value;
                       });
-                    }),
-
-                const SizedBox(
-                  height: 25,
-                ),
-                Text(
-                  'Adicione uma foto de perfil!',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.grey[700],
+                    },
                   ),
                 ),
 
                 const SizedBox(
-                  height: 25,
+                  height: 30,
+                ),
+                const Divider(
+                  thickness: 2.5,
+                  color: Colors.blue,
+                ),
+
+                const SizedBox(
+                  height: 30,
+                ),
+
+                const Text(
+                  'Adicione o seu tipo de artista',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 15,
+                ),
+
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue, width: 2),
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.grey[400]),
+                  child: DropdownButton<String>(
+                      underline: Container(),
+                      alignment: Alignment.center,
+                      focusColor: Colors.grey[300],
+                      value: type,
+                      items: types.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? value) {
+                        setState(() {
+                          type = value;
+                          styles = logintypestyle[type];
+                          style = styles?[0];
+                        });
+                      }),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                const Text(
+                  'Adicione o seu estilo de artista',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue, width: 2),
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.grey[400]),
+                  child: DropdownButton<String>(
+                      underline: Container(),
+                      focusColor: Colors.grey[300],
+                      alignment: Alignment.center,
+                      value: style,
+                      items: styles?.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? value) {
+                        setState(() {
+                          style = value;
+                        });
+                      }),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                const Divider(
+                  thickness: 2.5,
+                  color: Colors.blue,
+                ),
+
+                const SizedBox(
+                  height: 30,
+                ),
+                const Text(
+                  'Adicione a sua foto de perfil',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 15,
                 ),
                 ElevatedButton(
                   onPressed: () => {addedimage == true ? null : pickImage()},
@@ -237,6 +333,28 @@ class _Login2ArtistState extends State<Login2Artist> {
                   child: const Text('Selecioar foto!'),
                 ),
 
+                const SizedBox(
+                  height: 30,
+                ),
+                const Divider(
+                  thickness: 2.5,
+                  color: Colors.blue,
+                ),
+
+                const SizedBox(
+                  height: 30,
+                ),
+                const Text(
+                  'Adicione uma breve descrição',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: TextField(

@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
         "login": (BuildContext context) => LoginPage(),
         "createAccount": (BuildContext context) => CreateAccountPage(),
         "artistpage": (BuildContext context) => ArtistPage(),
-        "negotiation": (BuildContext context) => NegotiationPage(),
         "contrpage": (BuildContext context) => ContrPage()
       },
     );

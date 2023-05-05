@@ -24,6 +24,7 @@ void fetchUsers(BuildContext context) async {
           password: user['password'],
           data_nasc: user['data_nasc'],
           type: user['type'],
+          subtype: user['subtype'],
           avaliation: user['avaliation'],
           locality: user['locality'],
           description: user['description'],
@@ -129,7 +130,7 @@ void postContratant(BuildContext context, Contratant newuser) async {
 Future<void> postArtist(BuildContext context, Artist newuser) async {
   String usertype = '/artists';
 
-  var request = await http.MultipartRequest('POST', Uri.parse(api + usertype));
+  var request = http.MultipartRequest('POST', Uri.parse(api + usertype));
   request.fields["username"] = newuser.username;
   request.fields["email"] = newuser.email;
   request.fields["password"] = newuser.password;
@@ -137,6 +138,7 @@ Future<void> postArtist(BuildContext context, Artist newuser) async {
   request.fields["locality"] = newuser.locality;
   request.fields["avaliation"] = newuser.avaliation.toString();
   request.fields["type"] = newuser.type;
+  request.fields["subtype"] = newuser.subtype!;
   request.fields["description"] = newuser.description;
   request.files
       .add(await http.MultipartFile.fromPath("image_url", newuser.image_url));
@@ -173,6 +175,7 @@ Artist ArtistActive(String email, String password) {
       data_nasc: '',
       avaliation: 0,
       type: '',
+      subtype: '',
       locality: '',
       description: '',
       image_url: null,
@@ -194,6 +197,7 @@ Artist ArtistByUsername(String username) {
       data_nasc: '',
       avaliation: 0,
       type: '',
+      subtype: '',
       locality: '',
       description: '',
       image_url: null,
@@ -318,7 +322,7 @@ void proposalfetch(int artistid) async {
     var data = json.decode(response.body);
     data.forEach((proposal) {
       Proposal propost = Proposal(
-          contr_id: proposal['id_contr'],
+          contrid: proposal['id_contr'],
           details: proposal['details'],
           hours: proposal['hours'],
           date: proposal['date'],
@@ -384,7 +388,6 @@ Future<void> editArtist(BuildContext context, Artist newuser) async {
   fetchUsers(context);
 }
 
-
 Future<List<ArtistType>> artistTypeAll() async {
   // Fetch Artist users and store in artlist
   try {
@@ -393,10 +396,8 @@ Future<List<ArtistType>> artistTypeAll() async {
     var jsondata = json.decode(data);
     artistType = [];
     jsondata.forEach((artist) {
-      ArtistType newuser = ArtistType(
-        artistType: artist['artistType'],
-        style: artist['style']
-      );
+      ArtistType newuser =
+          ArtistType(artistType: artist['artistType'], style: artist['style']);
       artistType.add(newuser);
     });
   } catch (e) {
@@ -407,35 +408,50 @@ Future<List<ArtistType>> artistTypeAll() async {
   return artistType;
 }
 
-Future<List<String>> searchStyleApi(String query) async{
-
+Future<List<String>> searchStyleApi(String query) async {
   // print(query);
   // http.Response test = await http.get(Uri.parse('$api/artistsType?search=musician'));
   // print("teste musico $test");
   List<ArtistType> styles = [];
   try {
     print(query);
-    http.Response response = await http.get(Uri.parse('$api/artistsType?search=$query'));
+    http.Response response =
+        await http.get(Uri.parse('$api/artistsType?search=$query'));
     print(response);
     var data = json.decode(response.body);
     styles = [];
     data.forEach((artist) {
-      ArtistType newuser = ArtistType(
-        artistType: artist['artistType'],
-        style: artist['style']
-      );
+      ArtistType newuser =
+          ArtistType(artistType: artist['artistType'], style: artist['style']);
       styles.add(newuser);
     });
   } catch (e) {
     print(e);
   }
 
-  filterStyles =[];
-  for(var element in styles){
-    filterStyles.add(element.style) ;
+  filterStyles = [];
+  for (var element in styles) {
+    filterStyles.add(element.style);
   }
   return filterStyles;
 
   //print(filterStyles);
+}
 
+Future<void> fetchTypeStyle() async {
+  try {
+    http.Response response = await http.get(Uri.parse('$api/artistsType'));
+    var data = utf8.decode(response.bodyBytes);
+    var jsondata = json.decode(data);
+    jsondata.forEach((artist) {
+      if (logintypestyle.containsKey(artist['artistType'])) {
+        logintypestyle[artist['artistType']]?.add(artist['style']);
+      } else {
+        logintypestyle[artist['artistType']] = [artist['style']];
+      }
+    });
+    print(logintypestyle);
+  } catch (e) {
+    print("Error: $e");
+  }
 }

@@ -95,7 +95,7 @@ class _ArtistProfileState extends State<ArtistProfile> {
             const SizedBox(width: 20),
             Column(children: [
               Text(
-                'Name:',
+                'Nome:',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 15,
@@ -107,9 +107,19 @@ class _ArtistProfileState extends State<ArtistProfile> {
               ),
               Text(
                 widget.artist.username,
-                style: TextStyle(
+                style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
+                    color: Colors.black),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                '${widget.artist.type} , ${widget.artist.subtype}',
+                style: TextStyle(
+                    fontWeight: FontWeight.w300,
+                    fontSize: 15,
                     color: Colors.grey[700]),
               )
             ]),
@@ -124,7 +134,7 @@ class _ArtistProfileState extends State<ArtistProfile> {
           children: [
             PersonalizedButton(
                 page: Proposal(artist: widget.artist),
-                text: const Text("Fazer\n proposta")),
+                text: const Text("Fazer\nproposta")),
             const SizedBox(
               width: 16,
             ),
@@ -142,12 +152,17 @@ class _ArtistProfileState extends State<ArtistProfile> {
           ],
         ),
         const SizedBox(height: 30),
-        Text(
+        const Divider(
+          thickness: 2.5,
+          color: Colors.blue,
+        ),
+        const SizedBox(height: 20),
+        const Text(
           "Avaliação",
           style: TextStyle(
             fontWeight: FontWeight.w400,
-            fontSize: 15,
-            color: Colors.grey[700],
+            fontSize: 20,
+            color: Colors.black,
           ),
         ),
         const SizedBox(
@@ -172,49 +187,57 @@ class _ArtistProfileState extends State<ArtistProfile> {
         Text(
           'Numero de avaliações: ${widget.artist.no_avaliations}',
           style: TextStyle(
-              fontWeight: FontWeight.w200,
+              fontWeight: FontWeight.w300,
               fontSize: 15,
               color: Colors.grey[700]),
         ),
         const SizedBox(
           height: 30,
         ),
-        Text(
-          'Descrição:',
+        const Divider(
+          thickness: 2.5,
+          color: Colors.blue,
+        ),
+        const SizedBox(height: 20),
+        const Text(
+          'Descrição do artista:',
           style: TextStyle(
             fontWeight: FontWeight.w400,
-            fontSize: 15,
-            color: Colors.grey[700],
+            fontSize: 20,
+            color: Colors.black,
           ),
         ),
         const SizedBox(
           height: 20,
         ),
-        Text(
-          widget.artist.description,
-          style: TextStyle(
-            fontWeight: FontWeight.w300,
-            fontSize: 15,
-            color: Colors.grey[700],
-          ),
-        ),
+        Padding(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              widget.artist.description,
+              style: TextStyle(
+                fontWeight: FontWeight.w300,
+                fontSize: 15,
+                color: Colors.grey[700],
+              ),
+            )),
         const SizedBox(
           height: 20,
         ),
-        Text(
+        const Divider(
+          thickness: 2.5,
+          color: Colors.blue,
+        ),
+        const SizedBox(height: 20),
+        const Text(
           'Comentários sobre as prestações: ',
           style: TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 20,
-            color: Colors.grey[700],
+            color: Colors.black,
           ),
         ),
         const SizedBox(
           height: 10,
-        ),
-        const Divider(
-          height: 10,
-          color: Colors.black,
         ),
         ListView.separated(
             separatorBuilder: (context, index) {
@@ -233,9 +256,24 @@ class _ArtistProfileState extends State<ArtistProfile> {
                 ),
               );
             }),
-        const Divider(
-          height: 10,
-          color: Colors.black,
+        if (commentaux.isNotEmpty)
+          const Divider(
+            height: 10,
+            color: Colors.black,
+          ),
+        if (commentaux.isEmpty)
+          Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                "Ainda sem comentarios sobre as suas prestações !",
+                style: TextStyle(
+                  fontWeight: FontWeight.w300,
+                  fontSize: 15,
+                  color: Colors.grey[700],
+                ),
+              )),
+        const SizedBox(
+          height: 15,
         )
       ]))),
     );

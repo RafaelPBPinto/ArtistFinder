@@ -24,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     fetchUsers(context);
+    fetchTypeStyle();
   }
 
   @override

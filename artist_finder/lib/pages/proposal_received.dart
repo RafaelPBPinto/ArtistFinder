@@ -48,7 +48,7 @@ class _ProposalReceivedState extends State<ProposalReceived> {
                       ),
                     ), */
 
-                      title: Text(ContratantById(proposal.contr_id)),
+                      title: Text(ContratantById(proposal.contrid)),
                       subtitle: Text(
                           "Dia: ${proposal.date} , Hora: ${proposal.hours} , Preço: ${proposal.price} euros"),
                       trailing: const Icon(Icons.arrow_forward_ios),

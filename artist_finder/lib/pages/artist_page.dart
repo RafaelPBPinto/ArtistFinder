@@ -82,7 +82,7 @@ class _ArtistPageState extends State<ArtistPage> {
               const SizedBox(width: 20),
               Column(children: [
                 Text(
-                  'Name:',
+                  'Nome:',
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 15,
@@ -92,11 +92,20 @@ class _ArtistPageState extends State<ArtistPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                Text(
-                  activeartist.username,
-                  style: TextStyle(
+                Text(activeartist.username,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
+                      color: Colors.black,
+                    )),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  '${activeartist.type} , ${activeartist.subtype}',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 15,
                       color: Colors.grey[700]),
                 )
               ]),
@@ -122,17 +131,22 @@ class _ArtistPageState extends State<ArtistPage> {
               const SizedBox(
                 width: 16,
               ),
-              PersonalizedButton(
-                  page: EditArtProfile(), text: const Text("Editar\nperfil"))
+              const PersonalizedButton(
+                  page: EditArtProfile(), text: Text("Editar\nperfil"))
             ],
           ),
           const SizedBox(height: 30),
-          Text(
+          const Divider(
+            thickness: 2.5,
+            color: Colors.blue,
+          ),
+          const SizedBox(height: 20),
+          const Text(
             "Avaliação",
             style: TextStyle(
               fontWeight: FontWeight.w400,
-              fontSize: 15,
-              color: Colors.grey[700],
+              fontSize: 20,
+              color: Colors.black,
             ),
           ),
           const SizedBox(
@@ -157,49 +171,57 @@ class _ArtistPageState extends State<ArtistPage> {
           Text(
             'Numero de avaliações: ${activeartist.no_avaliations}',
             style: TextStyle(
-                fontWeight: FontWeight.w200,
+                fontWeight: FontWeight.w300,
                 fontSize: 15,
                 color: Colors.grey[700]),
           ),
           const SizedBox(
             height: 30,
           ),
-          Text(
-            'Descrição:',
+          const Divider(
+            thickness: 2.5,
+            color: Colors.blue,
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            'Descrição do artista:',
             style: TextStyle(
               fontWeight: FontWeight.w400,
-              fontSize: 15,
-              color: Colors.grey[700],
+              fontSize: 20,
+              color: Colors.black,
             ),
           ),
           const SizedBox(
             height: 20,
           ),
-          Text(
-            activeartist.description,
-            style: TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: 15,
-              color: Colors.grey[700],
-            ),
-          ),
+          Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                activeartist.description,
+                style: TextStyle(
+                  fontWeight: FontWeight.w300,
+                  fontSize: 15,
+                  color: Colors.grey[700],
+                ),
+              )),
           const SizedBox(
             height: 20,
           ),
-          Text(
+          const Divider(
+            thickness: 2.5,
+            color: Colors.blue,
+          ),
+          const SizedBox(height: 20),
+          const Text(
             'Comentários sobre as prestações: ',
             style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 20,
-              color: Colors.grey[700],
+              color: Colors.black,
             ),
           ),
           const SizedBox(
             height: 10,
-          ),
-          const Divider(
-            height: 10,
-            color: Colors.black,
           ),
           ListView.separated(
               separatorBuilder: (context, index) {
@@ -218,9 +240,24 @@ class _ArtistPageState extends State<ArtistPage> {
                   ),
                 );
               }),
-          const Divider(
-            height: 10,
-            color: Colors.black,
+          if (commentaux.isNotEmpty)
+            const Divider(
+              height: 10,
+              color: Colors.black,
+            ),
+          if (commentaux.isEmpty)
+            Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  "Ainda sem comentarios sobre as suas prestações !",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w300,
+                    fontSize: 15,
+                    color: Colors.grey[700],
+                  ),
+                )),
+          const SizedBox(
+            height: 15,
           )
         ]))));
   }

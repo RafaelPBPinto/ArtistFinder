@@ -7,6 +7,7 @@ class Artist {
   String type;
   double avaliation;
   String description = "Sem descricao adicionada pelo artista";
+  String? subtype;
   String locality;
   dynamic image_url;
   int no_avaliations;
@@ -17,6 +18,7 @@ class Artist {
       required this.password,
       required this.data_nasc,
       required this.type,
+      required this.subtype,
       required this.avaliation,
       required this.locality,
       required this.description,
