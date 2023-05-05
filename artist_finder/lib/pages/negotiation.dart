@@ -2,9 +2,11 @@
 // https://www.youtube.com/watch?v=uiJF-ShOLyo
 import 'package:flutter/material.dart';
 import 'package:artist_finder/components/negotiation_body.dart';
+import 'package:artist_finder/models/Artist.dart';
 
 class NegotiationPage extends StatelessWidget {
-  const NegotiationPage({super.key});
+  final Artist artist;
+  const NegotiationPage({super.key, required this.artist});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class NegotiationPage extends StatelessWidget {
           )
         ]),
       ),
-      body: const NegotiationBody(),
+      body: NegotiationBody(artist),
     );
   }
 }

@@ -86,7 +86,7 @@ class _Login2ArtistState extends State<Login2Artist> {
             avaliation: 0,
             locality: '$locality , $district',
             description: desc,
-            image_url: imagefile!.path,
+            image_url: imagefile?.path,
             no_avaliations: 0);
 
         postArtist(context, newuser);

@@ -5,6 +5,9 @@ enum MessageStatus { not_sent, not_view, viewed }
 enum OfferStatus { pending, accepted, rejected }
 
 class ChatMessage {
+  final int id;
+  final int id_contratante;
+  final int id_artista;
   final String text;
   final ChatMessageType messageType;
   final MessageStatus messageStatus;
@@ -12,6 +15,9 @@ class ChatMessage {
   final bool isSender;
 
   ChatMessage({
+    this.id = 0,
+    this.id_contratante = 0,
+    this.id_artista = 0,
     this.text = '',
     required this.messageType,
     required this.messageStatus,
@@ -21,7 +27,7 @@ class ChatMessage {
 }
 
 List demoChatMessages = [
-  ChatMessage(
+  /*ChatMessage(
     text: "Olá",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,
@@ -65,5 +71,5 @@ List demoChatMessages = [
     messageType: ChatMessageType.offer,
     offerStatus: OfferStatus.accepted,
     isSender: true,
-  )
+  )*/
 ];
