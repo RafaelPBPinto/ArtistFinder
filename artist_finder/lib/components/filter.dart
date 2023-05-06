@@ -1,6 +1,8 @@
+import 'package:artist_finder/components/my_button.dart';
 import 'package:flutter/material.dart';
 import 'url.dart';
 import 'package:artist_finder/components/operationdata.dart';
+import 'package:artist_finder/pages/contr_page_filtered.dart';
 
 Set<String> _artistsTypetest = {};
 
@@ -15,29 +17,35 @@ class DropdownButtonApp extends StatefulWidget {
 // Todos os botões da página de filtragem
 
 class _DropdownScreenState extends State<DropdownButtonApp> {
-  List<String> artistsTypetest = [];
+  List<String> types = [];
   bool isLoading = true;
   bool isLoadingStyle = false;
+  void filter() {
+    if (artisType == null) {
+      showPopUp("Incompleto", "Escolha um filtro antes de filtrar", context);
+    } else if (style == null) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: ((context) =>
+                  ContrPageFiltered(type: artisType.toString()))));
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: ((context) => ContrPageFiltered(
+                    type: artisType,
+                    style: style,
+                  ))));
+    }
+  }
 
   @override
   void initState() {
-    listTypeArtist();
     super.initState();
-  }
-
-  Future listTypeArtist() async {
-    artistType = await artistTypeAll();
-
-    for (var elemnt in artistType) {
-      _artistsTypetest.add(elemnt.artistType);
+    for (String element in logintypestyle.keys) {
+      types.add(element);
     }
-
-    artistsTypetest = List<String>.from(_artistsTypetest);
-    print("todo o tipo de artistas $artistsTypetest");
-
-    setState(() {
-      isLoading = false;
-    });
   }
 
   List<String> _styles = <String>[];
@@ -51,32 +59,15 @@ class _DropdownScreenState extends State<DropdownButtonApp> {
   bool isTypeSelected = false;
 
   List<dynamic> searchResults = [];
-  List<String> styleResults = [];
-
-  Future listStyle(String query) async {
-    styleResults = await searchStyleApi(query);
-
-    setState(() {
-      isLoadingStyle = true;
-    });
-  }
+  List<String>? styleResults = [];
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading) {
-      return Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    }
-
     return Scaffold(
-      appBar: AppBar(title: Text("Filter")),
+      appBar: AppBar(title: Text("Filtros")),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //========================Country
 
@@ -88,23 +79,19 @@ class _DropdownScreenState extends State<DropdownButtonApp> {
                 padding: const EdgeInsets.all(15.0),
                 child: DropdownButton<String>(
                     underline: Container(),
-                    hint: Text("Select type of artist"),
+                    hint: const Text("Selecione tipo de artista"),
                     icon: const Icon(Icons.keyboard_arrow_down),
                     isDense: true,
                     isExpanded: true,
-                    items: artistsTypetest
-                        .map<DropdownMenuItem<String>>((String ctry) {
+                    items: types.map((String value) {
                       return DropdownMenuItem<String>(
-                          value: ctry, child: Text(ctry));
+                          value: value, child: Text(value));
                     }).toList(),
                     value: artisType,
                     onChanged: (value) {
-                      searchResults.clear();
-                      listStyle(value.toString());
-                      print("teste $styleResults");
                       setState(() {
-                        _styles = [];
-                        artisType = value!;
+                        artisType = value;
+                        styleResults = logintypestyle[artisType];
 
                         isTypeSelected = true;
                       });
@@ -113,33 +100,40 @@ class _DropdownScreenState extends State<DropdownButtonApp> {
             ),
 
 //======================================= State
-            if (isTypeSelected && isLoadingStyle)
+            if (isTypeSelected)
               Card(
-                  color: Colors.purple.withOpacity(0.5),
+                  color: Colors.grey[300],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     child: DropdownButton<String>(
                         underline: Container(),
-                        hint: Text("Select Style of Artist"),
+                        hint: const Text("Select Style of Artist"),
                         icon: const Icon(Icons.keyboard_arrow_down),
                         isDense: true,
                         isExpanded: true,
-                        items: styleResults
-                            .map<DropdownMenuItem<String>>((String ctx) {
+                        items: styleResults?.map((String ctx) {
                           return DropdownMenuItem<String>(
                               value: ctx, child: Text(ctx));
                         }).toList(),
                         value: style,
                         onChanged: (value) {
                           setState(() {
-                            style = value!;
+                            style = value;
                           });
                         }),
                   ))
             else
               Container(),
+
+            const SizedBox(
+              height: 30,
+            ),
+            MyButton(
+                onTap: filter,
+                text: const Text("Filtrar"),
+                color: isTypeSelected ? Colors.green : Colors.grey)
           ],
         ),
       ),

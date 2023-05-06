@@ -6,6 +6,8 @@ import 'package:artist_finder/models/ArtistType.dart';
 /// String with a server link
 const String api = 'http://192.168.1.108:8000';
 
+bool activatedfilters = false;
+
 /// List to save all contratant users , global variable
 List<Contratant> contrlist = [];
 

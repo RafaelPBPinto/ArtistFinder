@@ -388,56 +388,6 @@ Future<void> editArtist(BuildContext context, Artist newuser) async {
   fetchUsers(context);
 }
 
-Future<List<ArtistType>> artistTypeAll() async {
-  // Fetch Artist users and store in artlist
-  try {
-    http.Response response = await http.get(Uri.parse('$api/artistsType'));
-    var data = utf8.decode(response.bodyBytes);
-    var jsondata = json.decode(data);
-    artistType = [];
-    jsondata.forEach((artist) {
-      ArtistType newuser =
-          ArtistType(artistType: artist['artistType'], style: artist['style']);
-      artistType.add(newuser);
-    });
-  } catch (e) {
-    print(e);
-  }
-
-  print(artistType);
-  return artistType;
-}
-
-Future<List<String>> searchStyleApi(String query) async {
-  // print(query);
-  // http.Response test = await http.get(Uri.parse('$api/artistsType?search=musician'));
-  // print("teste musico $test");
-  List<ArtistType> styles = [];
-  try {
-    print(query);
-    http.Response response =
-        await http.get(Uri.parse('$api/artistsType?search=$query'));
-    print(response);
-    var data = json.decode(response.body);
-    styles = [];
-    data.forEach((artist) {
-      ArtistType newuser =
-          ArtistType(artistType: artist['artistType'], style: artist['style']);
-      styles.add(newuser);
-    });
-  } catch (e) {
-    print(e);
-  }
-
-  filterStyles = [];
-  for (var element in styles) {
-    filterStyles.add(element.style);
-  }
-  return filterStyles;
-
-  //print(filterStyles);
-}
-
 Future<void> fetchTypeStyle() async {
   try {
     http.Response response = await http.get(Uri.parse('$api/artistsType'));
