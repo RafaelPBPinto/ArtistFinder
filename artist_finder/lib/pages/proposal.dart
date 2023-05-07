@@ -1,7 +1,6 @@
 import 'package:artist_finder/components/operationdata.dart';
 import 'package:artist_finder/components/url.dart';
 import 'package:artist_finder/models/Artist.dart';
-import 'package:artist_finder/pages/contr_page.dart';
 import 'package:flutter/material.dart';
 
 import '../components/select_date_field.dart';
@@ -13,7 +12,7 @@ class Proposal extends StatefulWidget {
   const Proposal({super.key, required this.artist});
 
   @override
-  State<Proposal> createState() => _ProposalState();
+  State<Proposal> createState() => _ProposalState(artist);
 }
 
 class _ProposalState extends State<Proposal> {
@@ -22,7 +21,12 @@ class _ProposalState extends State<Proposal> {
   final descController = TextEditingController();
   String details = '';
   String data_nasc = '';
+  String hours = '';
   double price = 0;
+  final Artist artist;
+
+  _ProposalState(this.artist);
+
   void _selectTime() async {
     final TimeOfDay? newTime = await showTimePicker(
       context: context,
@@ -54,24 +58,8 @@ class _ProposalState extends State<Proposal> {
   }
 
   void makeproposal() {
-    if (price == 0) {
-      showPopUp(
-          "Incompleto", "Adicione o preço que se propôe a pagar", context);
-    } else if (data_nasc == '') {
-      showPopUp("Incompleto",
-          "Selecione a data desejada para a atuação do artista", context);
-    } else {
-      proposalpost(details, widget.artist.id, activecontratant.id, price,
-          data_nasc, _time.format(context));
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text(
-            "Proposta enviada com sucesso ! Aguarde agora a resposta do artista"),
-        backgroundColor: Colors.black,
-        duration: Duration(seconds: 2),
-      ));
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const ContrPage()));
-    }
+    proposalpost(details, widget.artist.id, activecontratant.id, price,
+        data_nasc, _time.format(context));
   }
 
   @override
@@ -87,8 +75,7 @@ class _ProposalState extends State<Proposal> {
               onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          NegotiationPage(artist: widget.artist))),
+                      builder: (context) => NegotiationPage(artist: artist))),
               icon: const Icon(
                 Icons.message,
                 color: Colors.white,
@@ -101,12 +88,12 @@ class _ProposalState extends State<Proposal> {
             child: Column(
           children: [
             const SizedBox(height: 20),
-            const Text(
-              'Dia para atuar',
+            Text(
+              'Dia e hora para atuar',
               style: TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 20,
-                color: Colors.black,
+                color: Colors.grey[700],
               ),
             ),
             const SizedBox(
@@ -115,65 +102,46 @@ class _ProposalState extends State<Proposal> {
             SelectDateField(
               controller: dateController,
               onPressed: () => _selectDate(context),
-              text: 'Selecione a data do espetáculo',
+              text: 'Data do espetáculo',
             ),
             const SizedBox(
-              height: 30,
-            ),
-            const Text(
-              'Hora para atuar',
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 20,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(
-              height: 15,
+              height: 20,
             ),
             ElevatedButton(
-                onPressed: _selectTime,
-                child: const Text("Selecione aqui a hora")),
-            Text(
-              "Hora selecionada : ${_time.format(context)}",
-              style: const TextStyle(fontWeight: FontWeight.w300, fontSize: 15),
+                onPressed: _selectTime, child: const Text("Hora para começar")),
+            const SizedBox(
+              height: 20,
             ),
+            Text("Hora selecionada : ${_time.format(context)}"),
             const SizedBox(
               height: 30,
             ),
             const Divider(
-              color: Colors.blue,
-              thickness: 2.5,
+              color: Colors.black,
+              height: 5,
             ),
             const SizedBox(
               height: 30,
             ),
-            const Text(
-              'Preço sobre a atuação',
+            Text(
+              'Preço e detalhes sobre a atuação',
               style: TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 20,
-                color: Colors.black,
+                color: Colors.grey[700],
               ),
             ),
             Padding(
-                padding: const EdgeInsets.all(10),
-                child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.blue, width: 1.5),
-                        borderRadius: BorderRadius.horizontal()),
-                    alignment: Alignment.center,
-                    child: TextFormField(
-                      textAlign: TextAlign.center,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      decoration: const InputDecoration(
-                        labelText: 'Selecione o preço aqui:',
-                      ),
-                      onChanged: (value) {
-                        price = double.parse(value);
-                      },
-                    ))),
+                padding: const EdgeInsets.all(15.0),
+                child: TextFormField(
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                      labelText: 'Preço a pagar ao artista ! '),
+                  onChanged: (value) {
+                    price = double.parse(value);
+                  },
+                )),
             const SizedBox(
               height: 20,
             ),
@@ -191,7 +159,7 @@ class _ProposalState extends State<Proposal> {
                     ),
                     fillColor: Colors.grey.shade200,
                     filled: true,
-                    hintText: 'Deixa aqui detalhes sobre o evento!\n(Opcional)',
+                    hintText: 'Deixa aqui detalhes sobre o evento!',
                     hintStyle: TextStyle(color: Colors.grey[500])),
                 maxLines: 10,
                 onChanged: (String value) {

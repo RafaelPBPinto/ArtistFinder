@@ -21,22 +21,24 @@ class NegotiationPage extends StatelessWidget {
         backgroundColor: Colors.blue,
         title: Row(children: [
           IconButton(icon: const BackButton(), onPressed: goBack),
-          const CircleAvatar(
-            backgroundImage: AssetImage(artist.photo),
+          CircleAvatar(
+            backgroundImage: NetworkImage(
+              artist.image_url,
+            ),
           ),
           const SizedBox(width: 15),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 artist.username,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ],
           )
         ]),
       ),
-      body: NegotiationBody(artist),
+      body: const NegotiationBody(),
     );
   }
 }

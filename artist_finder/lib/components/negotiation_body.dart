@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:artist_finder/components/chat_input_field.dart';
 import 'package:artist_finder/models/ChatMessage.dart';
 import 'package:artist_finder/components/message.dart';
-import 'package:artist_finder/models/Artist.dart';
 
 class NegotiationBody extends StatelessWidget {
-  final Artist artist;
-  const NegotiationBody({super.key, required this.artist});
+  const NegotiationBody({super.key});
 
   @override
   Widget build(BuildContext context) {
