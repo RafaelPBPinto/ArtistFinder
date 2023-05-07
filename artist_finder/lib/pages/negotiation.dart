@@ -22,14 +22,14 @@ class NegotiationPage extends StatelessWidget {
         title: Row(children: [
           IconButton(icon: const BackButton(), onPressed: goBack),
           const CircleAvatar(
-            backgroundImage: AssetImage('lib/images/pedro.jpg'),
+            backgroundImage: AssetImage(artist.photo),
           ),
           const SizedBox(width: 15),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               Text(
-                "Pedro Piaf",
+                artist.name,
                 style: TextStyle(fontSize: 16),
               ),
             ],
