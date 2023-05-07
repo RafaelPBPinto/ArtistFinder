@@ -1,29 +1,27 @@
 import 'package:artist_finder/components/my_button.dart';
 import 'package:artist_finder/components/url.dart';
+import 'package:artist_finder/pages/contr_page.dart';
 import 'package:artist_finder/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_finder/components/customsearch.dart';
 import 'package:artist_finder/components/operationdata.dart';
 import 'package:artist_finder/pages/artist_profile.dart';
 import 'edit_contr_profile.dart';
+import 'package:artist_finder/models/Artist.dart';
 
-List<String> artistname = [];
-
-class ContrPage extends StatefulWidget {
-  const ContrPage({super.key});
+class ContrPageFiltered extends StatefulWidget {
+  final String? type;
+  String? style = null;
+  ContrPageFiltered({super.key, required this.type, this.style});
 
   @override
-  State<ContrPage> createState() => _ContrPageState();
+  State<ContrPageFiltered> createState() => _ContrPageFilteredState();
 }
 
-class _ContrPageState extends State<ContrPage> {
+class _ContrPageFilteredState extends State<ContrPageFiltered> {
+  List<Artist> artlistaux = [];
   int _selectedIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  void AddName() {
-    for (var elemnt in artlist) {
-      artistname.add(elemnt.username);
-    }
-  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -45,11 +43,26 @@ class _ContrPageState extends State<ContrPage> {
         context, MaterialPageRoute(builder: (context) => EditContrProfile()));
   }
 
+  void pushartist() {
+    if (widget.style != null) {
+      for (Artist artist in artlist) {
+        if (artist.type == widget.type && artist.subtype == widget.style) {
+          artlistaux.add(artist);
+        }
+      }
+    } else {
+      for (Artist artist in artlist) {
+        if (artist.type == widget.type) {
+          artlistaux.add(artist);
+        }
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    AddName();
-    fetchUsers(context);
+    pushartist();
   }
 
   @override
@@ -57,7 +70,7 @@ class _ContrPageState extends State<ContrPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text("ArtistFinder"),
+        title: const Text("Pesquisa filtrada"),
         backgroundColor: Colors.blue[600],
         centerTitle: true,
         bottomOpacity: 10,
@@ -68,8 +81,9 @@ class _ContrPageState extends State<ContrPage> {
         ),
         actions: [
           IconButton(
-              onPressed: () => fetchUsers(context),
-              icon: const Icon(Icons.refresh))
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ContrPage())),
+              icon: const Icon(Icons.cancel))
         ],
       ),
       endDrawer: Drawer(
@@ -151,9 +165,9 @@ class _ContrPageState extends State<ContrPage> {
         separatorBuilder: (context, index) {
           return const Divider(height: 10);
         },
-        itemCount: artlist.length,
+        itemCount: artlistaux.length,
         itemBuilder: (BuildContext context, index) {
-          final artist = artlist[index];
+          final artist = artlistaux[index];
           return ListTile(
             leading: Container(
               decoration: BoxDecoration(

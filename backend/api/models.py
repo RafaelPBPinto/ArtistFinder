@@ -44,7 +44,7 @@ class Proposal(models.Model):
     price = models.FloatField(null=False)
     date = models.DateField(null = False)
     hours = models.TimeField(null = False)
-    details = models.CharField(max_length=500,null=False,blank=False)
+    details = models.CharField(max_length=500,null=False,blank=True)
 
 
 #Classe para guardar o tipo de artistas e o tipo de arte

@@ -29,7 +29,7 @@ class NegotiationPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               Text(
-                artist.name,
+                artist.username,
                 style: TextStyle(fontSize: 16),
               ),
             ],

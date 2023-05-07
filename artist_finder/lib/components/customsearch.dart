@@ -15,7 +15,8 @@ List<String> fetchUsername() {
 class CustomSearchDelegate extends SearchDelegate {
   // Demo list to show querying
   List<String> searchTerms = fetchUsername();
-
+  bool filtercliked = false;
+  int count = 0;
   // first overwrite to
   // clear the search text
   @override
@@ -28,14 +29,13 @@ class CustomSearchDelegate extends SearchDelegate {
         icon: const Icon(Icons.clear),
       ),
       IconButton(
-        
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => DropdownButtonApp()),
           );
         },
-        icon: const Icon(Icons.filter_alt),
+        icon: Icon(Icons.filter_alt),
       ),
     ];
   }

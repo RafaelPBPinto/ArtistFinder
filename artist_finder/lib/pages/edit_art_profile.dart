@@ -63,6 +63,7 @@ class _EditArtProfileState extends State<EditArtProfile> {
         password: password,
         data_nasc: activeartist.data_nasc,
         type: activeartist.type,
+        subtype: activeartist.subtype,
         avaliation: activeartist.avaliation,
         locality: '$cityaux , ${local[1]}',
         description: desc,
