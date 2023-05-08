@@ -1,6 +1,7 @@
 import 'package:artist_finder/components/operationdata.dart';
 import 'package:artist_finder/components/url.dart';
 import 'package:flutter/material.dart';
+import 'ace_neg_dec.dart';
 
 class ProposalReceived extends StatefulWidget {
   const ProposalReceived({super.key});
@@ -36,29 +37,16 @@ class _ProposalReceivedState extends State<ProposalReceived> {
                 itemBuilder: (BuildContext context, index) {
                   final proposal = proposlist[index];
                   return ListTile(
-                      /* leading: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: Colors.blue, width: 4)),
-                      child: Image.network(
-                        artist.image_url ?? '$api/images/DEFAULT.jpg',
-                        fit: BoxFit.cover,
-                        height: 40,
-                        width: 40,
-                      ),
-                    ), */
-
-                      title: Text(ContratantById(proposal.contrid)),
-                      subtitle: Text(
-                          "Dia: ${proposal.date} , Hora: ${proposal.hours} , Preço: ${proposal.price} euros"),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                      onTap: () =>
-                          null /* Navigator.push(
+                    title: Text(ContratantById(proposal.contrid)),
+                    subtitle: Text(
+                        "Dia: ${proposal.date} , Hora: ${proposal.hours} , Preço: ${proposal.price} euros"),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ArtistProfile(
-                                artist: ArtistByUsername(artist.username)))), */
-                      );
+                            builder: (context) =>
+                                AcceNegDec(propos: proposal))),
+                  );
                 },
               ),
             if (proposlist.isEmpty)

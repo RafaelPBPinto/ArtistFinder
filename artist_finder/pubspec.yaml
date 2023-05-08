@@ -41,6 +41,9 @@ dependencies:
   flutter_rating_bar: any
   image_picker : any
   google_fonts: any
+  table_calendar: any
+  flutter_calendar_carousel: any
+  timezone: any
 
 dev_dependencies:
   flutter_test:

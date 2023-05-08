@@ -45,7 +45,7 @@ class Proposal(models.Model):
     date = models.DateField(null = False)
     hours = models.TimeField(null = False)
     details = models.CharField(max_length=500,null=False,blank=True)
-
+    isAccepted = models.BooleanField(default=False)
 
 #Classe para guardar o tipo de artistas e o tipo de arte
 class ArtistsTypes(models.Model):

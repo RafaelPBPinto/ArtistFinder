@@ -12,7 +12,7 @@ urlpatterns = [
     path('images/<str:image>',views.image_detail,name = "image_detail"),
     path('comments',CommentPost.as_view()),
     path('proposals/<int:id_artist>',ProposalPost.as_view()),
-    path('proposals/<int:pk>',ProposalUpdateDelete.as_view()),
+    path('proposal/<int:pk>',ProposalUpdateDelete.as_view()),
     path('artistsType',StyleArtist.as_view())
 
 ]

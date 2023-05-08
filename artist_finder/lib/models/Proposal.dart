@@ -1,20 +1,23 @@
 import 'package:artist_finder/components/operationdata.dart';
 
 class Proposal {
+  int proposalid;
   int contrid;
-  //int artistid;
+  int artistid;
   String date;
   String hours;
   double price;
   String details;
-  Proposal({
-    required this.contrid,
-    //required this.artistid,
-    required this.date,
-    required this.hours,
-    required this.price,
-    required this.details,
-  });
+  bool isAccepted;
+  Proposal(
+      {required this.proposalid,
+      required this.contrid,
+      required this.artistid,
+      required this.date,
+      required this.hours,
+      required this.price,
+      required this.details,
+      required this.isAccepted});
 
   @override
   String toString() {

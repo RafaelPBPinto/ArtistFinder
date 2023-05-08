@@ -322,15 +322,62 @@ void proposalfetch(int artistid) async {
     var data = json.decode(response.body);
     data.forEach((proposal) {
       Proposal propost = Proposal(
+          proposalid: proposal['id'],
           contrid: proposal['id_contr'],
+          artistid: proposal['id_artist'],
           details: proposal['details'],
           hours: proposal['hours'],
           date: proposal['date'],
-          price: proposal['price']);
+          price: proposal['price'],
+          isAccepted: proposal['isAccepted']);
       proposlist.add(propost);
     });
     print(proposlist);
   } catch (e) {}
+}
+
+void deleteproposal(Proposal propos) async {
+  String usertype = '/proposal/${propos.proposalid}';
+  try {
+    http.Response response = await http.delete(Uri.parse(api + usertype),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode(<String, dynamic>{
+          "price": propos.price,
+          "date": propos.date,
+          "hours": propos.hours,
+          "details": propos.details,
+          "id_contr": propos.contrid,
+          "id_artist": propos.artistid,
+        }));
+    print(response.body);
+  } catch (e) {
+    print(e);
+  }
+}
+
+void putproposal(Proposal propos) async {
+  print(propos.proposalid);
+  String usertype = '/proposal/${propos.proposalid}';
+  try {
+    http.Response response = await http.put(Uri.parse(api + usertype),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode(<String, dynamic>{
+          "price": propos.price,
+          "date": propos.date,
+          "hours": propos.hours,
+          "details": propos.details,
+          "id_contr": propos.contrid,
+          "id_artist": propos.artistid,
+          "isAccepted": true
+        }));
+    print(response.body);
+  } catch (e) {
+    print(e);
+  }
 }
 
 String ContratantById(int id) {

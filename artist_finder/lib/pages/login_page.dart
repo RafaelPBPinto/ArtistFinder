@@ -35,7 +35,6 @@ class _LoginPageState extends State<LoginPage> {
 
       if (signuser['Artist'] == true) {
         activeartist = ArtistActive(email, password);
-        proposalfetch(activeartist.id);
         email = '';
         password = '';
         emailController.clear();

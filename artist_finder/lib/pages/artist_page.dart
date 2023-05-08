@@ -1,4 +1,5 @@
 import 'package:artist_finder/components/url.dart';
+import 'package:artist_finder/pages/login_page.dart';
 import 'package:artist_finder/pages/proposal_received.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_finder/components/personalized_button.dart';
@@ -7,6 +8,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:artist_finder/models/Contratant.dart';
 import 'edit_art_profile.dart';
+import 'package:artist_finder/components/operationdata.dart';
+import 'calendar.dart';
 
 class ArtistPage extends StatefulWidget {
   const ArtistPage({
@@ -43,6 +46,7 @@ class _ArtistPageState extends State<ArtistPage> {
   void initState() {
     super.initState();
     commentaux = commentforeachartist(activeartist.id);
+    proposalfetch(activeartist.id);
   }
 
   @override
@@ -53,6 +57,13 @@ class _ArtistPageState extends State<ArtistPage> {
           backgroundColor: Colors.blue[600],
           centerTitle: true,
           bottomOpacity: 10,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+            ),
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LoginPage())),
+          ),
         ),
         body: SafeArea(
             child: SingleChildScrollView(
@@ -117,21 +128,17 @@ class _ArtistPageState extends State<ArtistPage> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const PersonalizedButton(
+            children: const [
+              PersonalizedButton(
                   page: ProposalReceived(), text: Text("Ver\n propostas")),
-              const SizedBox(
+              SizedBox(
+                width: 16,
+              ),
+              PersonalizedButton(page: Calendar(), text: Text("Agenda")),
+              SizedBox(
                 width: 16,
               ),
               PersonalizedButton(
-                  page: Avaliation(
-                    artist: activeartist,
-                  ),
-                  text: const Text("Agenda")),
-              const SizedBox(
-                width: 16,
-              ),
-              const PersonalizedButton(
                   page: EditArtProfile(), text: Text("Editar\nperfil"))
             ],
           ),
