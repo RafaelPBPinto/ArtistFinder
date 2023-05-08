@@ -1,9 +1,12 @@
+import 'offer_pop_up_artist.dart';
+import 'package:artist_finder/models/Contratant.dart';
+import 'package:artist_finder/pages/artist/negotiation_artist.dart';
 import 'package:flutter/material.dart';
-import 'package:artist_finder/components/offer_popup.dart';
 import 'package:artist_finder/models/ChatMessage.dart';
 
-class ChatInputField extends StatelessWidget {
-  ChatInputField({super.key});
+class ChatInputFieldArtist extends StatelessWidget {
+  Contratant contratant;
+  ChatInputFieldArtist({super.key, required this.contratant});
 
   final textController = TextEditingController();
 
@@ -12,7 +15,9 @@ class ChatInputField extends StatelessWidget {
     void showOfferPopUp() {
       showDialog(
         context: context,
-        builder: (context) => OfferPopUp(),
+        builder: (context) => OfferPopUpArtist(
+          contratant: contratant,
+        ),
       );
     }
 
@@ -21,6 +26,8 @@ class ChatInputField extends StatelessWidget {
         return;
       }
       ChatMessage message = ChatMessage(
+        id_artista: 9999,
+        id_contratante: contratant.id,
         text: textController.text,
         messageType: ChatMessageType.text,
         messageStatus: MessageStatus.not_view,
@@ -30,7 +37,12 @@ class ChatInputField extends StatelessWidget {
       demoChatMessages.add(message);
       // refresh the chat screen
       Navigator.of(context).pop();
-      Navigator.of(context).pushNamed("negotiation");
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => NegotiationArtistPage(
+                    contratant: contratant,
+                  )));
     }
 
     return Container(

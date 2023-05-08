@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:artist_finder/components/chat_input_field.dart';
+import 'package:artist_finder/components/contratant/chat_input_field.dart';
 import 'package:artist_finder/models/ChatMessage.dart';
-import 'package:artist_finder/components/message.dart';
+import 'package:artist_finder/components/contratant/message.dart';
 import 'package:artist_finder/models/Artist.dart';
 
 class NegotiationBody extends StatelessWidget {
@@ -17,12 +17,16 @@ class NegotiationBody extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView.builder(
               itemCount: demoChatMessages.length,
-              itemBuilder: (context, index) =>
-                  Message(message: demoChatMessages[index]),
+              itemBuilder: (context, index) => Message(
+                message: demoChatMessages[index],
+                artist: artist,
+              ),
             ),
           ),
         ),
-        ChatInputField(),
+        ChatInputField(
+          artist: artist,
+        ),
       ],
     );
   }

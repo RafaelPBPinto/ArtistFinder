@@ -1,12 +1,12 @@
-import 'package:artist_finder/components/operationdata.dart';
-import 'package:artist_finder/components/url.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
+import 'package:artist_finder/components/common/url.dart';
 import 'package:artist_finder/models/Artist.dart';
-import 'package:artist_finder/pages/contr_page.dart';
+import 'package:artist_finder/pages/contratant/contr_page.dart';
 import 'package:flutter/material.dart';
 
-import '../components/select_date_field.dart';
-import 'package:artist_finder/components/my_button.dart';
-import 'negotiation.dart';
+import 'package:artist_finder/components/common/select_date_field.dart';
+import 'package:artist_finder/components/common/my_button.dart';
+import 'negotiation_contratant.dart';
 
 class Proposal extends StatefulWidget {
   final Artist artist;

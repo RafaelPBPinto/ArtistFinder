@@ -1,5 +1,5 @@
-import 'package:artist_finder/components/operationdata.dart';
-import 'package:artist_finder/components/url.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
+import 'package:artist_finder/components/common/url.dart';
 import 'package:flutter/material.dart';
 import 'ace_neg_dec.dart';
 
@@ -44,8 +44,10 @@ class _ProposalReceivedState extends State<ProposalReceived> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                AcceNegDec(propos: proposal))),
+                            builder: (context) => AcceNegDec(
+                                  propos: proposal,
+                                  contratant: getContrant(proposal.contrid),
+                                ))),
                   );
                 },
               ),

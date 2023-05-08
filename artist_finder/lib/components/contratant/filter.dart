@@ -1,8 +1,8 @@
-import 'package:artist_finder/components/my_button.dart';
+import 'package:artist_finder/components/common/my_button.dart';
 import 'package:flutter/material.dart';
-import 'url.dart';
-import 'package:artist_finder/components/operationdata.dart';
-import 'package:artist_finder/pages/contr_page_filtered.dart';
+import '../common/url.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
+import 'package:artist_finder/pages/contratant/contr_page_filtered.dart';
 
 Set<String> _artistsTypetest = {};
 

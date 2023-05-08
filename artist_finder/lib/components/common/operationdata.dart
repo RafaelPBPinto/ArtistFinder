@@ -380,6 +380,17 @@ void putproposal(Proposal propos) async {
   }
 }
 
+Contratant getContrant(int id) {
+  Contratant contratant =
+      Contratant(username: "", email: "", password: "", data_nasc: "");
+  for (Contratant contr in contrlist) {
+    if (contr.id == id) {
+      contratant = contr;
+    }
+  }
+  return contratant;
+}
+
 String ContratantById(int id) {
   for (Contratant contr in contrlist) {
     if (contr.id == id) {

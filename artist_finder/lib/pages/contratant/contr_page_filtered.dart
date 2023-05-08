@@ -1,11 +1,11 @@
-import 'package:artist_finder/components/my_button.dart';
-import 'package:artist_finder/components/url.dart';
-import 'package:artist_finder/pages/contr_page.dart';
-import 'package:artist_finder/pages/login_page.dart';
+import 'package:artist_finder/components/common/my_button.dart';
+import 'package:artist_finder/components/common/url.dart';
+import 'package:artist_finder/pages/contratant/contr_page.dart';
+import 'package:artist_finder/pages/common/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:artist_finder/components/customsearch.dart';
-import 'package:artist_finder/components/operationdata.dart';
-import 'package:artist_finder/pages/artist_profile.dart';
+import 'package:artist_finder/components/contratant/customsearch.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
+import 'package:artist_finder/pages/artist/artist_profile.dart';
 import 'edit_contr_profile.dart';
 import 'package:artist_finder/models/Artist.dart';
 

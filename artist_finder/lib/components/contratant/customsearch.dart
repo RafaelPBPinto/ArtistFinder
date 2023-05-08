@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'url.dart';
-import 'package:artist_finder/pages/artist_profile.dart';
-import 'package:artist_finder/components/operationdata.dart';
+import '../common/url.dart';
+import 'package:artist_finder/pages/artist/artist_profile.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
 import './filter.dart';
 
 List<String> fetchUsername() {

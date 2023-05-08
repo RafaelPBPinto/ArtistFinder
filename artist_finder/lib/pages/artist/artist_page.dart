@@ -1,15 +1,14 @@
-import 'package:artist_finder/components/url.dart';
-import 'package:artist_finder/pages/login_page.dart';
-import 'package:artist_finder/pages/proposal_received.dart';
+import 'package:artist_finder/components/common/url.dart';
+import 'package:artist_finder/pages/common/login_page.dart';
+import 'package:artist_finder/pages/artist/proposal_received.dart';
 import 'package:flutter/material.dart';
-import 'package:artist_finder/components/personalized_button.dart';
-import 'avaliation.dart';
+import 'package:artist_finder/components/common/personalized_button.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:artist_finder/models/Contratant.dart';
 import 'edit_art_profile.dart';
-import 'package:artist_finder/components/operationdata.dart';
-import 'calendar.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
+import '../common/calendar.dart';
 
 class ArtistPage extends StatefulWidget {
   const ArtistPage({

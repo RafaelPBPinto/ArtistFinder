@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 // Referências:
 // https://www.youtube.com/watch?v=Dh-cTQJgM-Q
 
-import 'package:artist_finder/components/my_button.dart';
-import 'package:artist_finder/components/operationdata.dart';
-import 'package:artist_finder/components/url.dart';
+import 'package:artist_finder/components/common/my_button.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
+import 'package:artist_finder/components/common/url.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
