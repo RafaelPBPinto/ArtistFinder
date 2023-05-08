@@ -1,15 +1,18 @@
 import 'package:artist_finder/models/ChatMessage.dart';
+import 'package:artist_finder/models/Contratant.dart';
 import 'package:flutter/material.dart';
+import 'package:artist_finder/components/common/url.dart';
 
-import 'text_message.dart';
-import 'offer_message.dart';
+import '../common/text_message.dart';
+import 'offer_message_artist.dart';
 
-class Message extends StatelessWidget {
-  const Message({
+class MessageArtist extends StatelessWidget {
+  const MessageArtist({
     Key? key,
     required this.message,
+    required this.contratant,
   }) : super(key: key);
-
+  final Contratant contratant;
   final ChatMessage message;
 
   @override
@@ -19,7 +22,10 @@ class Message extends StatelessWidget {
         case ChatMessageType.text:
           return TextMessage(message: message);
         case ChatMessageType.offer:
-          return OfferMessage(message: message);
+          return OfferMessageArtist(
+            message: message,
+            contratant: contratant,
+          );
         default:
           return const SizedBox();
       }
@@ -34,7 +40,7 @@ class Message extends StatelessWidget {
           if (!message.isSender) ...[
             const CircleAvatar(
               radius: 12,
-              backgroundImage: AssetImage("lib/images/pedro.jpg"),
+              backgroundImage: NetworkImage('$api/images/DEFAULT.jpg'),
             ),
             const SizedBox(width: 10),
           ],

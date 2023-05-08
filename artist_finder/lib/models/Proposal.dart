@@ -1,5 +1,3 @@
-import 'package:artist_finder/components/operationdata.dart';
-
 class Proposal {
   int proposalid;
   int contrid;

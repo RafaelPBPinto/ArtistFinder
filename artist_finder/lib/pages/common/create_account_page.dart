@@ -1,12 +1,11 @@
-import 'package:artist_finder/components/operationdata.dart';
-import 'package:artist_finder/pages/login2_artist.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
+import 'package:artist_finder/pages/artist/login2_artist.dart';
 import 'package:flutter/material.dart';
-import 'package:artist_finder/components/my_textfield.dart';
-import 'package:artist_finder/components/my_button.dart';
+import 'package:artist_finder/components/common/my_textfield.dart';
+import 'package:artist_finder/components/common/my_button.dart';
 import 'package:artist_finder/models/Contratant.dart';
-import 'package:artist_finder/components/url.dart';
 import 'package:string_validator/string_validator.dart';
-import 'package:artist_finder/components/select_date_field.dart';
+import 'package:artist_finder/components/common/select_date_field.dart';
 
 class CreateAccountPage extends StatefulWidget {
   const CreateAccountPage({super.key});
@@ -36,7 +35,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       setState(() {
         // convert date to string
         newuser.data_nasc =
-            "${picked.year.toString()}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+            "${picked.day.toString().padLeft(2, '0')}/${picked.month.toString().padLeft(2, '0')}/${picked.year.toString()}";
         dateController.text = newuser.data_nasc;
       });
     }

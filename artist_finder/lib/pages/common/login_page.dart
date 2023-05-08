@@ -2,10 +2,10 @@
 // https://www.youtube.com/watch?v=Dh-cTQJgM-Q
 
 import 'package:flutter/material.dart';
-import 'package:artist_finder/components/my_textfield.dart';
-import 'package:artist_finder/components/my_button.dart';
-import 'package:artist_finder/components/operationdata.dart';
-import 'package:artist_finder/components/url.dart';
+import 'package:artist_finder/components/common/my_textfield.dart';
+import 'package:artist_finder/components/common/my_button.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
+import 'package:artist_finder/components/common/url.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

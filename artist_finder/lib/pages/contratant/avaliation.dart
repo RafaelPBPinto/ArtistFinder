@@ -1,12 +1,11 @@
 import 'dart:core';
-import 'package:artist_finder/components/url.dart';
-import 'package:artist_finder/pages/contr_page.dart';
+import 'package:artist_finder/components/common/url.dart';
+import 'package:artist_finder/pages/contratant/contr_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:artist_finder/components/my_button.dart';
-import 'package:artist_finder/components/operationdata.dart';
+import 'package:artist_finder/components/common/my_button.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
 import 'package:artist_finder/models/Artist.dart';
-import 'artist_profile.dart';
 
 class Avaliation extends StatefulWidget {
   final Artist artist;

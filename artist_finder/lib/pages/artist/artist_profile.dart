@@ -1,12 +1,12 @@
-import 'package:artist_finder/components/operationdata.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
 import 'package:artist_finder/models/Contratant.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_finder/models/Artist.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'avaliation.dart';
-import 'proposal.dart';
-import 'package:artist_finder/components/personalized_button.dart';
-import 'package:artist_finder/components/url.dart';
+import '../contratant/avaliation.dart';
+import '../contratant/proposal.dart';
+import 'package:artist_finder/components/common/personalized_button.dart';
+import 'package:artist_finder/components/common/url.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ArtistProfile extends StatefulWidget {

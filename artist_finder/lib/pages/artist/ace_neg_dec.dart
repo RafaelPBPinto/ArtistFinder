@@ -1,14 +1,15 @@
-import 'package:artist_finder/pages/artist_page.dart';
+import 'package:artist_finder/models/Contratant.dart';
+import 'package:artist_finder/pages/artist/artist_page.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_finder/models/Proposal.dart';
-import 'package:artist_finder/components/operationdata.dart';
-import 'package:artist_finder/components/button_in_proposal.dart';
-import 'negotiation.dart';
-import 'package:artist_finder/components/url.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
+import 'package:artist_finder/components/artist/button_in_proposal.dart';
+import 'negotiation_artist.dart';
 
 class AcceNegDec extends StatefulWidget {
+  final Contratant contratant;
   final Proposal propos;
-  const AcceNegDec({super.key, required this.propos});
+  const AcceNegDec({super.key, required this.propos, required this.contratant});
 
   @override
   State<AcceNegDec> createState() => _AcceNegDecState();
@@ -30,7 +31,8 @@ class _AcceNegDecState extends State<AcceNegDec> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => NegotiationPage(artist: activeartist)));
+            builder: (context) =>
+                NegotiationArtistPage(contratant: widget.contratant)));
   }
 
   void declineproposal() {
@@ -177,9 +179,9 @@ class _AcceNegDecState extends State<AcceNegDec> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ButtonInProposal(
-                    func: acceptproposal,
-                    text: const Text("Aceitar"),
-                    color: Colors.green,
+                    func: declineproposal,
+                    text: const Text("Rejeitar"),
+                    color: Colors.red,
                   ),
                   const SizedBox(
                     width: 16,
@@ -193,9 +195,9 @@ class _AcceNegDecState extends State<AcceNegDec> {
                     width: 16,
                   ),
                   ButtonInProposal(
-                    func: declineproposal,
-                    text: const Text("Rejeitar"),
-                    color: Colors.red,
+                    func: acceptproposal,
+                    text: const Text("Aceitar"),
+                    color: Colors.green,
                   ),
                 ],
               ),

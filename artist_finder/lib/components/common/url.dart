@@ -4,7 +4,8 @@ import 'package:artist_finder/models/Proposal.dart';
 import 'package:artist_finder/models/ArtistType.dart';
 
 /// String with a server link
-const String api = 'http://192.168.1.108:8000';
+//const String api = 'http://192.168.1.108:8000';
+const String api = 'http://192.168.167.190:8000';
 
 bool activatedfilters = false;
 

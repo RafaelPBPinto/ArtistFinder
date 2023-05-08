@@ -1,10 +1,9 @@
-import 'package:artist_finder/components/operationdata.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:artist_finder/components/url.dart';
+import 'package:artist_finder/components/common/url.dart';
 import 'package:artist_finder/models/Proposal.dart';
 import 'dart:core';
-import 'package:timezone/timezone.dart' as tz;
 
 class Calendar extends StatefulWidget {
   const Calendar({super.key});

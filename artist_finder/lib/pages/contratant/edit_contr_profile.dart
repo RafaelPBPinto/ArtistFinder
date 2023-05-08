@@ -1,10 +1,9 @@
-import 'package:artist_finder/components/my_button.dart';
-import 'package:artist_finder/pages/contr_page.dart';
-import 'package:artist_finder/pages/login_page.dart';
+import 'package:artist_finder/components/common/my_button.dart';
+import 'package:artist_finder/pages/common/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:artist_finder/components/url.dart';
-import 'package:artist_finder/components/my_textfield.dart';
-import 'package:artist_finder/components/operationdata.dart';
+import 'package:artist_finder/components/common/url.dart';
+import 'package:artist_finder/components/common/my_textfield.dart';
+import 'package:artist_finder/components/common/operationdata.dart';
 
 class EditContrProfile extends StatefulWidget {
   const EditContrProfile({super.key});
