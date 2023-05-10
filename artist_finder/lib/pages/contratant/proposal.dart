@@ -18,6 +18,7 @@ class Proposal extends StatefulWidget {
 
 class _ProposalState extends State<Proposal> {
   TimeOfDay _time = TimeOfDay(hour: 7, minute: 15);
+  TimeOfDay _duration = TimeOfDay(hour: 1, minute: 0);
   final dateController = TextEditingController();
   final descController = TextEditingController();
   String details = '';
@@ -31,6 +32,18 @@ class _ProposalState extends State<Proposal> {
     if (newTime != null) {
       setState(() {
         _time = newTime;
+      });
+    }
+  }
+
+  void _selectDuration() async {
+    final TimeOfDay? newTime = await showTimePicker(
+      context: context,
+      initialTime: _duration,
+    );
+    if (newTime != null) {
+      setState(() {
+        _duration = newTime;
       });
     }
   }
@@ -135,7 +148,7 @@ class _ProposalState extends State<Proposal> {
                 onPressed: _selectTime,
                 child: const Text("Selecione aqui a hora")),
             Text(
-              "Hora selecionada : ${_time.format(context)}",
+              "Hora selecionada : ${_time.format(context)}h",
               style: const TextStyle(fontWeight: FontWeight.w300, fontSize: 15),
             ),
             const SizedBox(
@@ -144,6 +157,27 @@ class _ProposalState extends State<Proposal> {
             const Divider(
               color: Colors.blue,
               thickness: 2.5,
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            const Text(
+              'Duração da atuação',
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ElevatedButton(
+                onPressed: _selectDuration,
+                child: const Text("Selecione aqui a duração")),
+            Text(
+              "Duração : ${_duration.format(context)}h",
+              style: const TextStyle(fontWeight: FontWeight.w300, fontSize: 15),
             ),
             const SizedBox(
               height: 30,

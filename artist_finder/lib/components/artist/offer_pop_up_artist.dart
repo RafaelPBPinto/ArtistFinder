@@ -14,12 +14,14 @@ class OfferPopUpArtist extends StatefulWidget {
 }
 
 class _OfferPopUpArtistState extends State<OfferPopUpArtist> {
+  TimeOfDay _duration = TimeOfDay(hour: 1, minute: 0);
   TimeOfDay _time = TimeOfDay(hour: 7, minute: 15);
   final dateController = TextEditingController();
   final descController = TextEditingController();
   String details = '';
   String data_nasc = '';
   String hours = '';
+  String duration = '';
   double price = 0;
   void _selectTime() async {
     final TimeOfDay? newTime = await showTimePicker(
@@ -30,6 +32,19 @@ class _OfferPopUpArtistState extends State<OfferPopUpArtist> {
       setState(() {
         _time = newTime;
         hours = _time.format(context);
+      });
+    }
+  }
+
+  void _selectDuration() async {
+    final TimeOfDay? newTime = await showTimePicker(
+      context: context,
+      initialTime: _duration,
+    );
+    if (newTime != null) {
+      setState(() {
+        _duration = newTime;
+        duration = _duration.format(context);
       });
     }
   }
@@ -62,7 +77,7 @@ class _OfferPopUpArtistState extends State<OfferPopUpArtist> {
           id_artista: 99999,
           id_contratante: widget.contratant.id,
           text:
-              "Propuseste a $name:\n$price\nDia: $date\nHora: $hours\nDuracao: 1h",
+              "Propuseste a $name:\n$price\nDia: $date\nHora: $hours\nDuracao: $duration h",
           messageType: ChatMessageType.offer,
           messageStatus: MessageStatus.viewed,
           offerStatus: OfferStatus.pending,
@@ -72,7 +87,7 @@ class _OfferPopUpArtistState extends State<OfferPopUpArtist> {
           id_artista: 99999,
           id_contratante: widget.contratant.id,
           text:
-              "Propuseste a $name:\n$price€\nDia: $date\nHora: $hours\nDuracao: 1h\nDescrição:\n$desc",
+              "Propuseste a $name:\n$price€\nDia: $date\nHora: $hours\nDuracao: $duration h\nDescrição:\n$desc",
           messageType: ChatMessageType.offer,
           messageStatus: MessageStatus.viewed,
           offerStatus: OfferStatus.pending,
@@ -132,6 +147,29 @@ class _OfferPopUpArtistState extends State<OfferPopUpArtist> {
                   ),
                   ElevatedButton(
                       onPressed: _selectTime, child: const Text("Alterar")),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Icon(
+                    Icons.alarm,
+                    color: Colors.grey[500],
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    "Duração: ${_duration.format(context)}h",
+                    style: TextStyle(color: Colors.grey[500]),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: _selectDuration, child: const Text("Alterar")),
                 ],
               ),
               const SizedBox(

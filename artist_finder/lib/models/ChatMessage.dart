@@ -33,7 +33,7 @@ List demoChatMessages = [
     id_artista: 8,
     id_contratante: 999999, // irrelevante aqui
     text:
-        "Ofereceste a Pedro Piaf:\n100€\nDia: 08/05/2023\nHora: 20:30h\nDuracao: 2h",
+        "Ofereceste a Pedro Piaf:\n100€\nDia: 22/05/2023\nHora: 23:30h\nDuracao: 1 h",
     messageStatus: MessageStatus.viewed,
     messageType: ChatMessageType.offer,
     offerStatus: OfferStatus.rejected,
@@ -42,46 +42,28 @@ List demoChatMessages = [
   ChatMessage(
     id_artista: 8,
     id_contratante: 999999, // irrelevante aqui
-    text: "Não me dá jeito às 20h30",
-    messageStatus: MessageStatus.viewed,
-    messageType: ChatMessageType.text,
-    isSender: false,
-  ),
-  ChatMessage(
-    id_artista: 8,
-    id_contratante: 999999, // irrelevante aqui
     text:
-        "Pedro Piaf propõe:\n300€\nDia: 08/05/2023\nHora: 21:00h\nDuracao: 1h30",
+        "Pedro Piaf propõe:\n150€\nDia: 22/05/2023\nHora: 23:00h\nDuracao: 1 h",
     messageStatus: MessageStatus.viewed,
     messageType: ChatMessageType.offer,
-    offerStatus: OfferStatus.rejected,
+    offerStatus: OfferStatus.pending,
     isSender: false,
   ),
   ChatMessage(
     id_artista: 16,
     id_contratante: 999999, // irrelevante aqui
     text:
-        "Ofereceste a Luísa:\n50€\nDia: 12/05/2023\nHora: 20:00h\nDuracao: 1h",
+        "Ofereceste a Luísa:\n50€\nDia: 12/05/2023\nHora: 20:00h\nDuracao: 1 h",
     messageStatus: MessageStatus.viewed,
     messageType: ChatMessageType.offer,
     offerStatus: OfferStatus.pending,
     isSender: true,
   ),
   ChatMessage(
-    id_artista: 8,
-    id_contratante: 999999, // irrelevante aqui
-    text:
-        "Ofereceste a Pedro Piaf:\n250€\nDia: 08/05/2023\nHora: 21:00h\nDuracao: 1h30\nDescrição:\nGorjeta se deres show!",
-    messageStatus: MessageStatus.viewed,
-    messageType: ChatMessageType.offer,
-    offerStatus: OfferStatus.accepted,
-    isSender: true,
-  ),
-  ChatMessage(
     id_artista: 14,
     id_contratante: 999999, // irrelevante aqui
     text:
-        "Ofereceste a Filipe:\n50€\nDia: 19/05/2023\nHora: 22:00h\nDuracao: 1h",
+        "Ofereceste a Filipe:\n50€\nDia: 19/05/2023\nHora: 22:00h\nDuracao: 1 h",
     messageStatus: MessageStatus.viewed,
     messageType: ChatMessageType.offer,
     offerStatus: OfferStatus.rejected,
@@ -96,7 +78,17 @@ List demoChatMessages = [
     messageType: ChatMessageType.offer,
     offerStatus: OfferStatus.pending,
     isSender: false,
-  )
+  ),
 
   // CHAT WITH CONTRATANT MESSAGES //
+  ChatMessage(
+    id_artista: 9999, // irrelevante aqui
+    id_contratante: 3,
+    text:
+        "fbarbosa2002 propõe:\n100€\nDia: 22/05/2023\nHora: 23:30h\nDuracao: 1 h",
+    messageStatus: MessageStatus.viewed,
+    messageType: ChatMessageType.offer,
+    offerStatus: OfferStatus.pending,
+    isSender: false,
+  ),
 ];

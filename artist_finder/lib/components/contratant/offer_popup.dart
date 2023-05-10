@@ -13,12 +13,14 @@ class OfferPopUp extends StatefulWidget {
 }
 
 class _OfferPopUpState extends State<OfferPopUp> {
+  TimeOfDay _duration = TimeOfDay(hour: 1, minute: 0);
   TimeOfDay _time = TimeOfDay(hour: 7, minute: 15);
   final dateController = TextEditingController();
   final descController = TextEditingController();
   String details = '';
   String data_nasc = '';
   String hours = '';
+  String duration = '';
   double price = 0;
   void _selectTime() async {
     final TimeOfDay? newTime = await showTimePicker(
@@ -29,6 +31,19 @@ class _OfferPopUpState extends State<OfferPopUp> {
       setState(() {
         _time = newTime;
         hours = _time.format(context);
+      });
+    }
+  }
+
+  void _selectDuration() async {
+    final TimeOfDay? newTime = await showTimePicker(
+      context: context,
+      initialTime: _duration,
+    );
+    if (newTime != null) {
+      setState(() {
+        _duration = newTime;
+        duration = _duration.format(context);
       });
     }
   }
@@ -61,7 +76,7 @@ class _OfferPopUpState extends State<OfferPopUp> {
           id_artista: widget.artist.id,
           id_contratante: 3,
           text:
-              "Ofereceste a $name:\n$price\nDia: $date\nHora: $hours\nDuracao: 1h",
+              "Ofereceste a $name:\n$price\nDia: $date\nHora: $hours\nDuracao: $duration h",
           messageType: ChatMessageType.offer,
           messageStatus: MessageStatus.viewed,
           offerStatus: OfferStatus.pending,
@@ -71,7 +86,7 @@ class _OfferPopUpState extends State<OfferPopUp> {
           id_artista: widget.artist.id,
           id_contratante: 3,
           text:
-              "Ofereceste a $name:\n$price€\nDia: $date\nHora: $hours\nDuracao: 1h\nDescrição:\n$desc",
+              "Ofereceste a $name:\n$price€\nDia: $date\nHora: $hours\nDuracao: $duration h\nDescrição:\n$desc",
           messageType: ChatMessageType.offer,
           messageStatus: MessageStatus.viewed,
           offerStatus: OfferStatus.pending,
@@ -121,14 +136,37 @@ class _OfferPopUpState extends State<OfferPopUp> {
                     width: 15,
                   ),
                   Text(
-                    "Hora: ${_time.format(context)}",
+                    "Hora: ${_time.format(context)}h",
                     style: TextStyle(color: Colors.grey[500]),
                   ),
                   const SizedBox(
-                    width: 20,
+                    width: 35,
                   ),
                   ElevatedButton(
                       onPressed: _selectTime, child: const Text("Alterar")),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Icon(
+                    Icons.alarm,
+                    color: Colors.grey[500],
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    "Duração: ${_duration.format(context)}h",
+                    style: TextStyle(color: Colors.grey[500]),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: _selectDuration, child: const Text("Alterar")),
                 ],
               ),
               const SizedBox(
@@ -162,7 +200,6 @@ class _OfferPopUpState extends State<OfferPopUp> {
                 ),
                 style: TextStyle(color: Colors.grey[500]),
               ),
-              const SizedBox(height: 30),
             ],
           ),
         ),
