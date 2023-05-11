@@ -1,0 +1,4 @@
+. logout 
+. ver contraproposta do lado do contratante bastante dificil de chegar
+	sugestão: na barra onde diz menu aparecer "proposta" ou "mensagem" para ser mais 				fácil de chegar
+. pesquisar por palvra mesmo sem ser só nome e sem recorrer ao filtro por exemplo "rock" aparecer todos os artistas rock
