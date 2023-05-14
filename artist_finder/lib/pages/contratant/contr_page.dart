@@ -63,10 +63,48 @@ class _ContrPageState extends State<ContrPage> {
         centerTitle: true,
         bottomOpacity: 10,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LoginPage())),
-        ),
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Terminar sessão'),
+                      content: const Text(
+                          'Tem a certeza que deseja terminar sessão?'),
+                      actions: <Widget>[
+                        Row(children: [
+                          ElevatedButton(
+                            style: const ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.green)),
+                            onPressed: () {
+                              Navigator.of(context).pop(false);
+                            },
+                            child: const Text("Cancelar"),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          ElevatedButton(
+                            style: const ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.red)),
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            },
+                            child: const Text("Confirmar"),
+                          ),
+                        ])
+                      ],
+                    );
+                  },
+                ).then((confirmed) {
+                  // Código para executar após a confirmação
+                  if (confirmed) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  }
+                })),
         actions: [
           IconButton(
               onPressed: () => fetchUsers(context),

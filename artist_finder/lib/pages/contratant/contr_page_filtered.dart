@@ -23,21 +23,6 @@ class _ContrPageFilteredState extends State<ContrPageFiltered> {
   int _selectedIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      print(_selectedIndex);
-      if (_selectedIndex == 2) {
-        print("enter here");
-        Scaffold.of(context).openEndDrawer();
-      }
-    });
-    if (_selectedIndex == 0) {
-      //_showSearchModel();
-      showSearch(context: context, delegate: CustomSearchDelegate());
-    }
-  }
-
   void edit_contr_profile() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => EditContrProfile()));
@@ -75,10 +60,48 @@ class _ContrPageFilteredState extends State<ContrPageFiltered> {
         centerTitle: true,
         bottomOpacity: 10,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LoginPage())),
-        ),
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Terminar sessão'),
+                      content: const Text(
+                          'Tem a certeza que deseja terminar sessão?'),
+                      actions: <Widget>[
+                        Row(children: [
+                          ElevatedButton(
+                            style: const ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.green)),
+                            onPressed: () {
+                              Navigator.of(context).pop(false);
+                            },
+                            child: const Text("Cancelar"),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          ElevatedButton(
+                            style: const ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.red)),
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            },
+                            child: const Text("Confirmar"),
+                          ),
+                        ])
+                      ],
+                    );
+                  },
+                ).then((confirmed) {
+                  // Código para executar após a confirmação
+                  if (confirmed) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  }
+                })),
         actions: [
           IconButton(
               onPressed: () => Navigator.push(context,
