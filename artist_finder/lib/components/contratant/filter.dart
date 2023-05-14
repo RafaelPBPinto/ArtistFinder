@@ -69,64 +69,63 @@ class _DropdownScreenState extends State<DropdownButtonApp> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            //========================Country
-
-            Card(
-              color: Colors.grey[300],
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
+            const SizedBox(
+              height: 15,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.blue, width: 2),
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.grey[400]),
+              child: DropdownButton<String>(
+                  underline: Container(),
+                  alignment: Alignment.center,
+                  hint: const Text("Selecione o tipo de artista"),
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  items: types.map((String value) {
+                    return DropdownMenuItem<String>(
+                        value: value, child: Text(value));
+                  }).toList(),
+                  value: artisType,
+                  onChanged: (value) {
+                    setState(() {
+                      artisType = value;
+                      styleResults = logintypestyle[artisType];
+                      if (style != null) {
+                        style = null;
+                      }
+                      print(styleResults);
+                      isTypeSelected = true;
+                    });
+                  }),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            if (isTypeSelected)
+              Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue, width: 2),
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.grey[400]),
                 child: DropdownButton<String>(
                     underline: Container(),
-                    hint: const Text("Selecione tipo de artista"),
+                    alignment: Alignment.center,
+                    hint: const Text("Selecione o estilo de artista"),
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    isDense: true,
-                    isExpanded: true,
-                    items: types.map((String value) {
+                    items: styleResults?.map((String ctx) {
                       return DropdownMenuItem<String>(
-                          value: value, child: Text(value));
+                          value: ctx, child: Text(ctx));
                     }).toList(),
-                    value: artisType,
+                    value: style,
                     onChanged: (value) {
                       setState(() {
-                        artisType = value;
-                        styleResults = logintypestyle[artisType];
-
-                        isTypeSelected = true;
+                        style = value;
                       });
                     }),
-              ),
-            ),
-
-//======================================= State
-            if (isTypeSelected)
-              Card(
-                  color: Colors.grey[300],
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Container(
-                    padding: const EdgeInsets.all(15.0),
-                    child: DropdownButton<String>(
-                        underline: Container(),
-                        hint: const Text("Select Style of Artist"),
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        isDense: true,
-                        isExpanded: true,
-                        items: styleResults?.map((String ctx) {
-                          return DropdownMenuItem<String>(
-                              value: ctx, child: Text(ctx));
-                        }).toList(),
-                        value: style,
-                        onChanged: (value) {
-                          setState(() {
-                            style = value;
-                          });
-                        }),
-                  ))
+              )
             else
               Container(),
-
             const SizedBox(
               height: 30,
             ),

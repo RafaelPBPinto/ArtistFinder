@@ -1,5 +1,6 @@
 import 'package:artist_finder/components/common/my_button.dart';
 import 'package:artist_finder/components/common/url.dart';
+import 'package:artist_finder/components/contratant/filter.dart';
 import 'package:artist_finder/pages/common/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_finder/components/contratant/customsearch.dart';
@@ -123,8 +124,8 @@ class _ContrPageState extends State<ContrPage> {
             label: 'Pesquisar artista',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            label: 'Menu',
+            icon: Icon(Icons.filter_alt),
+            label: 'Filtrar por artista',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_2_rounded),
@@ -138,6 +139,12 @@ class _ContrPageState extends State<ContrPage> {
             _selectedIndex = index;
             if (_selectedIndex == 0) {
               showSearch(context: context, delegate: CustomSearchDelegate());
+            }
+            if (_selectedIndex == 1) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const DropdownButtonApp()));
             }
             if (_selectedIndex == 2) {
               _scaffoldKey.currentState?.openEndDrawer();

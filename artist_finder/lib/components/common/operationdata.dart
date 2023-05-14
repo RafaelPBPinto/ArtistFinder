@@ -447,6 +447,7 @@ Future<void> editArtist(BuildContext context, Artist newuser) async {
 
 Future<void> fetchTypeStyle() async {
   try {
+    logintypestyle = {};
     http.Response response = await http.get(Uri.parse('$api/artistsType'));
     var data = utf8.decode(response.bodyBytes);
     var jsondata = json.decode(data);
