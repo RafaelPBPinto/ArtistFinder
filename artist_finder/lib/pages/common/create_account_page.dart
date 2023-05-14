@@ -35,7 +35,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       setState(() {
         // convert date to string
         newuser.data_nasc =
-            "${picked.day.toString().padLeft(2, '0')}/${picked.month.toString().padLeft(2, '0')}/${picked.year.toString()}";
+            "${picked.year.toString()}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
         dateController.text = newuser.data_nasc;
       });
     }
@@ -98,7 +98,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             showPopUp('Incorreto',
                 'Username ja existente ! Por favor tente outro ! ', context);
           } else {
-            postContratant(context, newuser);
+            postContratant(newuser);
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text("Conta criada com sucesso!"),
               backgroundColor: Colors.black,

@@ -107,7 +107,7 @@ Map<String, bool> checkuser(String email, String password) {
 
 /// Function to post a user in the server when he creates a new account
 /// Verify if is an artist or a contratant to post in a right place
-void postContratant(BuildContext context, Contratant newuser) async {
+void postContratant(Contratant newuser) async {
   String usertype = '/contrs';
 
   try {
@@ -124,7 +124,6 @@ void postContratant(BuildContext context, Contratant newuser) async {
 
     // ignore: empty_catches
   } catch (e) {}
-  fetchUsers(context);
 }
 
 Future<void> postArtist(BuildContext context, Artist newuser) async {
