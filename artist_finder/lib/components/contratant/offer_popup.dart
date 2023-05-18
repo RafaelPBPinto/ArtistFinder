@@ -140,8 +140,12 @@ class _OfferPopUpState extends State<OfferPopUp> {
                     style: TextStyle(color: Colors.grey[500]),
                   ),
                   const SizedBox(
-                    width: 35,
+                    width: 25,
                   ),
+                ],
+              ),
+              Row(
+                children: [
                   ElevatedButton(
                       onPressed: _selectTime, child: const Text("Alterar")),
                 ],
@@ -165,6 +169,10 @@ class _OfferPopUpState extends State<OfferPopUp> {
                   const SizedBox(
                     width: 10,
                   ),
+                ],
+              ),
+              Row(
+                children: [
                   ElevatedButton(
                       onPressed: _selectDuration, child: const Text("Alterar")),
                 ],

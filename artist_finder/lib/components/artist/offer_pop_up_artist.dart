@@ -145,6 +145,10 @@ class _OfferPopUpArtistState extends State<OfferPopUpArtist> {
                   const SizedBox(
                     width: 20,
                   ),
+                ],
+              ),
+              Row(
+                children: [
                   ElevatedButton(
                       onPressed: _selectTime, child: const Text("Alterar")),
                 ],
@@ -168,6 +172,10 @@ class _OfferPopUpArtistState extends State<OfferPopUpArtist> {
                   const SizedBox(
                     width: 10,
                   ),
+                ],
+              ),
+              Row(
+                children: [
                   ElevatedButton(
                       onPressed: _selectDuration, child: const Text("Alterar")),
                 ],

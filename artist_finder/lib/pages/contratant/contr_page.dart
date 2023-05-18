@@ -7,6 +7,7 @@ import 'package:artist_finder/components/contratant/customsearch.dart';
 import 'package:artist_finder/components/common/operationdata.dart';
 import 'package:artist_finder/pages/artist/artist_profile.dart';
 import 'edit_contr_profile.dart';
+import 'message_page.dart';
 
 List<String> artistname = [];
 
@@ -44,6 +45,47 @@ class _ContrPageState extends State<ContrPage> {
   void edit_contr_profile() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => EditContrProfile()));
+  }
+
+  void logout() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Terminar sessão'),
+          content: const Text('Tem a certeza que deseja terminar sessão?'),
+          actions: <Widget>[
+            Row(children: [
+              ElevatedButton(
+                style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.green)),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: const Text("Cancelar"),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.red)),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: const Text("Confirmar"),
+              ),
+            ])
+          ],
+        );
+      },
+    ).then((confirmed) {
+      // Código para executar após a confirmação
+      if (confirmed) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
+      }
+    });
   }
 
   @override
@@ -107,8 +149,13 @@ class _ContrPageState extends State<ContrPage> {
                 })),
         actions: [
           IconButton(
-              onPressed: () => fetchUsers(context),
-              icon: const Icon(Icons.refresh))
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DropdownButtonApp()));
+              },
+              icon: const Icon(Icons.filter_alt))
         ],
       ),
       endDrawer: Drawer(
@@ -151,7 +198,14 @@ class _ContrPageState extends State<ContrPage> {
                 MyButton(
                     onTap: edit_contr_profile,
                     text: const Text('Editar perfil'),
-                    color: Colors.blue[600])
+                    color: Colors.blue[600]),
+                const SizedBox(
+                  height: 15,
+                ),
+                MyButton(
+                    onTap: logout,
+                    text: const Text('Terminar sessão'),
+                    color: Colors.blue[600]),
               ]),
             ),
           )),
@@ -162,8 +216,8 @@ class _ContrPageState extends State<ContrPage> {
             label: 'Pesquisar artista',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.filter_alt),
-            label: 'Filtrar por artista',
+            icon: Icon(Icons.message),
+            label: 'Chat',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_2_rounded),
@@ -182,7 +236,8 @@ class _ContrPageState extends State<ContrPage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const DropdownButtonApp()));
+                      builder: (context) =>
+                          const MessagePage())); // RAFA -- NESTA PAGINA
             }
             if (_selectedIndex == 2) {
               _scaffoldKey.currentState?.openEndDrawer();
