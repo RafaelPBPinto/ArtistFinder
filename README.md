@@ -12,7 +12,15 @@
 3. Executar ficheiro ArtistFinder.bat
 4. No terminal que ficar aberto selecionar opção 1  
 
-A aplicação é mobile mas pode usá-la num sistema windows selecionando a opção correspondente quando faz o passo 4  
+## Credenciais para teste
+### Artista
+user: fbarbosa2002  
+password: fbarbosa2002  
+### Contratante
+user: migas  
+password: ola  
+
+A aplicação é mobile mas pode usá-la num sistema Windows selecionando a opção correspondente quando faz o passo 4  
 
 ## Autores
 
