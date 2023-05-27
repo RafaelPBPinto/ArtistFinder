@@ -203,6 +203,27 @@ Artist ArtistByUsername(String username) {
       no_avaliations: 0);
 }
 
+Artist getArtist(int id) {
+  for (Artist artist in artlist) {
+    if (artist.id == id) {
+      return artist;
+    }
+  }
+  return Artist(
+      id: 0,
+      username: '',
+      email: '',
+      password: '',
+      data_nasc: '',
+      avaliation: 0,
+      type: '',
+      subtype: '',
+      locality: '',
+      description: '',
+      image_url: null,
+      no_avaliations: 0);
+}
+
 bool checkArtistUsername(String username) {
   for (Artist artist in artlist) {
     if (artist.username == username) {

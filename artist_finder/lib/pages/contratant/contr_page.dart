@@ -209,11 +209,21 @@ class _ContrPageState extends State<ContrPage> {
               ]),
             ),
           )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showSearch(context: context, delegate: CustomSearchDelegate());
+        },
+        backgroundColor: Colors.blue[600],
+        child: const Icon(
+          Icons.search,
+          color: Colors.white,
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Pesquisar artista',
+            icon: Icon(Icons.mic),
+            label: 'Artistas',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.message),
@@ -229,9 +239,6 @@ class _ContrPageState extends State<ContrPage> {
         onTap: (int index) {
           setState(() {
             _selectedIndex = index;
-            if (_selectedIndex == 0) {
-              showSearch(context: context, delegate: CustomSearchDelegate());
-            }
             if (_selectedIndex == 1) {
               Navigator.push(
                   context,
