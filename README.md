@@ -5,7 +5,7 @@
 1. Instalar flutter (https://docs.flutter.dev/get-started/install)  
 2. Fazer instalação dos requirements.txt usando pip  
 3. Abrir terminal na pasta "Code/backend" e correr "python manage.py runserver"  
-4. Abrir terminal na pasta "Code/artist_finder" e correr "flutter run"  
+4. Abrir terminal na pasta "Code/artist_finder", correr "flutter run" e selecionar opção 1
 ### Alternativa 2
 1. Instalar flutter (https://docs.flutter.dev/get-started/install)  
 2. Fazer instalação dos requirements.txt usando pip
