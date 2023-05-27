@@ -8,6 +8,7 @@ import 'package:artist_finder/components/common/operationdata.dart';
 import 'package:artist_finder/pages/artist/artist_profile.dart';
 import 'edit_contr_profile.dart';
 import 'package:artist_finder/models/Artist.dart';
+import 'message_page.dart';
 
 class ContrPageFiltered extends StatefulWidget {
   final String? type;
@@ -156,12 +157,12 @@ class _ContrPageFilteredState extends State<ContrPageFiltered> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Pesquisar artista',
+            icon: Icon(Icons.mic),
+            label: 'Artistas',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            label: 'Menu',
+            icon: Icon(Icons.message),
+            label: 'Chat',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_2_rounded),
@@ -174,7 +175,15 @@ class _ContrPageFilteredState extends State<ContrPageFiltered> {
           setState(() {
             _selectedIndex = index;
             if (_selectedIndex == 0) {
-              showSearch(context: context, delegate: CustomSearchDelegate());
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ContrPage()));
+            }
+            if (_selectedIndex == 1) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const MessagePage())); // RAFA -- NESTA PAGINA
             }
             if (_selectedIndex == 2) {
               _scaffoldKey.currentState?.openEndDrawer();
