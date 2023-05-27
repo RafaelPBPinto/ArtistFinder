@@ -19,5 +19,5 @@ A aplicação é mobile mas pode usá-la num sistema windows selecionando a opç
 | Nº Mec.   | Name              | Email                   |
 | :---      | :---              | :---                    |
 | 103064    | Filipe Barbosa    | filipebobarbosa@ua.pt   |
-| 103826    | Miguel Gomes      | ...                     |
+| 103826    | Miguel Gomes      | mig.gom@ua.pt           |
 | 103379    | Rafael Pinto      | rafaelpbpinto@ua.pt     |
